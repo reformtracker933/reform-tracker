@@ -8,7 +8,7 @@ export default function Home() {
   const pageText = getTranslation('homePage');
 
   return (
-    <div className='min-h-screen bg-background flex items-center justify-center'>
+    <div className='min-h-[90vh] w-full bg-background flex items-center justify-center'>
       <div className='text-center space-y-8'>
         <h1 className='text-6xl font-bold text-foreground'>
           {pageText['title']}

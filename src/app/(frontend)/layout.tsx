@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Noto_Sans_Bengali } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/providers/Providers';
+import Footer from '@/components/ui/Footer';
+import Navbar from '@/components/ui/Navbar';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -35,7 +37,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${notoSansBengali.variable} antialiased`}
         suppressHydrationWarning
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navbar />
+          <main className='w-full'>{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
