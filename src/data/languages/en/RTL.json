@@ -1,0 +1,12 @@
+{
+  "homePage": {
+    "title": "Hello World!",
+    "subtitle": "/ (Home Page)",
+    "viewDemo": "View Demo"
+  },
+  "aboutPage": {
+    "title": "About Us",
+    "subtitle": "/ (About Page)",
+    "learnMore": "Learn More"
+  }
+}

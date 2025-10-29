@@ -53,9 +53,6 @@
   --font-noto-bangla: var(--font-noto-sans-bengali);
 }
 
-/* [data-theme='light'] {
-} */
-
 :root {
   --background: var(--color-background);
   --foreground: var(--color-foreground);
@@ -110,7 +107,6 @@
   --subtle: var(--neutral-500);
 }
 
-*,
 html,
 body {
   box-sizing: border-box;
@@ -122,6 +118,25 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-noto-bangla, Arial, Helvetica, sans-serif);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Auto font switching based on locale */
+.locale-en body {
+  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+}
+
+.locale-bn body {
+  font-family: var(--font-noto-bangla, Arial, Helvetica, sans-serif);
+}
+
+/* Utility class for locale-aware font on specific elements */
+.locale-font {
+  font-family: var(--font-noto-bangla, Arial, Helvetica, sans-serif);
+}
+
+.locale-en .locale-font {
+  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
 }
 
 .debug-grid {

@@ -1,0 +1,75 @@
+{
+  "pageTitle": "Interactive Demo",
+  "pageSubtitle": "Showcasing Locale and App State Management",
+  "backToHome": "Back to Home",
+  "colorPalette": {
+    "title": "Color Palette",
+    "subtitle": "Our Design System Colors",
+    "colors": {
+      "primary": "Primary",
+      "primary400": "Primary 400",
+      "primary200": "Primary 200",
+      "primary100": "Primary 100",
+      "primary50": "Primary 50",
+      "neutral900": "Neutral 900",
+      "neutral800": "Neutral 800",
+      "neutral700": "Neutral 700",
+      "neutral600": "Neutral 600",
+      "neutral500": "Neutral 500",
+      "neutral400": "Neutral 400",
+      "neutral300": "Neutral 300",
+      "neutral200": "Neutral 200",
+      "neutral100": "Neutral 100",
+      "neutral0": "Neutral 0",
+      "secondary": "Secondary",
+      "secondary300": "Secondary 300",
+      "secondary200": "Secondary 200",
+      "secondary100": "Secondary 100",
+      "success": "Success",
+      "success80": "Success 80%",
+      "success50": "Success 50%",
+      "success10": "Success 10%",
+      "warning": "Warning",
+      "warning300": "Warning 300",
+      "warning50": "Warning 50",
+      "purple": "Purple",
+      "purple300": "Purple 300",
+      "purple100": "Purple 100",
+      "lime": "Lime",
+      "lime300": "Lime 300",
+      "lime100": "Lime 100"
+    }
+  },
+  "languageCard": {
+    "title": "Language",
+    "currentLanguage": "Current Language",
+    "english": "English",
+    "bengali": "Bengali"
+  },
+  "appState": {
+    "title": "App State",
+    "sidebar": "Sidebar",
+    "search": "Search",
+    "open": "Open",
+    "closed": "Closed",
+    "toggleSidebar": "Toggle Sidebar",
+    "toggleSearch": "Toggle Search"
+  },
+  "examples": {
+    "title": "Examples",
+    "buttons": {
+      "title": "Buttons",
+      "primary": "Primary Button",
+      "secondary": "Secondary Button",
+      "success": "Success Button"
+    },
+    "formatting": {
+      "title": "Locale Formatting",
+      "date": "Date",
+      "number": "Number"
+    },
+    "translations": {
+      "title": "Translation Examples"
+    }
+  }
+}
