@@ -1,26 +1,152 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import 'tailwindcss';
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* base colors */
+  --color-background: #ffffff;
+  --color-foreground: #1f2223;
+
+  --color-primary: #e83231;
+  --color-primary-400: #ea8389;
+  --color-primary-200: #e2bdbf;
+  --color-primary-100: #f3e6e7;
+  --color-primary-50: #fcf8f8;
+  --color-on-primary: #ffffff;
+
+  --color-neutral-900: #1f2223;
+  --color-neutral-800: #363939;
+  --color-neutral-700: #57595a;
+  --color-neutral-600: #797a7b;
+  --color-neutral-500: #8e9090;
+  --color-neutral-400: #b1b2b2;
+  --color-neutral-300: #d2d3d3;
+  --color-neutral-200: #eaeaea;
+  --color-neutral-100: #fcfcfc;
+  --color-neutral-0: #ffffff;
+
+  --color-secondary: #4a7ec9;
+  --color-secondary-300: #81b5e9;
+  --color-secondary-200: #c1d3e5;
+  --color-secondary-100: #e6eef5;
+  --color-on-secondary: #ffffff;
+
+  --color-success: #31b36b;
+  --color-success-80: #31b36bcc;
+  --color-success-50: #31b36b80;
+  --color-success-10: #31b36b1a;
+  --color-on-success: #ffffff;
+
+  --color-warning: #f9d262;
+  --color-warning-300: #ffe393;
+  --color-warning-50: #fff8ef;
+
+  --color-purple: #deaaef;
+  --color-purple-300: #e7d1ee;
+  --color-purple-100: #f6eff8;
+
+  --color-lime: #b4d479;
+  --color-lime-300: #d8e4c2;
+  --color-lime-100: #eef2e5;
+
+  /* Font Families */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-noto-bangla: var(--font-noto-sans-bengali);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* [data-theme='light'] {
+} */
+
+:root {
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+
+  --primary: var(--color-primary);
+  --primary-400: var(--color-primary-400);
+  --primary-200: var(--color-primary-200);
+  --primary-100: var(--color-primary-100);
+  --primary-50: var(--color-primary-50);
+  --on-primary: var(--color-on-primary);
+
+  --neutral-900: var(--color-neutral-900);
+  --neutral-800: var(--color-neutral-800);
+  --neutral-700: var(--color-neutral-700);
+  --neutral-600: var(--color-neutral-600);
+  --neutral-500: var(--color-neutral-500);
+  --neutral-400: var(--color-neutral-400);
+  --neutral-300: var(--color-neutral-300);
+  --neutral-200: var(--color-neutral-200);
+  --neutral-100: var(--color-neutral-100);
+  --neutral-0: var(--color-neutral-0);
+
+  --blue-500: var(--color-secondary);
+  --blue-300: var(--color-secondary-300);
+  --blue-200: var(--color-secondary-200);
+  --blue-100: var(--color-secondary-100);
+  --on-secondary: var(--color-on-secondary);
+
+  --green-500: var(--color-success);
+  --green-500-80: var(--color-success-80);
+  --green-500-50: var(--color-success-50);
+  --green-500-10: var(--color-success-10);
+  --on-success: var(--color-on-success);
+
+  --yellow-500: var(--color-warning);
+  --yellow-300: var(--color-warning-300);
+  --yellow-50: var(--color-warning-50);
+
+  --purple-500: var(--color-purple);
+  --purple-300: var(--color-purple-300);
+  --purple-100: var(--color-purple-100);
+
+  --lime-500: var(--color-lime);
+  --lime-300: var(--color-lime-300);
+  --lime-100: var(--color-lime-100);
+
+  --surface: var(--neutral-100);
+  --surface-2: var(--neutral-200);
+  --border: var(--neutral-300);
+  --outline: var(--neutral-400);
+  --muted: var(--neutral-600);
+  --subtle: var(--neutral-500);
+}
+
+*,
+html,
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-noto-bangla, Arial, Helvetica, sans-serif);
+}
+
+.debug-grid {
+  background-image: linear-gradient(var(--green-500-10) 1px, transparent 1px),
+    linear-gradient(90deg, var(--green-500-10) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.glass-effect {
+  background: var(--neutral-100);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--neutral-300);
+}
+
+.glow-primary {
+  box-shadow: 0 0 20px var(--primary-100);
+}
+
+.glow-secondary {
+  box-shadow: 0 0 20px var(--blue-100);
+}
+
+.text-gradient-primary {
+  background: linear-gradient(135deg, var(--primary), var(--blue-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
