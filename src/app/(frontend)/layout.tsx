@@ -4,6 +4,7 @@ import './globals.css';
 import { Providers } from '@/providers/Providers';
 import Footer from '@/components/ui/Footer';
 import Navbar from '@/components/ui/Navbar';
+import { LocaleWrapper } from '@/components/utils';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -38,9 +39,11 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <Providers>
-          <Navbar />
-          <main className='w-full'>{children}</main>
-          <Footer />
+          <LocaleWrapper>
+            <Navbar />
+            <main className='w-full'>{children}</main>
+            <Footer />
+          </LocaleWrapper>
         </Providers>
       </body>
     </html>
