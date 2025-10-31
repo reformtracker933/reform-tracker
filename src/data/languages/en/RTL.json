@@ -8,5 +8,13 @@
     "title": "About Us",
     "subtitle": "/ (About Page)",
     "learnMore": "Learn More"
+  },
+  "navBar": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "parties": "Parties",
+    "asset": "Asset",
+    "news": "News",
+    "subscribe": "Subscribe"
   }
 }

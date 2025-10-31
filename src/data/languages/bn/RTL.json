@@ -9,5 +9,64 @@
     "title": "আমাদের সম্পর্কে",
     "subtitle": "/ (অ্যাবাউট পেজ)",
     "learnMore": "আরও জানুন"
+  },
+  "navBar": {
+    "home": "হোম",
+    "dashboard": "ড্যাশবোর্ড",
+    "parties": "দলগুলো",
+    "asset": "সম্পদ",
+    "news": "খবর",
+    "subscribe": "সাবস্ক্রাইব"
+  },
+  "heroSection": {
+    "heading": "বাংলাদেশ জুড়ে সংস্কার পরিস্থিতি অন্বেষণ করুন",
+    "news": "খবর",
+    "dashboard": "ড্যাশবোর্ড",
+    "politicalTime": "রাজনৈতিক সময়"
+  },
+  "heroSectionCards": {
+    "newsCardTitle": "লাইভ পরিসংখ্যান, চার্ট, এবং জাতীয় সংস্কার কর্মক্ষমতা দেখানো মূল সূচকগুলি দেখুন.",
+    "dashboardCardTitle": "লাইভ পরিসংখ্যান, চার্ট, এবং জাতীয় সংস্কার কর্মক্ষমতা দেখানো মূল সূচকগুলি দেখুন.",
+    "politicalTimeCardTitle": "লাইভ পরিসংখ্যান, চার্ট, এবং জাতীয় সংস্কার কর্মক্ষমতা দেখানো মূল সূচকগুলি দেখুন.",
+    "buttonName1": "খবর দেখুন",
+    "buttonName2": "ড্যাশবোর্ড দেখুন",
+    "buttonName3": "দেখুন পার্টিড"
+  },
+  "reformNewsSection": {
+    "sectionTitle": "সংস্কার সংবাদ",
+    "imageTitle": "বাংলাদেশে সংস্কারের সাম্প্রতিক খবর",
+    "rightSideTitle": "সাম্প্রতিক খবর দেখুন",
+    "viewAllNews": "সব দেখুন",
+    "cardTitle": "নতুন শিক্ষা ব্যবস্থা চালু হয়েছে.",
+    "cardDescription": "Lorem ipsum dolor sit amet consectetur. Egestas suspendisse consectetur turpis vitae. Blandit viverra venenatis vitae telus euismod vel fringilla placerat. আরো.",
+    "person": "ডেভিড স্মিথ",
+    "date": "ফেব্রুয়ারী ১২, ২০২৩",
+    "buttonText": "নির্বাচনী সংস্কার"
+  },
+  "reformUpdateSection": {
+    "sectionTitle": "সংস্কার আপডেট",
+    "viewAll": "সব দেখুন",
+    "buttonTitle": "নতুন শিক্ষা ব্যবস্থা চালু হয়েছে.",
+    "seeRecentUpdates": "সাম্প্রতিক আপডেট দেখুন",
+    "corruptionAgainst": "দুর্নীতিবিরোধী"
+  },
+  "newsletter": {
+    "title": "সর্বশেষ খবরের সাথে আপডেট পান",
+    "description": "আপনার ইনবক্সে বিতরিত কিউরেটেড গল্প এবং ডিজাইনের অন্তর্দৃষ্টি সহ অবগত থাকুন.",
+    "emailPlaceholder": "আপনার ইমেইল ঠিকানা লিখুন",
+    "subscribeButton": "সদস্যতা"
+  },
+  "footer": {
+    "rightsReserved": "সব অধিকার সংরক্ষিত",
+    "navigation": "নেভিগেশন",
+    "dashboard": "ড্যাশবোর্ড",
+    "politicalParties": "রাজনৈতিক দলগুলো",
+    "assets": "সম্পদ",
+    "news": "খবর",
+    "email": "ইমেইল",
+    "phone": "ফোন",
+    "address": "ঠিকানা",
+    "contactUs": "যোগাযোগ",
+    "contactUsAndFindLatestNews": "যোগাযোগ করুন এবং সর্বশেষ খবর খুঁজুন"
   }
 }
