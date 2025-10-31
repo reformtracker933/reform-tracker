@@ -16,5 +16,56 @@
     "asset": "Asset",
     "news": "News",
     "subscribe": "Subscribe"
+  },
+  "heroSection": {
+    "heading": "Explore Reform Situation Across Bangladesh",
+    "news": "News",
+    "dashboard": "Dashboard",
+    "politicalTime": "Political Time"
+  },
+  "heroSectionCards": {
+    "newsCardTitle": "View live statistics, charts, and key indicators showing national reform performance.",
+    "dashboardCardTitle": "View live statistics, charts, and key indicators showing national reform performance.",
+    "politicalTimeCardTitle": "View live statistics, charts, and key indicators showing national reform performance.",
+    "buttonName1": "View News",
+    "buttonName2": "View Dashboard",
+    "buttonName3": "View Parties"
+  },
+  "reformNewsSection": {
+    "sectionTitle": "Reform News",
+    "imageTitle": "Recent News on Reforms in Bangladesh",
+    "rightSideTitle": "See Recent News",
+    "viewAllNews": "View All",
+    "cardTitle": "New Education System Launched.",
+    "cardDescription": "Lorem ipsum dolor sit amet consectetur. Egestas suspendisse consectetur turpis vitae. Blandit viverra venenatis vitae telus euismod vel fringilla placerat. More.",
+    "person": "David Smith",
+    "date": "February 12, 2023",
+    "buttonText": "Electoral Reform"
+  },
+  "reformUpdateSection": {
+    "sectionTitle": "Reform Updates",
+    "viewAll": "View All",
+    "buttonTitle": "New Education System Launched.",
+    "seeRecentUpdates": "See Recent Updates",
+    "corruptionAgainst": "Anti-Corruption"
+  },
+  "newsletter": {
+    "title": "Get Updated with Latest News",
+    "description": "Stay informed with curated stories and design insights delivered to your inbox.",
+    "emailPlaceholder": "Enter your email address",
+    "subscribeButton": "Subscribe"
+  },
+  "footer": {
+    "rightsReserved": "All Rights Reserved",
+    "navigation": "Navigation",
+    "dashboard": "Dashboard",
+    "politicalParties": "Political Parties",
+    "assets": "Assets",
+    "news": "News",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "contactUs": "Contact Us",
+    "contactUsAndFindLatestNews": "Contact Us and Find Latest News"
   }
 }

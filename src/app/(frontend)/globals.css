@@ -1,5 +1,17 @@
 @import 'tailwindcss';
 
+@media (prefers-color-scheme: dark) {
+  * {
+    color-scheme: light !important;
+  }
+}
+
+html,
+html.dark,
+html[data-theme='dark'] {
+  color-scheme: light !important;
+}
+
 @theme inline {
   /* base colors */
   --color-background: #ffffff;
@@ -115,10 +127,17 @@ body {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--background) !important;
+  color: var(--foreground) !important;
   font-family: var(--font-noto-bangla, Arial, Helvetica, sans-serif);
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: var(--color-background) !important;
+    color: var(--color-foreground) !important;
+  }
 }
 
 html.locale-en body {
@@ -159,7 +178,8 @@ html.locale-en .locale-font {
 
 .text-gradient-primary {
   background: linear-gradient(135deg, var(--primary), var(--blue-500));
-  -webkit-background-clip: text;
+  /* Removed dark mode media query to force light mode always */
   -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
   background-clip: text;
 }

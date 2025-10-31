@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run lint-staged
+npx lint-staged
+
+# Check for type errors before commit
+npx tsc --noEmit
+if [ $? -ne 0 ]; then
+  echo "TypeScript type errors detected. Commit aborted."
+  exit 1
+fi

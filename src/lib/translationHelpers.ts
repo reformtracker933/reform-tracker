@@ -7,13 +7,9 @@ import demoEn from '@/data/languages/en/demo.json';
 import demoBn from '@/data/languages/bn/demo.json';
 
 type RTLTranslations = typeof RTL_En;
-type HomePageText = RTLTranslations['homePage'];
-type AboutPageText = RTLTranslations['aboutPage'];
 type DemoPageText = typeof demoEn;
 
-type PageTextMap = {
-  homePage: HomePageText;
-  aboutPage: AboutPageText;
+type PageTextMap = RTLTranslations & {
   demo: DemoPageText;
 };
 
