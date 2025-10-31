@@ -10,9 +10,9 @@ export default function Home() {
     <div className='min-h-[90vh] w-full bg-background flex flex-col items-center justify-center'>
       <Hero />
       <ReformNews />
-      <ReformUpdate />
+      <RefordmUpdate />
       <Newsletter />
-      {/* f */}
+      {/* fs */}
     </div>
   );
 }
