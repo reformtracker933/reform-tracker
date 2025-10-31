@@ -12,6 +12,7 @@ export default function Home() {
       <ReformNews />
       <ReformUpdate />
       <Newsletter />
+      {/* f */}
     </div>
   );
 }
