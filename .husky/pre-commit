@@ -2,7 +2,12 @@
 . "$(dirname "$0")/_/husky.sh"
 
 # Run lint-staged
+
 npx lint-staged
+if [ $? -ne 0 ]; then
+  echo "lint-staged failed. Commit aborted."
+  exit 1
+fi
 
 # Check for type errors before commit
 npx tsc --noEmit
