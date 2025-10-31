@@ -6,9 +6,7 @@ import type demoEn from '@/data/languages/en/demo.json';
 type RTLTranslations = typeof RTL_En;
 type DemoPageText = typeof demoEn;
 
-type PageTextMap = {
-  homePage: RTLTranslations['homePage'];
-  aboutPage: RTLTranslations['aboutPage'];
+type PageTextMap = RTLTranslations & {
   demo: DemoPageText;
 };
 
