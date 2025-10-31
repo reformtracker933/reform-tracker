@@ -59,8 +59,9 @@ export function ReformNews() {
                 </div>
 
                 {/* Text Content */}
-                <div className="flex-1 px-6 sm:px-8 flex flex-col justify-start items-center text-center mt-12 w-sm mx-auto">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-neutral-800 dark:text-white">
+
+                <div className="flex-1 px-4 sm:px-6 md:px-8 lg:px-12 flex flex-col justify-start items-center text-center mt-8 sm:mt-12 max-w-full md:max-w-md lg:max-w-lg mx-auto">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-neutral-800 dark:text-white">
                     {pageText.imageTitle}
                   </h2>
                 </div>

@@ -18,7 +18,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-lg bg-[#FFFFFF]/65 py-2.5">
+    <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-lg bg-[#FFFFFF]/65 py-2.5 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="h-16 flex items-center justify-between">
           {/* Left: Logo */}
