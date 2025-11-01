@@ -68,5 +68,22 @@
     "address": "ঠিকানা",
     "contactUs": "যোগাযোগ",
     "contactUsAndFindLatestNews": "যোগাযোগ করুন এবং সর্বশেষ খবর খুঁজুন"
+  },
+  "resource": {
+    "title": "রিসোর্স",
+    "description": "মূল সংস্কারপত্র, নীতিমালা খসড়া ও আইনগত নথিতে প্রবেশ করুন",
+    "searchBarPlaceHolder": "অনুসন্ধান করুন",
+    "sector": "সেক্টর",
+    "date": "তারিখ",
+    "file": "ফাইল",
+    "category": "ক্যাটাগরি",
+    "publishedDate": "প্রকাশের তারিখ",
+    "commission": "কমিশন",
+    "size": "আকার",
+    "fileName": "নির্বাচনী সংস্কার আইন 2024",
+    "categoryName": "লজিসেশন",
+    "dummyDate": "27 অক্টোবর, 2024",
+    "commissionEx": "কমিশন এক্স",
+    "sizeOfFile": "25MB"
   }
 }

@@ -11,3 +11,5 @@ export const leftSideCardImage = "/images/reformNews/leftImage.png";
 export const gmailLogo = "/images/logos/gmailLogo.png";
 export const facebookLogo = "/images/logos/facebookLogo.png";
 export const emailLogo = "/images/logos/emailLogo.png";
+export const downloadFileIcon = "/images/icons/downloadFileIcon.png";
+export const fileDownloadLinkIcon = "/images/icons/fileDownloadLinkIcon.png";
