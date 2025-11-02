@@ -13,3 +13,6 @@ export const facebookLogo = "/images/logos/facebookLogo.png";
 export const emailLogo = "/images/logos/emailLogo.png";
 export const downloadFileIcon = "/images/icons/downloadFileIcon.png";
 export const fileDownloadLinkIcon = "/images/icons/fileDownloadLinkIcon.png";
+export const newsSectionCardImage = "/images/newsSection/cardImage.jpg";
+export const newsSectionBackgroundImage =
+  "/images/newsSection/newsBackgroundImage.png";
