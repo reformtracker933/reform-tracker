@@ -1,7 +1,7 @@
-export type Locale = 'en' | 'bn';
+export type Locale = "en" | "bn";
 
-import type RTL_En from '@/data/languages/en/RTL.json';
-import type demoEn from '@/data/languages/en/demo.json';
+import type RTL_En from "@/data/languages/en/RTL.json";
+import type demoEn from "@/data/languages/en/demo.json";
 
 type RTLTranslations = typeof RTL_En;
 type DemoPageText = typeof demoEn;

@@ -103,5 +103,32 @@
     "seeRecentUpdate": "সাম্প্রতিক আপডেট দেখুন",
     "corruptionAgainst": "দুর্নীতিবিরোধী",
     "navigationDescription": "নতুন শিক্ষা ব্যবস্থা চালু হয়েছে."
+  },
+  "parties": {
+    "title": "রাজনৈতিক বিবৃতি",
+    "description": "রাজনৈতিক দলগুলোর বিস্তারিত প্রোফাইল, তাদের এজেন্ডা, সংস্কারের প্রতিশ্রুতি এবং ঐতিহাসিক প্রভাব আবিষ্কার করুন. স্বচ্ছতা বোঝার সাথে শুরু হয়.",
+    "totalStatement": "মোট বিবৃতি",
+    "BNP": "বিএনপি",
+    "rejected": "প্রত্যাখ্যান",
+    "secondTitle": "বিবৃতি চার্ট",
+    "searchBarPlaceHolder": "অনুসন্ধান করুন",
+    "sector": "সেক্টর",
+    "writer": "লেখক",
+    "time": "সময়",
+    "proposalName": "প্রস্তাবের নাম",
+    "commission": "কমিশন",
+    "category": "ক্যাটাগরি",
+    "NCP": "এনসিপি",
+    "Jamat": "জামাত",
+    "educationReformLaw": "শিক্ষা সংস্কার আইন",
+    "commissionEx": "কমিশন এক্স",
+    "logisession": "লজিসেশন",
+    "support": "সমর্থন",
+    "against": "বিরোধিতা",
+    "thirdTitle": "গ্রহণ এবং প্রত্যাখ্যান হার",
+    "graphTitle": "গ্রহণ এবং প্রত্যাখ্যান হার",
+    "acceptance": "গ্রহণযোগ্যতা",
+    "rejectance": "প্রত্যাখ্যান",
+    "date": "তারিখ"
   }
 }
