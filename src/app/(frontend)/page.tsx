@@ -1,9 +1,9 @@
 "use client";
 
-import { Hero } from "@/components/screens/Landing/Hero";
-import { Newsletter } from "@/components/screens/Landing/Newsletter";
-import { ReformNews } from "@/components/screens/Landing/ReformNews";
-import { ReformUpdate } from "@/components/screens/Landing/ReformUpdate";
+import { Hero } from "@/components/screens/landing/Hero";
+import { Newsletter } from "@/components/screens/landing/Newsletter";
+import { ReformNews } from "@/components/screens/landing/ReformNews";
+import { ReformUpdate } from "@/components/screens/landing/ReformUpdate";
 
 export default function Home() {
   return (

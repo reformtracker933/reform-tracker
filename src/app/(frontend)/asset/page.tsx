@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Search, Calendar, Download, ChevronDown, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui";
+import { Search, Calendar, ChevronDown, Loader2 } from "lucide-react";
 import { useLocale } from "@/context/LocaleContext";
 import Image from "next/image";
 import { downloadFileIcon, fileDownloadLinkIcon } from "@/assets";
@@ -125,7 +124,7 @@ export default function AssetPage() {
     const sorted = [...assetFiles].sort(
       (a, b) =>
         new Date(b.publishedDate).getTime() -
-        new Date(a.publishedDate).getTime()
+        new Date(a.publishedDate).getTime(),
     );
     let results = sorted;
 
@@ -134,13 +133,13 @@ export default function AssetPage() {
       results = results.filter(
         (f) =>
           f.filename.toLowerCase().includes(q) ||
-          f.category.toLowerCase().includes(q)
+          f.category.toLowerCase().includes(q),
       );
     }
 
     if (selectedCategory && selectedCategory !== "all") {
       results = results.filter(
-        (f) => f.category.toLowerCase() === selectedCategory.toLowerCase()
+        (f) => f.category.toLowerCase() === selectedCategory.toLowerCase(),
       );
     }
 
