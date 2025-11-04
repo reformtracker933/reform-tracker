@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "generate:types": "tsx scripts/generate-translation-types.ts",
-    "postinstall": "pnpm generate:types"
+    "postinstall": "pnpm generate:types",
+    "prepare": "husky"
   },
   "dependencies": {
     "@sanity/icons": "^3.7.4",

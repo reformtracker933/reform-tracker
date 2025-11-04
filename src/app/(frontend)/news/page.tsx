@@ -72,18 +72,18 @@ export default function NewsPage() {
       results = results.filter(
         (news) =>
           news.title.toLowerCase().includes(newsSearchTerm.toLowerCase()) ||
-          news.description.toLowerCase().includes(newsSearchTerm.toLowerCase())
+          news.description.toLowerCase().includes(newsSearchTerm.toLowerCase()),
       );
     }
     if (selectedNewsCategory !== "all") {
       results = results.filter(
         (news) =>
-          news.category.toLowerCase() === selectedNewsCategory.toLowerCase()
+          news.category.toLowerCase() === selectedNewsCategory.toLowerCase(),
       );
     }
     if (selectedWriter !== "all") {
       results = results.filter(
-        (news) => news.writer.toLowerCase() === selectedWriter.toLowerCase()
+        (news) => news.writer.toLowerCase() === selectedWriter.toLowerCase(),
       );
     }
     if (selectedTime) {
@@ -95,20 +95,20 @@ export default function NewsPage() {
   const totalNewsPages = Math.ceil(filteredNewsItems.length / newsPerPage);
   const safeCurrentNewsPage = Math.min(
     currentNewsPage,
-    Math.max(1, totalNewsPages)
+    Math.max(1, totalNewsPages),
   );
 
   if (safeCurrentNewsPage !== currentNewsPage) {
     setCurrentNewsPage(safeCurrentNewsPage);
   }
 
-  const currentNewsItemsh = useMemo<NewsCard[]>(
+  const currentNewsItemsf = useMemo<NewsCard[]>(
     () =>
       filteredNewsItems.slice(
         (safeCurrentNewsPage - 1) * newsPerPage,
-        safeCurrentNewsPage * newsPerPage
+        safeCurrentNewsPage * newsPerPage,
       ),
-    [filteredNewsItems, safeCurrentNewsPage]
+    [filteredNewsItems, safeCurrentNewsPage],
   );
 
   const updatesPerPage = 5;
@@ -116,24 +116,25 @@ export default function NewsPage() {
     let results = [...updatesData];
     if (updateSearchTerm) {
       results = results.filter((update) =>
-        update.title.toLowerCase().includes(updateSearchTerm.toLowerCase())
+        update.title.toLowerCase().includes(updateSearchTerm.toLowerCase()),
       );
     }
     if (selectedUpdateCategory !== "all") {
       results = results.filter(
         (update) =>
-          update.category.toLowerCase() === selectedUpdateCategory.toLowerCase()
+          update.category.toLowerCase() ===
+          selectedUpdateCategory.toLowerCase(),
       );
     }
     return results;
   }, [updateSearchTerm, selectedUpdateCategory]);
 
   const totalUpdatePages = Math.ceil(
-    filteredUpdateItems.length / updatesPerPage
+    filteredUpdateItems.length / updatesPerPage,
   );
   const safeCurrentUpdatePage = Math.min(
     currentUpdatePage,
-    Math.max(1, totalUpdatePages)
+    Math.max(1, totalUpdatePages),
   );
 
   if (safeCurrentUpdatePage !== currentUpdatePage) {
@@ -144,9 +145,9 @@ export default function NewsPage() {
     () =>
       filteredUpdateItems.slice(
         (safeCurrentUpdatePage - 1) * updatesPerPage,
-        safeCurrentUpdatePage * updatesPerPage
+        safeCurrentUpdatePage * updatesPerPage,
       ),
-    [filteredUpdateItems, safeCurrentUpdatePage]
+    [filteredUpdateItems, safeCurrentUpdatePage],
   );
 
   return (
