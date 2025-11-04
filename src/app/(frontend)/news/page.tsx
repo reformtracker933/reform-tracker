@@ -102,7 +102,7 @@ export default function NewsPage() {
     setCurrentNewsPage(safeCurrentNewsPage);
   }
 
-  const currentNewsItemsd = useMemo<NewsCard[]>(
+  const currentNewsItemsh = useMemo<NewsCard[]>(
     () =>
       filteredNewsItems.slice(
         (safeCurrentNewsPage - 1) * newsPerPage,
