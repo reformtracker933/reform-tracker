@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate:types": "tsx scripts/generate-translation-types.ts",
+    "postinstall": "pnpm generate:types"
   },
   "dependencies": {
     "@sanity/icons": "^3.7.4",
@@ -33,6 +35,7 @@
     "eslint-config-next": "16.0.0",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
+    "tsx": "^4.20.6",
     "typescript": "^5"
   },
   "lint-staged": {
