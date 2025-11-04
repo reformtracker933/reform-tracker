@@ -17,7 +17,7 @@ export function Card({
 }: CardProps) {
   return (
     <div
-      className={`bg-neutral-100 rounded-3xl shadow-2xl overflow-hidden transition-transform duration-300 max-w-[415px] max-h-[296px] hover:scale-105 ${className}`}
+      className={`bg-neutral-100 rounded-3xl shadow-2xl overflow-hidden transition-transform duration-300 w-full md:max-w-[415px] max-h-[296px] hover:scale-105 ${className}`}
     >
       <div className="mt-5">
         {imageSrc && (
