@@ -1,5 +1,5 @@
 // AUTO-GENERATED - DO NOT EDIT
-// Generated: 2025-11-04T17:10:20.510Z
+// Generated: 2025-11-04T19:54:44.785Z
 // Run 'pnpm generate:types' to regenerate
 
 export type DemoTranslations = {
@@ -227,19 +227,19 @@ export type RTLTranslations = {
 
 export interface TranslationPages {
   demo: DemoTranslations;
-  homePage: RTLTranslations['homePage'];
-  aboutPage: RTLTranslations['aboutPage'];
-  navBar: RTLTranslations['navBar'];
-  heroSection: RTLTranslations['heroSection'];
-  heroSectionCards: RTLTranslations['heroSectionCards'];
-  reformNewsSection: RTLTranslations['reformNewsSection'];
-  reformUpdateSection: RTLTranslations['reformUpdateSection'];
-  newsletter: RTLTranslations['newsletter'];
-  footer: RTLTranslations['footer'];
-  resource: RTLTranslations['resource'];
-  reformNews: RTLTranslations['reformNews'];
-  parties: RTLTranslations['parties'];
-  dashboard: RTLTranslations['dashboard'];
+  homePage: RTLTranslations["homePage"];
+  aboutPage: RTLTranslations["aboutPage"];
+  navBar: RTLTranslations["navBar"];
+  heroSection: RTLTranslations["heroSection"];
+  heroSectionCards: RTLTranslations["heroSectionCards"];
+  reformNewsSection: RTLTranslations["reformNewsSection"];
+  reformUpdateSection: RTLTranslations["reformUpdateSection"];
+  newsletter: RTLTranslations["newsletter"];
+  footer: RTLTranslations["footer"];
+  resource: RTLTranslations["resource"];
+  reformNews: RTLTranslations["reformNews"];
+  parties: RTLTranslations["parties"];
+  dashboard: RTLTranslations["dashboard"];
 }
 
 export type PageKey = keyof TranslationPages;
