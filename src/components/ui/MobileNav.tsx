@@ -1,0 +1,191 @@
+"use client";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useLocale } from "@/context/LocaleContext";
+import { gmailLogo, facebookLogo } from "@/assets";
+
+export default function MobileNav() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const { getTranslation } = useLocale();
+  const pageText = getTranslation("navBar");
+
+  const navItems = [
+    { label: pageText.home, href: "/" },
+    { label: pageText.dashboard, href: "/dashboard" },
+    { label: pageText.parties, href: "/parties" },
+    { label: pageText.asset, href: "/asset" },
+    { label: pageText.news, href: "/news" },
+  ];
+
+  const socialLinks = [
+    {
+      name: "Email",
+      href: "mailto:info@reformtracker.example",
+      icon: gmailLogo,
+      alt: "Gmail",
+    },
+    {
+      name: "Facebook",
+      href: "https://www.facebook.com",
+      icon: facebookLogo,
+      alt: "Facebook",
+    },
+  ];
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && isOpen) {
+        closeMenu();
+      }
+    };
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        closeMenu();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
+  return (
+    <div className="md:hidden">
+      {/* Hamburger Button */}
+      <button
+        onClick={toggleMenu}
+        className="relative w-10 h-10 flex items-center justify-center focus:outline-none z-50"
+        aria-label="Toggle menu"
+        aria-expanded={isOpen}
+      >
+        <div className="w-6 h-5 flex flex-col justify-between">
+          <span
+            className={`block h-0.5 w-full bg-foreground rounded-full transition-all duration-300 ease-in-out ${
+              isOpen ? "rotate-45 translate-y-2" : ""
+            }`}
+          />
+          <span
+            className={`block h-0.5 w-full bg-foreground rounded-full transition-all duration-300 ease-in-out ${
+              isOpen ? "opacity-0" : "opacity-100"
+            }`}
+          />
+          <span
+            className={`block h-0.5 w-full bg-foreground rounded-full transition-all duration-300 ease-in-out ${
+              isOpen ? "-rotate-45 -translate-y-2" : ""
+            }`}
+          />
+        </div>
+      </button>
+
+      {/* Backdrop Overlay */}
+      <div
+        className={`fixed inset-0 h-screen w-screen bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300 ${
+          isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+        onClick={closeMenu}
+      />
+
+      <div
+        className={`fixed top-0 right-0 h-screen w-80 max-w-[85vw] bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-out ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex flex-col h-screen">
+          <div className="p-6 border-b border-neutral-200 shadow-sm">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold text-foreground">
+                {pageText.menu}
+              </h2>
+              <button
+                onClick={closeMenu}
+                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-neutral-100 transition-colors focus:outline-none"
+                aria-label="Close menu"
+              >
+                <svg
+                  className="w-5 h-5 text-foreground"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <nav className="flex-1 overflow-y-auto p-4 space-y-2">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  href={item.href}
+                  key={item.href}
+                  onClick={closeMenu}
+                  className={`block px-5 py-3 rounded-lg font-medium transition-all duration-200 ${
+                    isActive
+                      ? "bg-secondary text-white shadow-md"
+                      : "text-foreground hover:bg-neutral-100"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="border-t border-neutral-200 p-6 space-y-4 shadow-inner bg-neutral-50">
+            <Link href="/subscribe" onClick={closeMenu}>
+              <button className="w-full bg-secondary text-white rounded-full px-6 py-3 font-semibold hover:scale-105 transition-transform duration-200 shadow-md focus:outline-none">
+                {pageText.subscribe}
+              </button>
+            </Link>
+
+            <div className="flex items-center justify-center gap-4 pt-2">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:scale-110 transition-transform duration-200"
+                  aria-label={social.name}
+                >
+                  <Image
+                    src={social.icon}
+                    alt={social.alt}
+                    width={28}
+                    height={28}
+                    className="object-contain"
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

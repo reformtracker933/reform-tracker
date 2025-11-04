@@ -26,7 +26,15 @@ export interface UpdateCard {
   title: string;
   category: string;
   href: string;
+  color: string;
 }
+
+const categoryColors: Record<string, string> = {
+  Policy: "#4a7ec9",
+  Healthcare: "#31b36b",
+  Education: "#f9d262",
+  Economy: "#deaaef",
+};
 
 // Sample news data
 export const newsData = Array.from({ length: 24 }, (_, i) => ({
@@ -41,9 +49,13 @@ export const newsData = Array.from({ length: 24 }, (_, i) => ({
 }));
 
 //Sample updates data
-export const updatesData = Array.from({ length: 20 }, (_, i) => ({
-  id: `update-${i + 1}`,
-  title: `Reform Update ${i + 1}: Important changes in policy implementation`,
-  category: categories[(i % (categories.length - 1)) + 1],
-  href: `/updates/${i + 1}`,
-}));
+export const updatesData = Array.from({ length: 20 }, (_, i) => {
+  const category = categories[(i % (categories.length - 1)) + 1];
+  return {
+    id: `update-${i + 1}`,
+    title: `সংস্কার আপডেট ${i + 1}: নীতি বাস্তবায়নে গুরুত্বপূর্ণ পরিবর্তন`,
+    category,
+    href: `/updates/${i + 1}`,
+    color: categoryColors[category] || "#e83231",
+  };
+});

@@ -25,18 +25,18 @@ export default function DashboardPage() {
   ];
 
   return (
-    <main className="w-full p-8 mt-16">
+    <section className="w-full min-h-screen pt-24 md:pt-32 px-4 md:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <header className="text-center mb-8">
-          <h1 className="text-6xl font-bold text-primary">{pageText.title}</h1>
+        <header className="text-center mb-6 md:mb-8">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary">
+            {pageText.title}
+          </h1>
         </header>
 
-        <div className="flex items-start justify-center gap-4 w-full">
-          {/* Left Column */}
-          <div className="flex flex-col gap-6 flex-1">
-            {/* Cards Row */}
-            <div className="flex items-center gap-4 w-full">
-              <div className="w-[350px] h-[164px]">
+        <div className="flex flex-col lg:flex-row items-start justify-center gap-4 md:gap-6 w-full">
+          <div className="flex flex-col gap-4 md:gap-6 w-full lg:flex-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+              <div className="w-full h-[164px]">
                 <CardStat
                   icon={FileText}
                   title={pageText.totalProposal}
@@ -44,7 +44,7 @@ export default function DashboardPage() {
                   delta={"12%"}
                 />
               </div>
-              <div className="w-[350px] h-[164px]">
+              <div className="w-full h-[164px]">
                 <CardStat
                   icon={BarIcon}
                   title={pageText.totalCommission}
@@ -54,18 +54,16 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Bar Chart */}
-            <div className="w-[715px] h-[410px]">
+            <div className="w-full h-[350px] md:h-[410px]">
               <BarChart labels={barLabels} data={barData} />
             </div>
           </div>
 
-          {/* Doughnut Chart */}
-          <div className="w-[540px] h-[600px]">
+          <div className="w-full lg:w-[540px] h-[500px] md:h-[600px]">
             <DoughnutChart labels={doughLabels} />
           </div>
         </div>
       </div>
-    </main>
+    </section>
   );
 }

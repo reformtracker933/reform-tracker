@@ -25,8 +25,6 @@ ChartJS.register(
   Tooltip,
   Legend,
 );
-
-// ---- Data ----
 const doughnutData = [
   {
     id: 1,
@@ -152,7 +150,6 @@ export default function PartiesPage() {
   const { getTranslation } = useLocale();
   const pageText = getTranslation("parties");
 
-  // ---- State ----
   const [currentDoughnutPage, setCurrentDoughnutPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -168,11 +165,15 @@ export default function PartiesPage() {
   );
 
   const handleNextDoughnuts = () => {
-    if (currentDoughnutPage < totalPages - 1)
+    if (currentDoughnutPage < totalPages - 1) {
       setCurrentDoughnutPage((prev) => prev + 1);
+    }
   };
+
   const handlePrevDoughnuts = () => {
-    if (currentDoughnutPage > 0) setCurrentDoughnutPage((prev) => prev - 1);
+    if (currentDoughnutPage > 0) {
+      setCurrentDoughnutPage((prev) => prev - 1);
+    }
   };
 
   const tableData = Array(6)
@@ -193,7 +194,7 @@ export default function PartiesPage() {
     }));
 
   return (
-    <div className="w-full space-y-12 pt-12">
+    <div className="w-full space-y-8 md:space-y-12 pt-24 md:pt-32 px-4 md:px-6 lg:px-8">
       <StatisticsSection
         doughnutData={doughnutData}
         visibleDoughnuts={visibleDoughnuts}

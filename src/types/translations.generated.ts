@@ -1,5 +1,5 @@
 // AUTO-GENERATED - DO NOT EDIT
-// Generated: 2025-11-04T13:41:46.955Z
+// Generated: 2025-11-04T15:40:38.899Z
 // Run 'pnpm generate:types' to regenerate
 
 export type RTLTranslations = {
@@ -20,6 +20,7 @@ export type RTLTranslations = {
     asset: string;
     news: string;
     subscribe: string;
+    menu: string;
   };
   heroSection: {
     heading: string;

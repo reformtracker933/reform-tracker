@@ -62,7 +62,7 @@ export const NewsControls: FC<{
   writers,
 }) => {
   return (
-    <section className="w-full py-8 bg-gray-50">
+    <section className="w-full py-8 bg-neutral-100">
       <div className="mx-auto max-w-4xl h-14">
         <div className="flex items-center justify-center h-full gap-2">
           <div className="relative w-90 text-xl">
@@ -71,7 +71,7 @@ export const NewsControls: FC<{
               placeholder={"   " + String(pageText.searchBarPlaceHolder)}
               value={newsSearchTerm}
               onChange={(e) => setNewsSearchTerm(e.target.value)}
-              className="h-14 w-full pl-12 pr-4 rounded-full border border-neutral-400 bg-white text-gray-900"
+              className="h-14 w-full pl-12 pr-4 rounded-full border border-neutral-400 bg-white text-neutral-900"
             />
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-6 w-6 text-neutral-400" />
           </div>
@@ -123,7 +123,7 @@ export const NewsControls: FC<{
               onChange={(e) => setSelectedTime(e.target.value)}
               className="h-14 w-full px-4 pr-10 rounded-full border border-neutral-400 bg-white  text-neutral-600"
             />
-            <Clock className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+            <Clock className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-neutral-400 pointer-events-none" />
           </div>
 
           <div className="w-48 text-white text-xl">
@@ -175,7 +175,7 @@ export const NewsGrid: FC<{
               <div className="p-6">
                 <h3 className="text-xl text-neutral-900 mb-2">{news.title}</h3>
                 <p className="text-neutral-800 mb-4">{news.description}</p>
-                <div className="flex items-center gap-4 text-sm text-gray-500">
+                <div className="flex items-center gap-4 text-sm text-neutral-500">
                   <div className="flex items-center gap-2">
                     <Image
                       src={rightSideCardPerson}
@@ -269,7 +269,7 @@ export const UpdatesSection: FC<{
   setCurrentUpdatePage,
 }) => {
   return (
-    <section className="w-full py-12 bg-gray-50">
+    <section className="w-full py-12 bg-neutral-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-6xl font-bold text-primary/900 mb-4">
@@ -287,7 +287,7 @@ export const UpdatesSection: FC<{
               placeholder={"   " + String(pageText.searchBarPlaceHolder)}
               value={updateSearchTerm}
               onChange={(e) => setUpdateSearchTerm(e.target.value)}
-              className="h-14 w-full pl-12 pr-4 rounded-full border border-neutral-400 bg-white text-gray-900"
+              className="h-14 w-full pl-12 pr-4 rounded-full border border-neutral-400 bg-white text-neutral-900"
             />
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-6 w-6 text-neutral-400" />
           </div>

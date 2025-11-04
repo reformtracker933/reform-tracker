@@ -20,14 +20,13 @@ import { useLocale } from "@/context/LocaleContext";
 export default function NewsPage() {
   const { getTranslation } = useLocale();
   const pageText = getTranslation("reformNews");
-  // States for news section
+
   const [newsSearchTerm, setNewsSearchTerm] = useState("");
   const [selectedNewsCategory, setSelectedNewsCategory] = useState("all");
   const [selectedWriter, setSelectedWriter] = useState("all");
   const [selectedTime, setSelectedTime] = useState("");
   const [currentNewsPage, setCurrentNewsPage] = useState(1);
 
-  // States for updates section
   const [updateSearchTerm, setUpdateSearchTerm] = useState("");
   const [selectedUpdateCategory, setSelectedUpdateCategory] = useState("all");
   const [selectedUpdateWriter, setSelectedUpdateWriter] = useState("all");
@@ -66,7 +65,6 @@ export default function NewsPage() {
     },
   ];
 
-  // Filter and paginate news
   const newsPerPage = 6;
   const filteredNewsItems = useMemo<NewsCard[]>(() => {
     let results = [...newsData];
@@ -95,11 +93,11 @@ export default function NewsPage() {
   }, [newsSearchTerm, selectedNewsCategory, selectedWriter, selectedTime]);
 
   const totalNewsPages = Math.ceil(filteredNewsItems.length / newsPerPage);
-  // Ensure current page doesn't exceed total pages
   const safeCurrentNewsPage = Math.min(
     currentNewsPage,
     Math.max(1, totalNewsPages),
   );
+
   if (safeCurrentNewsPage !== currentNewsPage) {
     setCurrentNewsPage(safeCurrentNewsPage);
   }
@@ -113,7 +111,6 @@ export default function NewsPage() {
     [filteredNewsItems, safeCurrentNewsPage],
   );
 
-  // Filter and paginate updates
   const updatesPerPage = 5;
   const filteredUpdateItems = useMemo<UpdateCard[]>(() => {
     let results = [...updatesData];
@@ -135,11 +132,11 @@ export default function NewsPage() {
   const totalUpdatePages = Math.ceil(
     filteredUpdateItems.length / updatesPerPage,
   );
-  // Ensure current page doesn't exceed total pages
   const safeCurrentUpdatePage = Math.min(
     currentUpdatePage,
     Math.max(1, totalUpdatePages),
   );
+
   if (safeCurrentUpdatePage !== currentUpdatePage) {
     setCurrentUpdatePage(safeCurrentUpdatePage);
   }

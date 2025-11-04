@@ -23,28 +23,23 @@ const Card: React.FC<CardProps> = ({
   color,
 }) => {
   return (
-    <div className="bg-surface rounded-2xl overflow-hidden hover:shadow-xl transition duration-300 max-w-full">
-      <div className="flex h-36 sm:h-43">
+    <div className="bg-neutral-100 rounded-xl md:rounded-2xl overflow-hidden hover:shadow-xl transition duration-300 w-full">
+      <div className="flex flex-row h-auto min-h-[140px] md:min-h-40">
         {/* Left Image Section */}
-        <div className="relative w-1/3 sm:w-[25%] shrink-0">
-          <Image
-            src={image}
-            alt={title}
-            fill
-            className="object-cover rounded-2xl"
-          />
+        <div className="relative w-[120px] md:w-[140px] lg:w-40 shrink-0">
+          <Image src={image} alt={title} fill className="object-cover" />
         </div>
 
         {/* Right Content Section */}
-        <div className="w-2/3 sm:w-full p-4 flex flex-col justify-between items-start">
+        <div className="flex-1 p-3 md:p-4 flex flex-col justify-between">
           {/* Title and Button Row */}
-          <div className="flex items-center justify-between w-full mt-2">
-            <p className="text-neutral-900 text-base sm:text-xl tracking-tight line-clamp-2">
+          <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between w-full">
+            <h3 className="text-neutral-900 text-sm md:text-base lg:text-lg font-medium line-clamp-2 flex-1">
               {title}
-            </p>
+            </h3>
 
             <button
-              className="text-white transition duration-150 rounded-full text-xs sm:text-sm px-4 py-0.5 shrink-0 whitespace-nowrap"
+              className="text-white transition duration-150 rounded-full text-xs md:text-sm px-3 md:px-4 py-1 shrink-0 self-start"
               style={{ backgroundColor: color }}
             >
               {buttonText}
@@ -52,25 +47,25 @@ const Card: React.FC<CardProps> = ({
           </div>
 
           {/* Description */}
-          <p className="text-neutral-800 text-xs sm:text-sm line-clamp-1 md:block">
+          <p className="text-neutral-700 text-xs md:text-sm line-clamp-1 md:line-clamp-2 my-1 md:my-2">
             {description}
           </p>
 
           {/* Footer Info (Person & Date) */}
-          <div className="flex items-center gap-5 mb-2">
-            <div className="flex items-center">
+          <div className="flex items-center gap-3 md:gap-4 text-xs md:text-sm">
+            <div className="flex items-center gap-1.5 md:gap-2">
               <Image
                 src={personImage}
-                alt="News Source Logo"
-                width={20}
-                height={20}
-                className="inline-block mr-2 rounded-full"
+                alt="Author"
+                width={16}
+                height={16}
+                className="rounded-full md:w-5 md:h-5"
               />
-              <p className="text-neutral-600 text-xs sm:text-md">{person}</p>
+              <span className="text-neutral-600">{person}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-muted rounded-full"></div>
-              <p className="text-neutral-600 text-xs sm:text-md">{date}</p>
+            <div className="flex items-center gap-1.5 md:gap-2">
+              <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-neutral-400 rounded-full"></div>
+              <span className="text-neutral-600">{date}</span>
             </div>
           </div>
         </div>

@@ -11,23 +11,28 @@ const HeroSection: FC<{
   background: StaticImageData | string;
 }> = ({ pageText, background }) => {
   return (
-    <section className="relative w-full h-[618px] flex items-end justify-center overflow-hidden">
-      <div className="absolute inset-0">
-        <Image
-          src={background}
-          alt="Reform News Background"
-          fill
-          className="object-cover object-center"
-          priority
-        />
-      </div>
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className="text-6xl font-bold text-primary/900 mb-6">
-          {String(pageText.title)}
-        </h1>
-        <p className="text-2xl font-semibold text-primary/800 max-w-lg mx-auto">
-          {String(pageText.descriptionOfTitle)}
-        </p>
+    <section className="relative w-full">
+      <div className="relative w-full">
+        <div className="h-[60vh] w-full">
+          <Image
+            src={background}
+            alt="Reform News Background"
+            fill
+            className="object-cover object-center"
+            priority
+          />
+        </div>
+
+        <div className="relative z-10 flex items-center justify-center h-full px-4">
+          <div className="text-center max-w-lg mx-auto">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary/900 mb-4 md:mb-6">
+              {String(pageText.title)}
+            </h1>
+            <p className="text-lg md:text-2xl font-semibold text-primary/800">
+              {String(pageText.descriptionOfTitle)}
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

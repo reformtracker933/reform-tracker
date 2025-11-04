@@ -7,11 +7,13 @@ import { ReformUpdate } from "@/components/screens/landing/ReformUpdate";
 
 export default function Home() {
   return (
-    <div className="min-h-[90vh] w-full bg-background flex flex-col items-center justify-center">
+    <div className="min-h-screen w-full">
       <Hero />
-      <ReformNews />
-      <ReformUpdate />
-      <Newsletter />
+      <div className="px-4 w-full">
+        <ReformNews />
+        <ReformUpdate />
+        <Newsletter />
+      </div>
     </div>
   );
 }
