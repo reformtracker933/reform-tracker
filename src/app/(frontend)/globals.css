@@ -1,4 +1,16 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+@media (prefers-color-scheme: dark) {
+  * {
+    color-scheme: light !important;
+  }
+}
+
+html,
+html.dark,
+html[data-theme="dark"] {
+  color-scheme: light !important;
+}
 
 @theme inline {
   /* base colors */
@@ -10,6 +22,8 @@
   --color-primary-200: #e2bdbf;
   --color-primary-100: #f3e6e7;
   --color-primary-50: #fcf8f8;
+  --color-primary-30: #f9f8f8;
+
   --color-on-primary: #ffffff;
 
   --color-neutral-900: #1f2223;
@@ -115,10 +129,19 @@ body {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--background) !important;
+  color: var(--foreground) !important;
   font-family: var(--font-noto-bangla, Arial, Helvetica, sans-serif);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: var(--color-background) !important;
+    color: var(--color-foreground) !important;
+  }
 }
 
 html.locale-en body {
@@ -138,7 +161,8 @@ html.locale-en .locale-font {
 }
 
 .debug-grid {
-  background-image: linear-gradient(var(--green-500-10) 1px, transparent 1px),
+  background-image:
+    linear-gradient(var(--green-500-10) 1px, transparent 1px),
     linear-gradient(90deg, var(--green-500-10) 1px, transparent 1px);
   background-size: 20px 20px;
 }
@@ -159,7 +183,8 @@ html.locale-en .locale-font {
 
 .text-gradient-primary {
   background: linear-gradient(135deg, var(--primary), var(--blue-500));
-  -webkit-background-clip: text;
+  /* Removed dark mode media query to force light mode always */
   -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
   background-clip: text;
 }

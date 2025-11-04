@@ -1,27 +1,17 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui';
-import { useLocale } from '@/context/LocaleContext';
+import { Hero } from "@/components/screens/Landing/Hero";
+import { Newsletter } from "@/components/screens/Landing/Newsletter";
+import { ReformNews } from "@/components/screens/Landing/ReformNews";
+import { ReformUpdate } from "@/components/screens/Landing/ReformUpdate";
 
 export default function Home() {
-  const { getTranslation } = useLocale();
-  const pageText = getTranslation('homePage');
-
   return (
-    <div className='min-h-[90vh] w-full bg-background flex items-center justify-center'>
-      <div className='text-center space-y-8'>
-        <h1 className='text-6xl font-bold text-foreground'>
-          {pageText['title']}
-        </h1>
-
-        <p className='text-xl text-muted'>{pageText.subtitle}</p>
-
-        <div className='pt-4'>
-          <Button href='/demo' variant='primary' size='lg'>
-            {pageText.viewDemo} →
-          </Button>
-        </div>
-      </div>
+    <div className="min-h-[90vh] w-full bg-background flex flex-col items-center justify-center">
+      <Hero />
+      <ReformNews />
+      <ReformUpdate />
+      <Newsletter />
     </div>
   );
 }
