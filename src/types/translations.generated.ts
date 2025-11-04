@@ -1,6 +1,82 @@
 // AUTO-GENERATED - DO NOT EDIT
-// Generated: 2025-11-04T15:40:38.899Z
+// Generated: 2025-11-04T17:10:20.510Z
 // Run 'pnpm generate:types' to regenerate
+
+export type DemoTranslations = {
+  pageTitle: string;
+  pageSubtitle: string;
+  backToHome: string;
+  colorPalette: {
+    title: string;
+    subtitle: string;
+    colors: {
+      primary: string;
+      primary400: string;
+      primary200: string;
+      primary100: string;
+      primary50: string;
+      neutral900: string;
+      neutral800: string;
+      neutral700: string;
+      neutral600: string;
+      neutral500: string;
+      neutral400: string;
+      neutral300: string;
+      neutral200: string;
+      neutral100: string;
+      neutral0: string;
+      secondary: string;
+      secondary300: string;
+      secondary200: string;
+      secondary100: string;
+      success: string;
+      success80: string;
+      success50: string;
+      success10: string;
+      warning: string;
+      warning300: string;
+      warning50: string;
+      purple: string;
+      purple300: string;
+      purple100: string;
+      lime: string;
+      lime300: string;
+      lime100: string;
+    };
+  };
+  languageCard: {
+    title: string;
+    currentLanguage: string;
+    english: string;
+    bengali: string;
+  };
+  appState: {
+    title: string;
+    sidebar: string;
+    search: string;
+    open: string;
+    closed: string;
+    toggleSidebar: string;
+    toggleSearch: string;
+  };
+  examples: {
+    title: string;
+    buttons: {
+      title: string;
+      primary: string;
+      secondary: string;
+      success: string;
+    };
+    formatting: {
+      title: string;
+      date: string;
+      number: string;
+    };
+    translations: {
+      title: string;
+    };
+  };
+};
 
 export type RTLTranslations = {
   homePage: {
@@ -149,97 +225,21 @@ export type RTLTranslations = {
   };
 };
 
-export type DemoTranslations = {
-  pageTitle: string;
-  pageSubtitle: string;
-  backToHome: string;
-  colorPalette: {
-    title: string;
-    subtitle: string;
-    colors: {
-      primary: string;
-      primary400: string;
-      primary200: string;
-      primary100: string;
-      primary50: string;
-      neutral900: string;
-      neutral800: string;
-      neutral700: string;
-      neutral600: string;
-      neutral500: string;
-      neutral400: string;
-      neutral300: string;
-      neutral200: string;
-      neutral100: string;
-      neutral0: string;
-      secondary: string;
-      secondary300: string;
-      secondary200: string;
-      secondary100: string;
-      success: string;
-      success80: string;
-      success50: string;
-      success10: string;
-      warning: string;
-      warning300: string;
-      warning50: string;
-      purple: string;
-      purple300: string;
-      purple100: string;
-      lime: string;
-      lime300: string;
-      lime100: string;
-    };
-  };
-  languageCard: {
-    title: string;
-    currentLanguage: string;
-    english: string;
-    bengali: string;
-  };
-  appState: {
-    title: string;
-    sidebar: string;
-    search: string;
-    open: string;
-    closed: string;
-    toggleSidebar: string;
-    toggleSearch: string;
-  };
-  examples: {
-    title: string;
-    buttons: {
-      title: string;
-      primary: string;
-      secondary: string;
-      success: string;
-    };
-    formatting: {
-      title: string;
-      date: string;
-      number: string;
-    };
-    translations: {
-      title: string;
-    };
-  };
-};
-
 export interface TranslationPages {
-  homePage: RTLTranslations["homePage"];
-  aboutPage: RTLTranslations["aboutPage"];
-  navBar: RTLTranslations["navBar"];
-  heroSection: RTLTranslations["heroSection"];
-  heroSectionCards: RTLTranslations["heroSectionCards"];
-  reformNewsSection: RTLTranslations["reformNewsSection"];
-  reformUpdateSection: RTLTranslations["reformUpdateSection"];
-  newsletter: RTLTranslations["newsletter"];
-  footer: RTLTranslations["footer"];
-  resource: RTLTranslations["resource"];
-  reformNews: RTLTranslations["reformNews"];
-  parties: RTLTranslations["parties"];
-  dashboard: RTLTranslations["dashboard"];
   demo: DemoTranslations;
+  homePage: RTLTranslations['homePage'];
+  aboutPage: RTLTranslations['aboutPage'];
+  navBar: RTLTranslations['navBar'];
+  heroSection: RTLTranslations['heroSection'];
+  heroSectionCards: RTLTranslations['heroSectionCards'];
+  reformNewsSection: RTLTranslations['reformNewsSection'];
+  reformUpdateSection: RTLTranslations['reformUpdateSection'];
+  newsletter: RTLTranslations['newsletter'];
+  footer: RTLTranslations['footer'];
+  resource: RTLTranslations['resource'];
+  reformNews: RTLTranslations['reformNews'];
+  parties: RTLTranslations['parties'];
+  dashboard: RTLTranslations['dashboard'];
 }
 
 export type PageKey = keyof TranslationPages;
