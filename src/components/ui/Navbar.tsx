@@ -1,11 +1,13 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui";
+import { usePathname } from "next/navigation";
+import { Button, MobileNav } from "@/components/ui";
 import { useLocale } from "@/context/LocaleContext";
 import { mainLogoBn } from "@/assets";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const { getTranslation } = useLocale();
   const pageText = getTranslation("navBar");
 
@@ -37,26 +39,37 @@ export default function Navbar() {
 
           {/* Center: nav buttons */}
           <nav className="hidden md:flex justify-center space-x-3 items-center">
-            {navItems.map((item) => (
-              <Button
-                href={item.href}
-                key={item.href}
-                variant="navbar"
-                size="xm"
-                className="cursor-pointer"
-              >
-                {item.label}
-              </Button>
-            ))}
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Button
+                  href={item.href}
+                  key={item.href}
+                  variant="navbar"
+                  size="xm"
+                  className={`cursor-pointer ${
+                    isActive
+                      ? "bg-secondary text-secondary hover:bg-secondary hover:text-secondary"
+                      : ""
+                  }`}
+                >
+                  {item.label}
+                </Button>
+              );
+            })}
           </nav>
 
-          {/* Right: Subscribe */}
-          <div className="flex items-center">
-            <Link href="/subscribe">
-              <button className="bg-blue-600 text-white rounded-full px-7 py-2 cursor-pointer hover:scale-105 transition-transform duration-200">
+          {/* Right: Subscribe & Mobile Menu */}
+          <div className="flex items-center gap-4">
+            {/* Subscribe Button - Hidden on mobile */}
+            <Link href="/subscribe" className="hidden md:block">
+              <button className="bg-secondary text-white rounded-full px-7 py-2 cursor-pointer hover:scale-105 transition-transform duration-200">
                 {pageText.subscribe}
               </button>
             </Link>
+
+            {/* Mobile Navigation */}
+            <MobileNav />
           </div>
         </div>
       </div>

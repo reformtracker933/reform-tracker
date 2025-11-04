@@ -23,17 +23,17 @@ export function Button({
   type = "button",
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variantStyles = {
     primary:
-      "bg-primary text-white hover:bg-primary-400 focus:ring-primary shadow-lg hover:shadow-xl transform hover:-translate-y-0.5",
+      "bg-primary text-white hover:bg-primary-400 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5",
     secondary:
-      "bg-white text-foreground border border-neutral-200 hover:bg-neutral-100 focus:ring-neutral-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5",
+      "bg-white text-foreground border border-neutral-200 hover:bg-neutral-100 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5",
     outline:
-      "bg-transparent text-foreground border-2 border-primary hover:bg-primary hover:text-white focus:ring-primary",
+      "bg-transparent text-foreground border-2 border-primary hover:bg-primary hover:text-white",
     navbar:
-      "bg-transparent text-foreground hover:bg-blue-100 hover:text-blue-600 border-none rounded-full",
+      "bg-transparent text-foreground hover:bg-secondary-100 hover:text-secondary border-none rounded-full",
     rounded: "rounded-full",
   };
 
