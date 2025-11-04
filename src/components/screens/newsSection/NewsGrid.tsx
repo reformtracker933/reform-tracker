@@ -3,14 +3,13 @@
 import Image from "next/image";
 import React, { FC } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { NewsCard } from "@/data/sampleNewsData";
+import { NewsArticle } from "@/types/sanity";
 import { StaticImageData } from "next/image";
-
-type PageText = Record<string, unknown>;
+import { RTLTranslations } from "@/types/translations.generated";
 
 const NewsGrid: FC<{
-  pageText: PageText;
-  currentNewsItems: NewsCard[];
+  pageText: RTLTranslations["reformNews"];
+  currentNewsItems: NewsArticle[];
   totalNewsPages: number;
   currentNewsPage: number;
   setCurrentNewsPage: React.Dispatch<React.SetStateAction<number>>;
@@ -25,19 +24,19 @@ const NewsGrid: FC<{
 }) => {
   return (
     <section className="w-full py-6 md:py-8">
-      <div className="max-w-7xl bg-neutral-100 mx-auto px-4 py-4 md:px-6 md:py-6 lg:px-8 lg:py-9">
+      <div className="max-w-7xl bg-neutral-100 rounded-2xl md:rounded-3xl mx-auto px-4 py-6 md:px-6 md:py-8 lg:px-8 lg:py-10">
         <div className="text-neutral-600 font-semibold text-base md:text-lg lg:text-xl mb-4">
-          {String(pageText.seeRecentNews)}
+          {pageText.seeRecentNews}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
           {currentNewsItems.map((news) => (
             <div
-              key={news.id}
+              key={news._id}
               className="bg-white rounded-lg overflow-hidden shadow-lg hover:scale-102 hover:shadow-2xl transition duration-300"
             >
               <div className="relative h-[200px] md:h-[250px] lg:h-[300px]">
                 <Image
-                  src={news.image}
+                  src={news.featuredImage}
                   alt={news.title}
                   fill
                   className="object-cover"
@@ -48,7 +47,7 @@ const NewsGrid: FC<{
                   {news.title}
                 </h3>
                 <p className="text-sm md:text-base text-neutral-800 mb-4 line-clamp-3">
-                  {news.description}
+                  {news.excerpt}
                 </p>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs md:text-sm text-neutral-500">
                   <div className="flex items-center gap-2">
@@ -59,11 +58,15 @@ const NewsGrid: FC<{
                       height={20}
                       className="rounded-full"
                     />
-                    <span className="text-neutral-600">{news.writer}</span>
+                    <span className="text-neutral-600">
+                      {news.author?.name || pageText.unknown}
+                    </span>
                   </div>
                   <div className="flex items-center gap-1">
                     <span className="w-2 h-2 md:w-3 md:h-3 bg-neutral-600 rounded-full inline-block"></span>
-                    <span className="text-neutral-600">{news.date}</span>
+                    <span className="text-neutral-600">
+                      {new Date(news.publishedDate).toLocaleDateString("bn-BD")}
+                    </span>
                   </div>
                 </div>
               </div>

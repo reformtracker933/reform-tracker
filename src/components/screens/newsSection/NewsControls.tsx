@@ -2,11 +2,10 @@
 
 import React, { FC } from "react";
 import { Search, Clock } from "lucide-react";
-
-type PageText = Record<string, unknown>;
+import { RTLTranslations } from "@/types/translations.generated";
 
 const NewsControls: FC<{
-  pageText: PageText;
+  pageText: RTLTranslations["reformNews"];
   newsSearchTerm: string;
   setNewsSearchTerm: (v: string) => void;
   selectedNewsCategory: string;
@@ -31,13 +30,13 @@ const NewsControls: FC<{
   writers,
 }) => {
   return (
-    <section className="w-full py-6 md:py-8 bg-neutral-100">
+    <section className="w-full py-6 md:py-8 ">
       <div className="mx-auto max-w-4xl px-4">
         <div className="flex flex-col md:flex-row gap-3 md:gap-4">
           <div className="relative flex-1">
             <input
               type="text"
-              placeholder={String(pageText.searchBarPlaceHolder)}
+              placeholder={pageText.searchBarPlaceHolder}
               value={newsSearchTerm}
               onChange={(e) => setNewsSearchTerm(e.target.value)}
               className="h-12 md:h-14 w-full pl-10 md:pl-12 pr-4 rounded-full border border-neutral-400 bg-white text-neutral-900 text-sm md:text-base"
@@ -61,7 +60,7 @@ const NewsControls: FC<{
                         : category.toLowerCase()
                     }
                   >
-                    {String(pageText.sector)}
+                    {pageText.sector}
                   </option>
                 ))}
               </select>
@@ -93,7 +92,7 @@ const NewsControls: FC<{
                       writer === "All Writers" ? "all" : writer.toLowerCase()
                     }
                   >
-                    {String(pageText.writer)}
+                    {pageText.writer}
                   </option>
                 ))}
               </select>
@@ -116,7 +115,7 @@ const NewsControls: FC<{
           <div className="relative w-full md:w-34">
             <input
               type="date"
-              placeholder={String(pageText.date)}
+              placeholder={pageText.time}
               value={selectedTime}
               onChange={(e) => setSelectedTime(e.target.value)}
               className="h-12 md:h-14 w-full px-4 pr-10 rounded-full border border-neutral-400 bg-white text-neutral-600 text-center text-sm md:text-base"
@@ -125,7 +124,7 @@ const NewsControls: FC<{
           </div>
 
           <button className="h-12 md:h-14 px-6 md:px-8 rounded-full bg-secondary text-white font-semibold text-sm md:text-base hover:bg-secondary/90 transition-colors">
-            {String(pageText.searchBarPlaceHolder)}
+            {pageText.searchBarPlaceHolder}
           </button>
         </div>
       </div>

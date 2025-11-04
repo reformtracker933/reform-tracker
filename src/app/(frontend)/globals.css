@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @media (prefers-color-scheme: dark) {
   * {
@@ -8,7 +8,7 @@
 
 html,
 html.dark,
-html[data-theme="dark"] {
+html[data-theme='dark'] {
   color-scheme: light !important;
 }
 
@@ -35,7 +35,7 @@ html[data-theme="dark"] {
   --color-neutral-400: #b1b2b2;
   --color-neutral-300: #d2d3d3;
   --color-neutral-200: #eaeaea;
-  --color-neutral-100: #fcfcfc;
+  --color-neutral-100: #faf9f9;
   --color-neutral-0: #ffffff;
 
   --color-secondary: #4a7ec9;

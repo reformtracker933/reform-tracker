@@ -102,7 +102,8 @@
     "reformUpdateDescription": "Browse updates on reforms, policies, and governance",
     "seeRecentUpdate": "See Recent Updates",
     "corruptionAgainst": "Anti-Corruption",
-    "navigationDescription": "New Education System Launched."
+    "navigationDescription": "New Education System Launched.",
+    "unknown": "Unknown"
   },
   "parties": {
     "title": "Political Statements",
@@ -129,6 +130,8 @@
     "graphTitle": "Acceptance and Rejection Rate",
     "acceptance": "Acceptance",
     "rejectance": "Rejection",
+    "acceptable": "Acceptable",
+    "unacceptable": "Unacceptable",
     "date": "Date"
   },
   "dashboard": {

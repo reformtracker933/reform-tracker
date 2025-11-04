@@ -4,11 +4,10 @@ import React, { FC } from "react";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/ReformUpdateButton";
 import { UpdateCard } from "@/data/sampleNewsData";
-
-type PageText = Record<string, unknown>;
+import { RTLTranslations } from "@/types/translations.generated";
 
 const UpdatesSection: FC<{
-  pageText: PageText;
+  pageText: RTLTranslations["reformNews"];
   updateSearchTerm: string;
   setUpdateSearchTerm: (v: string) => void;
   selectedUpdateCategory: string;
@@ -44,13 +43,13 @@ const UpdatesSection: FC<{
 }) => {
   return (
     <section className="w-full py-8 md:py-12">
-      <div className="max-w-7xl mx-auto bg-neutral-100 px-4 py-6 md:px-6 md:py-8 lg:px-8">
+      <div className="max-w-7xl mx-auto bg-neutral-100 rounded-2xl md:rounded-3xl px-4 py-6 md:px-6 md:py-8 lg:px-8 lg:py-10">
         <div className="text-center">
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary/900 mb-3 md:mb-4">
-            {String(pageText.reformUpdateTitle)}
+            {pageText.reformUpdateTitle}
           </h2>
           <p className="text-base md:text-xl lg:text-2xl font-semibold text-primary/800 max-w-md mx-auto mb-6 md:mb-8">
-            {String(pageText.reformUpdateDescription)}
+            {pageText.reformUpdateDescription}
           </p>
         </div>
 
@@ -58,7 +57,7 @@ const UpdatesSection: FC<{
           <div className="relative flex-1">
             <input
               type="text"
-              placeholder={String(pageText.searchBarPlaceHolder)}
+              placeholder={pageText.searchBarPlaceHolder}
               value={updateSearchTerm}
               onChange={(e) => setUpdateSearchTerm(e.target.value)}
               className="h-12 md:h-14 w-full pl-10 md:pl-12 pr-4 rounded-full border border-neutral-400 bg-white text-neutral-900 text-sm md:text-base"
@@ -82,7 +81,7 @@ const UpdatesSection: FC<{
                         : category.toLowerCase()
                     }
                   >
-                    {String(pageText.sector)}
+                    {pageText.sector}
                   </option>
                 ))}
               </select>
@@ -114,7 +113,7 @@ const UpdatesSection: FC<{
                       writer === "All Writers" ? "all" : writer.toLowerCase()
                     }
                   >
-                    {String(pageText.writer)}
+                    {pageText.writer}
                   </option>
                 ))}
               </select>
@@ -135,12 +134,12 @@ const UpdatesSection: FC<{
           </div>
 
           <button className="h-12 md:h-14 px-6 md:px-8 rounded-full bg-secondary text-white font-semibold text-sm md:text-base hover:bg-secondary/90 transition-colors">
-            {String(pageText.searchBarPlaceHolder)}
+            {pageText.searchBarPlaceHolder}
           </button>
         </div>
 
         <div className="text-neutral-600 font-semibold text-base md:text-lg lg:text-xl mb-4">
-          {String(pageText.seeRecentNews)}
+          {pageText.seeRecentUpdate}
         </div>
 
         <div className="space-y-3 md:space-y-4">
