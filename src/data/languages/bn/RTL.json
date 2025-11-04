@@ -130,5 +130,17 @@
     "acceptance": "গ্রহণযোগ্যতা",
     "rejectance": "প্রত্যাখ্যান",
     "date": "তারিখ"
+  },
+  "dashboard": {
+    "title": "ড্যাশবোর্ড",
+    "totalProposal": "মোট প্রস্তাব",
+    "totalCommission": "মোট কমিশন",
+    "reformUsingSector": "সেক্টর দ্বারা সংস্কার",
+    "antiCorruption": "দুর্নীতিবিরোধী",
+    "graphTitle": "অবস্থা দ্বারা সংস্কার",
+    "running": "চলমান",
+    "completed": "সম্পন্ন",
+    "preplanned": "পরিকল্পিত",
+    "expelled": "বাতিল"
   }
 }
