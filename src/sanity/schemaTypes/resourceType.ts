@@ -48,16 +48,24 @@ export const resourceType = defineType({
       title: "বিভাগ / Category",
       type: "reference",
       to: [{ type: "category" }],
+      description: "ক্লিক করে বিভাগ নির্বাচন করুন / Click to select category",
       validation: (Rule) => Rule.required(),
+      options: {
+        disableNew: true,
+        filter: "_type == 'category'",
+      },
     }),
     defineField({
       name: "commission",
       title: "কমিশন / Commission",
       type: "reference",
       to: [{ type: "commission" }],
-      description:
-        "কোন কমিশন এই রিসোর্স প্রকাশ করেছে / Which commission published this resource",
+      description: "ক্লিক করে কমিশন নির্বাচন করুন / Click to select commission",
       validation: (Rule) => Rule.required(),
+      options: {
+        disableNew: true,
+        filter: "_type == 'commission'",
+      },
     }),
     defineField({
       name: "publishedDate",

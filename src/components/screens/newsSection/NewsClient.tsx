@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import HeroSection from "./HeroSection";
 import NewsControls from "./NewsControls";
 import NewsGrid from "./NewsGrid";
@@ -9,163 +9,176 @@ import { NewsArticle, ReformUpdate } from "@/types/sanity";
 import { newsSectionBackgroundImage, rightSideCardPerson } from "@/assets";
 import { useLocale } from "@/context/LocaleContext";
 import { getColorWithFallback } from "@/lib/utils/colorMapper";
+import { useDebounce } from "@/hooks/useDebounce";
 
-interface NewsClientProps {
-  allNews: NewsArticle[];
-  recentUpdates: ReformUpdate[];
-}
-
-export default function NewsClient({
-  allNews,
-  recentUpdates,
-}: NewsClientProps) {
-  const { getTranslation } = useLocale();
+export default function NewsClient() {
+  const { getTranslation, locale } = useLocale();
   const pageText = getTranslation("reformNews");
 
+  // News state
   const [newsSearchTerm, setNewsSearchTerm] = useState("");
   const [selectedNewsCategory, setSelectedNewsCategory] = useState("all");
   const [selectedWriter, setSelectedWriter] = useState("all");
   const [selectedTime, setSelectedTime] = useState("");
   const [currentNewsPage, setCurrentNewsPage] = useState(1);
+  const [newsData, setNewsData] = useState<NewsArticle[]>([]);
+  const [totalNewsPages, setTotalNewsPages] = useState(1);
+  const [isLoadingNews, setIsLoadingNews] = useState(false);
+  const [categories, setCategories] = useState<{ id: string; name: string }[]>(
+    [],
+  );
+  const [writers, setWriters] = useState<{ id: string; name: string }[]>([]);
 
+  // Updates state
   const [updateSearchTerm, setUpdateSearchTerm] = useState("");
   const [selectedUpdateCategory, setSelectedUpdateCategory] = useState("all");
-  const [selectedUpdateWriter, setSelectedUpdateWriter] = useState("all");
+  const [selectedUpdateDate, setSelectedUpdateDate] = useState("");
   const [currentUpdatePage, setCurrentUpdatePage] = useState(1);
+  const [updatesData, setUpdatesData] = useState<ReformUpdate[]>([]);
+  const [totalUpdatesPages, setTotalUpdatesPages] = useState(1);
+  const [isLoadingUpdates, setIsLoadingUpdates] = useState(false);
 
-  const categories = useMemo(() => {
-    const uniqueCategories = new Set(
-      allNews.map((news) => news.category?.title).filter(Boolean),
-    );
-    return [pageText.sector, ...Array.from(uniqueCategories)];
-  }, [allNews, pageText.sector]);
+  // Debounce search terms
+  const debouncedNewsSearch = useDebounce(newsSearchTerm, 500);
+  const debouncedUpdateSearch = useDebounce(updateSearchTerm, 500);
 
-  const writers = useMemo(() => {
-    const uniqueWriters = new Set(
-      allNews.map((news) => news.author?.name).filter(Boolean),
-    );
-    return [pageText.writer, ...Array.from(uniqueWriters)];
-  }, [allNews, pageText.writer]);
+  // Fetch all categories and authors from Sanity
+  useEffect(() => {
+    const fetchTaxonomies = async () => {
+      try {
+        const [categoriesRes, authorsRes] = await Promise.all([
+          fetch("/api/taxonomies?type=categories"),
+          fetch("/api/taxonomies?type=authors"),
+        ]);
 
-  const newsPerPage = 6;
-  const filteredNewsItems = useMemo(() => {
-    let results = [...allNews];
+        if (categoriesRes.ok) {
+          const categoriesData = await categoriesRes.json();
+          setCategories(categoriesData.items || []);
+        }
 
-    if (newsSearchTerm) {
-      results = results.filter(
-        (news) =>
-          news.title.toLowerCase().includes(newsSearchTerm.toLowerCase()) ||
-          news.excerpt.toLowerCase().includes(newsSearchTerm.toLowerCase()),
-      );
-    }
+        if (authorsRes.ok) {
+          const authorsData = await authorsRes.json();
+          setWriters(authorsData.items || []);
+        }
+      } catch (error) {
+        console.error("Error fetching taxonomies:", error);
+      }
+    };
 
-    if (
-      selectedNewsCategory !== "all" &&
-      selectedNewsCategory !== pageText.sector
-    ) {
-      results = results.filter(
-        (news) =>
-          news.category?.title.toLowerCase() ===
-          selectedNewsCategory.toLowerCase(),
-      );
-    }
+    fetchTaxonomies();
+  }, []);
 
-    if (selectedWriter !== "all" && selectedWriter !== pageText.writer) {
-      results = results.filter(
-        (news) =>
-          news.author?.name.toLowerCase() === selectedWriter.toLowerCase(),
-      );
-    }
+  // Fetch news from API
+  useEffect(() => {
+    const fetchNews = async () => {
+      setIsLoadingNews(true);
+      try {
+        const params = new URLSearchParams({
+          page: currentNewsPage.toString(),
+          limit: "6",
+          language: locale,
+        });
 
-    if (selectedTime) {
-      results = results.filter(
-        (news) =>
-          new Date(news.publishedDate).toISOString().split("T")[0] ===
-          selectedTime,
-      );
-    }
+        if (debouncedNewsSearch) {
+          params.append("search", debouncedNewsSearch);
+        }
+        if (
+          selectedNewsCategory !== "all" &&
+          selectedNewsCategory !== pageText.sector
+        ) {
+          params.append("category", selectedNewsCategory);
+        }
+        if (selectedWriter !== "all" && selectedWriter !== pageText.writer) {
+          params.append("author", selectedWriter);
+        }
+        if (selectedTime) {
+          params.append("date", selectedTime);
+        }
 
-    return results;
+        const response = await fetch(`/api/news?${params.toString()}`);
+        if (!response.ok) throw new Error("Failed to fetch news");
+
+        const data = await response.json();
+        setNewsData(data.items);
+        setTotalNewsPages(data.totalPages);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      } finally {
+        setIsLoadingNews(false);
+      }
+    };
+
+    fetchNews();
   }, [
-    allNews,
-    newsSearchTerm,
+    currentNewsPage,
+    debouncedNewsSearch,
     selectedNewsCategory,
     selectedWriter,
     selectedTime,
+    locale,
     pageText.sector,
     pageText.writer,
   ]);
 
-  const totalNewsPages = Math.ceil(filteredNewsItems.length / newsPerPage);
-  const safeCurrentNewsPage = Math.min(
-    currentNewsPage,
-    Math.max(1, totalNewsPages),
-  );
+  // Fetch reform updates from API
+  useEffect(() => {
+    const fetchUpdates = async () => {
+      setIsLoadingUpdates(true);
+      try {
+        const params = new URLSearchParams({
+          page: currentUpdatePage.toString(),
+          limit: "5",
+          language: locale,
+        });
 
-  if (safeCurrentNewsPage !== currentNewsPage) {
-    setCurrentNewsPage(safeCurrentNewsPage);
-  }
+        if (debouncedUpdateSearch) {
+          params.append("search", debouncedUpdateSearch);
+        }
+        if (
+          selectedUpdateCategory !== "all" &&
+          selectedUpdateCategory !== pageText.sector
+        ) {
+          params.append("category", selectedUpdateCategory);
+        }
+        if (selectedUpdateDate) {
+          params.append("date", selectedUpdateDate);
+        }
 
-  const currentNewsItems = useMemo(
-    () =>
-      filteredNewsItems.slice(
-        (safeCurrentNewsPage - 1) * newsPerPage,
-        safeCurrentNewsPage * newsPerPage,
-      ),
-    [filteredNewsItems, safeCurrentNewsPage],
-  );
+        const response = await fetch(
+          `/api/reform-updates?${params.toString()}`,
+        );
+        if (!response.ok) throw new Error("Failed to fetch updates");
 
-  const updatesPerPage = 5;
-  const filteredUpdateItems = useMemo(() => {
-    let results = [...recentUpdates];
+        const data = await response.json();
+        setUpdatesData(data.items);
+        setTotalUpdatesPages(data.totalPages);
+      } catch (error) {
+        console.error("Error fetching updates:", error);
+      } finally {
+        setIsLoadingUpdates(false);
+      }
+    };
 
-    if (updateSearchTerm) {
-      results = results.filter((update) =>
-        update.title.toLowerCase().includes(updateSearchTerm.toLowerCase()),
-      );
-    }
-
-    if (
-      selectedUpdateCategory !== "all" &&
-      selectedUpdateCategory !== pageText.sector
-    ) {
-      results = results.filter(
-        (update) =>
-          update.category?.title.toLowerCase() ===
-          selectedUpdateCategory.toLowerCase(),
-      );
-    }
-
-    return results;
+    fetchUpdates();
   }, [
-    recentUpdates,
-    updateSearchTerm,
+    currentUpdatePage,
+    debouncedUpdateSearch,
     selectedUpdateCategory,
+    selectedUpdateDate,
+    locale,
     pageText.sector,
   ]);
 
-  const totalUpdatePages = Math.ceil(
-    filteredUpdateItems.length / updatesPerPage,
-  );
-  const safeCurrentUpdatePage = Math.min(
-    currentUpdatePage,
-    Math.max(1, totalUpdatePages),
-  );
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentNewsPage(1);
+  }, [debouncedNewsSearch, selectedNewsCategory, selectedWriter, selectedTime]);
 
-  if (safeCurrentUpdatePage !== currentUpdatePage) {
-    setCurrentUpdatePage(safeCurrentUpdatePage);
-  }
+  useEffect(() => {
+    setCurrentUpdatePage(1);
+  }, [debouncedUpdateSearch, selectedUpdateCategory, selectedUpdateDate]);
 
-  const currentUpdateItems = useMemo(
-    () =>
-      filteredUpdateItems.slice(
-        (safeCurrentUpdatePage - 1) * updatesPerPage,
-        safeCurrentUpdatePage * updatesPerPage,
-      ),
-    [filteredUpdateItems, safeCurrentUpdatePage],
-  );
-
-  const updates = currentUpdateItems.map((update, index) => ({
+  const updates = updatesData.map((update, index) => ({
     category: update.category?.title || pageText.corruptionAgainst,
     title: update.title,
     color: getColorWithFallback(update.color, update.category?.color, index),
@@ -195,11 +208,12 @@ export default function NewsClient({
 
       <NewsGrid
         pageText={pageText}
-        currentNewsItems={currentNewsItems}
+        currentNewsItems={newsData}
         totalNewsPages={totalNewsPages}
         currentNewsPage={currentNewsPage}
         setCurrentNewsPage={setCurrentNewsPage}
         rightSideCardPerson={rightSideCardPerson}
+        isLoading={isLoadingNews}
       />
 
       <UpdatesSection
@@ -208,15 +222,15 @@ export default function NewsClient({
         setUpdateSearchTerm={setUpdateSearchTerm}
         selectedUpdateCategory={selectedUpdateCategory}
         setSelectedUpdateCategory={setSelectedUpdateCategory}
-        selectedUpdateWriter={selectedUpdateWriter}
-        setSelectedUpdateWriter={setSelectedUpdateWriter}
+        selectedUpdateDate={selectedUpdateDate}
+        setSelectedUpdateDate={setSelectedUpdateDate}
         categories={categories}
-        writers={writers}
         updates={updates}
         currentUpdateItems={[]}
-        totalUpdatePages={totalUpdatePages}
+        totalUpdatePages={totalUpdatesPages}
         currentUpdatePage={currentUpdatePage}
         setCurrentUpdatePage={setCurrentUpdatePage}
+        isLoading={isLoadingUpdates}
       />
     </>
   );

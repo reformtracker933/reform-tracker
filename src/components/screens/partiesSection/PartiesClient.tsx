@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale } from "@/context/LocaleContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   ArcElement,
@@ -20,6 +20,7 @@ import TableSection, {
 import BarChartSection from "@/components/screens/partiesSection/BarChartSection";
 import { PoliticalParty, Proposal } from "@/types/sanity";
 import { getColorWithFallback } from "@/lib/utils/colorMapper";
+import { useDebounce } from "@/hooks/useDebounce";
 
 ChartJS.register(
   ArcElement,
@@ -33,21 +34,115 @@ ChartJS.register(
 
 interface PartiesClientProps {
   parties: PoliticalParty[];
-  proposals: Proposal[];
 }
 
-export default function PartiesClient({
-  parties,
-  proposals,
-}: PartiesClientProps) {
-  const { getTranslation } = useLocale();
+export default function PartiesClient({ parties }: PartiesClientProps) {
+  const { getTranslation, locale } = useLocale();
   const pageText = getTranslation("parties");
 
   const [currentDoughnutPage, setCurrentDoughnutPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [selectedWriter, setSelectedWriter] = useState("all");
+  const [selectedCommission, setSelectedCommission] = useState("all");
   const [selectedDate, setSelectedDate] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [proposalsData, setProposalsData] = useState<Proposal[]>([]);
+  const [totalProposalPages, setTotalProposalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [categories, setCategories] = useState<{ id: string; name: string }[]>(
+    [],
+  );
+  const [commissions, setCommissions] = useState<
+    { id: string; name: string }[]
+  >([]);
+
+  const debouncedSearch = useDebounce(searchTerm, 500);
+
+  // Fetch taxonomies on mount
+  useEffect(() => {
+    const fetchTaxonomies = async () => {
+      try {
+        const [categoriesRes, commissionsRes] = await Promise.all([
+          fetch("/api/taxonomies?type=categories"),
+          fetch("/api/taxonomies?type=commissions"),
+        ]);
+
+        if (categoriesRes.ok) {
+          const categoriesData = await categoriesRes.json();
+          setCategories(categoriesData.items || []);
+        }
+
+        if (commissionsRes.ok) {
+          const commissionsData = await commissionsRes.json();
+          setCommissions(commissionsData.items || []);
+        }
+      } catch (error) {
+        console.error("Error fetching taxonomies:", error);
+      }
+    };
+
+    fetchTaxonomies();
+  }, []);
+
+  // Fetch proposals from API
+  useEffect(() => {
+    const fetchProposals = async () => {
+      setIsLoading(true);
+      try {
+        const params = new URLSearchParams({
+          page: currentPage.toString(),
+          limit: "10",
+          language: locale,
+        });
+
+        if (debouncedSearch) {
+          params.append("search", debouncedSearch);
+        }
+        if (
+          selectedCategory !== "all" &&
+          selectedCategory !== pageText.category
+        ) {
+          params.append("category", selectedCategory);
+        }
+        if (
+          selectedCommission !== "all" &&
+          selectedCommission !== pageText.commission
+        ) {
+          params.append("commission", selectedCommission);
+        }
+        if (selectedDate) {
+          params.append("date", selectedDate);
+        }
+
+        const response = await fetch(`/api/proposals?${params.toString()}`);
+        if (!response.ok) throw new Error("Failed to fetch proposals");
+
+        const data = await response.json();
+        setProposalsData(data.items);
+        setTotalProposalPages(data.totalPages);
+      } catch (error) {
+        console.error("Error fetching proposals:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProposals();
+  }, [
+    currentPage,
+    debouncedSearch,
+    selectedCategory,
+    selectedCommission,
+    selectedDate,
+    locale,
+    pageText.category,
+    pageText.commission,
+  ]);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearch, selectedCategory, selectedCommission, selectedDate]);
 
   const defaultDoughnutData = [
     {
@@ -195,91 +290,41 @@ export default function PartiesClient({
           { key: "jamat", name: pageText.Jamat },
         ];
 
-  const defaultTableData: TableDataRow[] = Array(6)
-    .fill(null)
-    .map((_, i) => {
-      const row: TableDataRow = {
-        proposalName: pageText.educationReformLaw,
-        commission: pageText.commissionEx,
-        category: pageText.logisession,
-        color:
-          i % 3 === 0
-            ? "var(--color-success)"
-            : i % 3 === 1
-              ? "var(--color-purple)"
-              : "var(--color-primary-400)",
-      };
+  const tableData: TableDataRow[] = proposalsData.map((proposal, index) => {
+    const partyPositions: Record<string, string> = {};
 
-      // Add default party stances
-      partyColumns.forEach(({ key }) => {
-        row[key] = getStanceStyle("-");
-      });
+    proposal.partyPositions?.forEach((position) => {
+      const partyKey =
+        position.party.slug?.current ||
+        position.party.name.toLowerCase().replace(/\s+/g, "-");
+      const stance = position.stance.toLowerCase();
 
-      return row;
+      let displayValue = "-";
+      if (stance === "support") {
+        displayValue = pageText.support;
+      } else if (stance === "against") {
+        displayValue = pageText.against;
+      } else if (stance === "neutral") {
+        displayValue = pageText.neutral;
+      }
+
+      partyPositions[partyKey] = displayValue;
     });
 
-  const filteredProposals = proposals.filter((proposal) => {
-    const matchesSearch = searchTerm
-      ? proposal.title.toLowerCase().includes(searchTerm.toLowerCase())
-      : true;
-    const matchesCategory =
-      selectedCategory !== "all"
-        ? proposal.category?._id === selectedCategory
-        : true;
-    const matchesWriter =
-      selectedWriter !== "all"
-        ? proposal.commission?._id === selectedWriter
-        : true;
-    const matchesDate = selectedDate
-      ? new Date(proposal.publishedDate).toISOString().split("T")[0] ===
-        selectedDate
-      : true;
+    const rowData: TableDataRow = {
+      proposalName: proposal.title,
+      commission: proposal.commission?.name || "-",
+      category: proposal.category?.title || "-",
+      color: getColorWithFallback(proposal.category?.color, undefined, index),
+    };
 
-    return matchesSearch && matchesCategory && matchesWriter && matchesDate;
+    // Dynamically add party columns
+    partyColumns.forEach(({ key }) => {
+      rowData[key] = getStanceStyle(partyPositions[key] || "-");
+    });
+
+    return rowData;
   });
-
-  const tableData: TableDataRow[] =
-    proposals.length > 0
-      ? filteredProposals.map((proposal, index) => {
-          const partyPositions: Record<string, string> = {};
-
-          proposal.partyPositions?.forEach((position) => {
-            const partyKey =
-              position.party.slug?.current ||
-              position.party.name.toLowerCase().replace(/\s+/g, "-");
-            const stance = position.stance.toLowerCase();
-
-            let displayValue = "-";
-            if (stance === "support") {
-              displayValue = pageText.support;
-            } else if (stance === "against") {
-              displayValue = pageText.against;
-            } else if (stance === "neutral") {
-              displayValue = pageText.neutral;
-            }
-
-            partyPositions[partyKey] = displayValue;
-          });
-
-          const rowData: TableDataRow = {
-            proposalName: proposal.title,
-            commission: proposal.commission?.name || "-",
-            category: proposal.category?.title || "-",
-            color: getColorWithFallback(
-              proposal.category?.color,
-              undefined,
-              index,
-            ),
-          };
-
-          // Dynamically add party columns
-          partyColumns.forEach(({ key }) => {
-            rowData[key] = getStanceStyle(partyPositions[key] || "-");
-          });
-
-          return rowData;
-        })
-      : defaultTableData;
 
   const defaultBarChartLabels = [
     pageText.BNP,
@@ -357,10 +402,16 @@ export default function PartiesClient({
         setSearchTerm={setSearchTerm}
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
-        selectedWriter={selectedWriter}
-        setSelectedWriter={setSelectedWriter}
+        selectedCommission={selectedCommission}
+        setSelectedCommission={setSelectedCommission}
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
+        categories={categories}
+        commissions={commissions}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPages={totalProposalPages}
+        isLoading={isLoading}
       />
 
       <BarChartSection barChartData={barChartData} pageText={pageText} />

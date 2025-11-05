@@ -71,21 +71,22 @@
     "contactUsAndFindLatestNews": "যোগাযোগ করুন এবং সর্বশেষ খবর খুঁজুন"
   },
   "resource": {
-    "title": "রিসোর্স",
-    "description": "মূল সংস্কারপত্র, নীতিমালা খসড়া ও আইনগত নথিতে প্রবেশ করুন",
-    "searchBarPlaceHolder": "অনুসন্ধান করুন",
+    "title": "সম্পদ",
+    "description": "সংস্কার সংক্রান্ত মূল নথি, নীতি খসড়া এবং আইনগত লেখাপত্র অ্যাক্সেস করুন",
+    "searchBarPlaceHolder": "সন্ধান করুন",
     "sector": "সেক্টর",
     "date": "তারিখ",
     "file": "ফাইল",
-    "category": "ক্যাটাগরি",
-    "publishedDate": "প্রকাশের তারিখ",
+    "category": "বিভাগ",
+    "publishedDate": "প্রকাশনার তারিখ",
     "commission": "কমিশন",
-    "size": "আকার",
-    "fileName": "নির্বাচনী সংস্কার আইন 2024",
-    "categoryName": "লজিসেশন",
-    "dummyDate": "27 অক্টোবর, 2024",
+    "size": "মাপ",
+    "fileName": "নির্বাচনী সংস্কার আইন ২০২৪",
+    "categoryName": "আইন প্রণয়ন",
+    "dummyDate": "অক্টোবর ২৭, ২০২৪",
     "commissionEx": "কমিশন এক্স",
-    "sizeOfFile": "25MB"
+    "sizeOfFile": "২৫এমবি",
+    "noResourcesFound": "কোন সম্পদ পাওয়া যায়নি"
   },
   "reformNews": {
     "title": "সংস্কার সংবাদ",
@@ -100,11 +101,13 @@
     "publishedDate": "ফেব্রুয়ারী 27,2025",
     "seeRecentNews": "সাম্প্রতিক খবর দেখুন",
     "reformUpdateTitle": "সংস্কার আপডেট",
-    "reformUpdateDescription": "সংস্কার, নীতি, এবং শাসন সম্পর্কিত আপডেট ব্রাউজ করুন",
+    "reformUpdateDescription": "সংস্কার, নীতি ও প্রশাসনের আপডেট ব্রাউজ করুন",
     "seeRecentUpdate": "সাম্প্রতিক আপডেট দেখুন",
     "corruptionAgainst": "দুর্নীতিবিরোধী",
-    "navigationDescription": "নতুন শিক্ষা ব্যবস্থা চালু হয়েছে.",
-    "unknown": "অজানা"
+    "navigationDescription": "নতুন শিক্ষা ব্যবস্থা চালু হয়েছে।",
+    "unknown": "অজানা",
+    "noNewsFound": "কোন সংবাদ নিবন্ধ পাওয়া যায়নি",
+    "noUpdatesFound": "কোন আপডেট পাওয়া যায়নি"
   },
   "parties": {
     "title": "রাজনৈতিক বিবৃতি",
@@ -134,7 +137,8 @@
     "rejectance": "প্রত্যাখ্যান",
     "acceptable": "গ্রহণযোগ্য",
     "unacceptable": "অগ্রহণযোগ্য",
-    "date": "তারিখ"
+    "date": "তারিখ",
+    "noProposalsFound": "কোন প্রস্তাব পাওয়া যায়নি"
   },
   "dashboard": {
     "title": "ড্যাশবোর্ড",

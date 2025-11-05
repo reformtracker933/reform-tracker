@@ -1,85 +1,114 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import { Search, Calendar, ChevronDown, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Search, ChevronDown, Loader2 } from "lucide-react";
 import { useLocale } from "@/context/LocaleContext";
 import Image from "next/image";
 import { downloadFileIcon, fileDownloadLinkIcon } from "@/assets";
 import { Resource } from "@/types/sanity";
+import { getColorWithFallback } from "@/lib/utils/colorMapper";
+import { useDebounce } from "@/hooks/useDebounce";
+import { formatDate } from "@/lib/utils/dateFormatter";
 
 interface AssetClientProps {
-  resources: Resource[];
+  resources?: Resource[];
 }
 
-export default function AssetClient({ resources }: AssetClientProps) {
-  const { getTranslation } = useLocale();
+export default function AssetClient({
+  resources: initialResources,
+}: AssetClientProps) {
+  const { getTranslation, locale } = useLocale();
   const pageText = getTranslation("resource");
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCommission, setSelectedCommission] = useState("all");
   const [selectedDate, setSelectedDate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [resources, setResources] = useState<Resource[]>(
+    initialResources || [],
+  );
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [categories, setCategories] = useState<{ id: string; name: string }[]>(
+    [],
+  );
+  const [commissions, setCommissions] = useState<
+    { id: string; name: string }[]
+  >([]);
 
-  const categories = useMemo(() => {
-    const uniqueCategories = new Set(
-      resources.map((r) => r.category?.title).filter(Boolean),
-    );
-    return [pageText.sector, ...Array.from(uniqueCategories)];
-  }, [resources, pageText.sector]);
+  const debouncedSearch = useDebounce(searchTerm, 500);
 
-  const filteredFiles = useMemo(() => {
-    const sorted = [...resources].sort(
-      (a, b) =>
-        new Date(b.publishedDate).getTime() -
-        new Date(a.publishedDate).getTime(),
-    );
-    let results = sorted;
+  // Fetch all categories and commissions from Sanity
+  useEffect(() => {
+    const fetchTaxonomies = async () => {
+      try {
+        const [categoriesRes, commissionsRes] = await Promise.all([
+          fetch("/api/taxonomies?type=categories"),
+          fetch("/api/taxonomies?type=commissions"),
+        ]);
 
-    if (searchTerm) {
-      const q = searchTerm.toLowerCase();
-      results = results.filter(
-        (f) =>
-          f.title.toLowerCase().includes(q) ||
-          f.category?.title.toLowerCase().includes(q),
-      );
-    }
+        if (categoriesRes.ok) {
+          const categoriesData = await categoriesRes.json();
+          setCategories(categoriesData.items || []);
+        }
 
-    if (
-      selectedCategory &&
-      selectedCategory !== "all" &&
-      selectedCategory !== pageText.sector
-    ) {
-      results = results.filter(
-        (f) =>
-          f.category?.title.toLowerCase() === selectedCategory.toLowerCase(),
-      );
-    }
+        if (commissionsRes.ok) {
+          const commissionsData = await commissionsRes.json();
+          setCommissions(commissionsData.items || []);
+        }
+      } catch (error) {
+        console.error("Error fetching taxonomies:", error);
+      }
+    };
 
-    if (selectedDate) {
-      results = results.filter(
-        (f) =>
-          new Date(f.publishedDate).toISOString().split("T")[0] ===
-          selectedDate,
-      );
-    }
-
-    return results;
-  }, [resources, searchTerm, selectedCategory, selectedDate, pageText.sector]);
-
-  const handleSearch = () => {
-    setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 300);
-  };
+    fetchTaxonomies();
+  }, []);
 
   useEffect(() => {
-    const timeoutId = window.setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
+    const fetchResources = async () => {
+      setIsLoading(true);
+      try {
+        const params = new URLSearchParams({
+          page: currentPage.toString(),
+          limit: "10",
+          language: locale,
+        });
 
-    return () => {
-      window.clearTimeout(timeoutId);
+        if (debouncedSearch) {
+          params.append("search", debouncedSearch);
+        }
+        if (selectedCategory !== "all") {
+          params.append("category", selectedCategory);
+        }
+        if (selectedCommission !== "all") {
+          params.append("commission", selectedCommission);
+        }
+        if (selectedDate) {
+          params.append("date", selectedDate);
+        }
+
+        const response = await fetch(`/api/resources?${params.toString()}`);
+        const data = await response.json();
+
+        setResources(data.items);
+        setTotalPages(data.totalPages);
+      } catch (error) {
+        console.error("Error fetching resources:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
-  }, [searchTerm, selectedCategory, selectedDate]);
+
+    fetchResources();
+  }, [
+    currentPage,
+    debouncedSearch,
+    selectedCategory,
+    selectedCommission,
+    selectedDate,
+    locale,
+  ]);
 
   const formatFileSize = (bytes: number): string => {
     if (!bytes) return "N/A";
@@ -117,46 +146,57 @@ export default function AssetClient({ resources }: AssetClientProps) {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 md:h-5 md:w-5 text-neutral-400" />
             </div>
 
-            <div className="flex gap-3 md:gap-4">
-              <div className="relative flex-1 md:w-34">
+            <div className="flex gap-3 md:gap-4 flex-wrap md:flex-nowrap">
+              <div className="relative flex-1 md:w-40">
                 <select
                   value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  onChange={(e) => {
+                    setSelectedCategory(e.target.value);
+                    setCurrentPage(1);
+                  }}
                   className="appearance-none text-center h-12 md:h-14 rounded-full border border-neutral-400 bg-white text-neutral-600 w-full text-sm md:text-base pr-8"
                 >
+                  <option value="all">{pageText.sector}</option>
                   {categories.map((category) => (
-                    <option
-                      key={category}
-                      value={
-                        category === pageText.sector
-                          ? "all"
-                          : category.toLowerCase()
-                      }
-                    >
-                      {category}
+                    <option key={category.id} value={category.name}>
+                      {category.name}
                     </option>
                   ))}
                 </select>
                 <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400 pointer-events-none" />
               </div>
 
-              <div className="relative flex-1 md:w-34">
+              <div className="relative flex-1 md:w-40">
+                <select
+                  value={selectedCommission}
+                  onChange={(e) => {
+                    setSelectedCommission(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="appearance-none text-center h-12 md:h-14 rounded-full border border-neutral-400 bg-white text-neutral-600 w-full text-sm md:text-base pr-8"
+                >
+                  <option value="all">{pageText.commission}</option>
+                  {commissions.map((commission) => (
+                    <option key={commission.id} value={commission.name}>
+                      {commission.name}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400 pointer-events-none" />
+              </div>
+
+              <div className="relative flex-1 md:w-40">
                 <input
                   type="date"
                   value={selectedDate}
-                  onChange={(e) => setSelectedDate(e.target.value)}
-                  className="h-12 md:h-14 w-full px-4 pr-10 rounded-full border border-neutral-400 bg-white text-neutral-600 text-center text-sm md:text-base"
+                  onChange={(e) => {
+                    setSelectedDate(e.target.value);
+                    setCurrentPage(1);
+                  }}
+                  className="h-12 md:h-14 w-full px-4 rounded-full border border-neutral-400 bg-white text-neutral-600 text-center text-sm md:text-base [&::-webkit-calendar-picker-indicator]:opacity-100"
                 />
-                <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 md:h-5 md:w-5 text-neutral-400 pointer-events-none" />
               </div>
             </div>
-
-            <button
-              onClick={handleSearch}
-              className="h-12 md:h-14 px-6 md:px-8 rounded-full bg-secondary text-white font-semibold text-sm md:text-base hover:bg-secondary/90 transition-colors"
-            >
-              {pageText.searchBarPlaceHolder}
-            </button>
           </div>
         </div>
 
@@ -191,55 +231,91 @@ export default function AssetClient({ resources }: AssetClientProps) {
               </tr>
             </thead>
             <tbody>
-              {filteredFiles.map((file) => (
-                <tr
-                  key={file._id}
-                  className="border-b border-neutral-300 h-20 md:h-24 text-xs md:text-base"
-                >
-                  <td className="pl-4 md:pl-12 py-3 md:py-4 text-neutral-800 font-semibold text-sm md:text-xl">
-                    {file.title}
-                  </td>
-                  <td className="pl-4 md:pl-12 py-3 md:py-4">
-                    <span
-                      className="inline-flex items-center px-2 md:px-4 py-1 rounded-full font-medium text-white text-xs md:text-base"
-                      style={{
-                        backgroundColor: file.category?.color || file.color,
-                      }}
-                    >
-                      {file.category?.title}
-                    </span>
-                  </td>
-                  <td className="pl-4 md:pl-8 py-3 md:py-4 text-neutral-600">
-                    {new Date(file.publishedDate).toLocaleDateString("bn-BD")}
-                  </td>
-                  <td className="px-2 md:px-4 py-3 md:py-4 text-neutral-600">
-                    {file.commission?.name}
-                  </td>
-                  <td className="pl-3 md:pl-6 py-3 md:py-4 text-neutral-600">
-                    {file.fileSize || formatFileSize(file.file?.size || 0)}
-                  </td>
-                  <td className="py-4 md:py-6 flex items-center justify-center">
-                    <a
-                      href={file.file?.url}
-                      className="text-primary hover:text-primary-dark"
-                      download={file.file?.originalFilename}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Image
-                        src={fileDownloadLinkIcon}
-                        alt=""
-                        height={32}
-                        width={32}
-                        className="md:w-10 md:h-10"
-                      />
-                    </a>
+              {resources.length === 0 && !isLoading ? (
+                <tr>
+                  <td colSpan={6} className="py-8 text-center text-neutral-600">
+                    {pageText.noResourcesFound}
                   </td>
                 </tr>
-              ))}
+              ) : (
+                resources.map((file, index) => (
+                  <tr
+                    key={file._id}
+                    className="border-b border-neutral-300 h-20 md:h-24 text-xs md:text-base"
+                  >
+                    <td className="pl-4 md:pl-12 py-3 md:py-4 text-neutral-800 font-semibold text-sm md:text-xl">
+                      {file.title}
+                    </td>
+                    <td className="pl-4 md:pl-12 py-3 md:py-4">
+                      <span
+                        className="inline-flex items-center px-2 md:px-4 py-1 rounded-full font-medium text-white text-xs md:text-base"
+                        style={{
+                          backgroundColor: getColorWithFallback(
+                            file.category?.color,
+                            file.color,
+                            index,
+                          ),
+                        }}
+                      >
+                        {file.category?.title}
+                      </span>
+                    </td>
+                    <td className="pl-4 md:pl-8 py-3 md:py-4 text-neutral-600">
+                      {formatDate(file.publishedDate, locale)}
+                    </td>
+                    <td className="px-2 md:px-4 py-3 md:py-4 text-neutral-600">
+                      {file.commission?.name}
+                    </td>
+                    <td className="pl-3 md:pl-6 py-3 md:py-4 text-neutral-600">
+                      {file.fileSize || formatFileSize(file.file?.size || 0)}
+                    </td>
+                    <td className="py-4 md:py-6 flex items-center justify-center">
+                      <a
+                        href={file.file?.url}
+                        className="text-primary hover:text-primary-dark"
+                        download={file.file?.originalFilename}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Image
+                          src={fileDownloadLinkIcon}
+                          alt=""
+                          height={32}
+                          width={32}
+                          className="md:w-10 md:h-10"
+                        />
+                      </a>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
+
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center gap-2 mt-8">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="px-4 py-2 rounded-lg bg-primary text-white disabled:bg-neutral-300 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors"
+            >
+              Previous
+            </button>
+            <span className="px-4 py-2 text-neutral-700">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 rounded-lg bg-primary text-white disabled:bg-neutral-300 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors"
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

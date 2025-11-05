@@ -84,7 +84,8 @@
     "categoryName": "Legislation",
     "dummyDate": "October 27, 2024",
     "commissionEx": "Commission X",
-    "sizeOfFile": "25MB"
+    "sizeOfFile": "25MB",
+    "noResourcesFound": "No resources found"
   },
   "reformNews": {
     "title": "Reform News",
@@ -103,7 +104,9 @@
     "seeRecentUpdate": "See Recent Updates",
     "corruptionAgainst": "Anti-Corruption",
     "navigationDescription": "New Education System Launched.",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "noNewsFound": "No news articles found",
+    "noUpdatesFound": "No updates found"
   },
   "parties": {
     "title": "Political Statements",
@@ -133,7 +136,8 @@
     "rejectance": "Rejection",
     "acceptable": "Acceptable",
     "unacceptable": "Unacceptable",
-    "date": "Date"
+    "date": "Date",
+    "noProposalsFound": "No proposals found"
   },
   "dashboard": {
     "title": "Dashboard",

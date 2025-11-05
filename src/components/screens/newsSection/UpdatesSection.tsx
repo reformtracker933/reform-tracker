@@ -12,10 +12,9 @@ const UpdatesSection: FC<{
   setUpdateSearchTerm: (v: string) => void;
   selectedUpdateCategory: string;
   setSelectedUpdateCategory: (v: string) => void;
-  selectedUpdateWriter: string;
-  setSelectedUpdateWriter: (v: string) => void;
-  categories: string[];
-  writers: string[];
+  selectedUpdateDate: string;
+  setSelectedUpdateDate: (v: string) => void;
+  categories: { id: string; name: string }[];
   updates: Array<{
     category: string;
     title: string;
@@ -26,20 +25,21 @@ const UpdatesSection: FC<{
   totalUpdatePages: number;
   currentUpdatePage: number;
   setCurrentUpdatePage: React.Dispatch<React.SetStateAction<number>>;
+  isLoading?: boolean;
 }> = ({
   pageText,
   updateSearchTerm,
   setUpdateSearchTerm,
   selectedUpdateCategory,
   setSelectedUpdateCategory,
-  selectedUpdateWriter,
-  setSelectedUpdateWriter,
+  selectedUpdateDate,
+  setSelectedUpdateDate,
   categories,
-  writers,
   updates,
   totalUpdatePages,
   currentUpdatePage,
   setCurrentUpdatePage,
+  isLoading = false,
 }) => {
   return (
     <section className="w-full py-8 md:py-12">
@@ -72,16 +72,10 @@ const UpdatesSection: FC<{
                 onChange={(e) => setSelectedUpdateCategory(e.target.value)}
                 className="appearance-none text-center h-12 md:h-14 rounded-full border border-neutral-400 bg-white text-neutral-600 w-full text-sm md:text-base pr-8"
               >
+                <option value="all">{pageText.sector}</option>
                 {categories.map((category) => (
-                  <option
-                    key={category}
-                    value={
-                      category === "All Categories"
-                        ? "all"
-                        : category.toLowerCase()
-                    }
-                  >
-                    {pageText.sector}
+                  <option key={category.id} value={category.name}>
+                    {category.name}
                   </option>
                 ))}
               </select>
@@ -101,52 +95,44 @@ const UpdatesSection: FC<{
             </div>
 
             <div className="relative flex-1 md:w-34">
-              <select
-                value={selectedUpdateWriter}
-                onChange={(e) => setSelectedUpdateWriter(e.target.value)}
-                className="appearance-none text-center h-12 md:h-14 rounded-full border border-neutral-400 bg-white text-neutral-600 w-full text-sm md:text-base pr-8"
-              >
-                {writers.map((writer) => (
-                  <option
-                    key={writer}
-                    value={
-                      writer === "All Writers" ? "all" : writer.toLowerCase()
-                    }
-                  >
-                    {pageText.writer}
-                  </option>
-                ))}
-              </select>
-              <svg
-                className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400 pointer-events-none"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+              <input
+                type="date"
+                value={selectedUpdateDate}
+                onChange={(e) => setSelectedUpdateDate(e.target.value)}
+                className="h-12 md:h-14 rounded-full border border-neutral-400 bg-white text-neutral-600 w-full text-sm md:text-base px-4"
+              />
             </div>
           </div>
 
-          <button className="h-12 md:h-14 px-6 md:px-8 rounded-full bg-secondary text-white font-semibold text-sm md:text-base hover:bg-secondary/90 transition-colors">
+          {/* <button className='h-12 md:h-14 px-6 md:px-8 rounded-full bg-secondary text-white font-semibold text-sm md:text-base hover:bg-secondary/90 transition-colors'>
             {pageText.searchBarPlaceHolder}
-          </button>
+          </button> */}
         </div>
 
         <div className="text-neutral-600 font-semibold text-base md:text-lg lg:text-xl mb-4">
           {pageText.seeRecentUpdate}
         </div>
 
-        <div className="space-y-3 md:space-y-4">
-          {updates.map((update, index) => (
-            <Button key={index} variant="card" update={update} />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="space-y-3 md:space-y-4">
+            {[...Array(5)].map((_, i) => (
+              <div
+                key={i}
+                className="h-16 md:h-20 bg-neutral-200 rounded-2xl animate-pulse"
+              />
+            ))}
+          </div>
+        ) : updates.length === 0 ? (
+          <div className="text-center py-12 text-neutral-500">
+            {pageText.noUpdatesFound}
+          </div>
+        ) : (
+          <div className="space-y-3 md:space-y-4">
+            {updates.map((update, index) => (
+              <Button key={index} variant="card" update={update} />
+            ))}
+          </div>
+        )}
 
         {totalUpdatePages > 1 && (
           <div className="flex justify-center items-center gap-2 mt-6 md:mt-8">

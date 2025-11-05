@@ -34,15 +34,26 @@ export const proposalType = defineType({
       title: "কমিশন / Commission",
       type: "reference",
       to: [{ type: "commission" }],
-      description: "ইস্যুকারী কমিশন / Issuing commission",
+      description:
+        "ড্রপডাউন থেকে কমিশন নির্বাচন করুন / Select commission from dropdown",
       validation: (Rule) => Rule.required(),
+      options: {
+        disableNew: true,
+        filter: "_type == 'commission'",
+      },
     }),
     defineField({
       name: "category",
       title: "বিভাগ / Category",
       type: "reference",
       to: [{ type: "category" }],
+      description:
+        "ড্রপডাউন থেকে বিভাগ নির্বাচন করুন / Select category from dropdown",
       validation: (Rule) => Rule.required(),
+      options: {
+        disableNew: true,
+        filter: "_type == 'category'",
+      },
     }),
     defineField({
       name: "color",
@@ -98,7 +109,13 @@ export const proposalType = defineType({
               title: "রাজনৈতিক দল / Political Party",
               type: "reference",
               to: [{ type: "politicalParty" }],
+              description:
+                "ড্রপডাউন থেকে দল নির্বাচন করুন / Select party from dropdown",
               validation: (Rule) => Rule.required(),
+              options: {
+                disableNew: true,
+                filter: "_type == 'politicalParty'",
+              },
             },
             {
               name: "stance",

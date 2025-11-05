@@ -60,14 +60,26 @@ export const newsArticleType = defineType({
       title: "লেখক / Author",
       type: "reference",
       to: [{ type: "author" }],
+      description:
+        "ড্রপডাউন থেকে লেখক নির্বাচন করুন / Select author from dropdown",
       validation: (Rule) => Rule.required(),
+      options: {
+        disableNew: true,
+        filter: "_type == 'author'",
+      },
     }),
     defineField({
       name: "category",
       title: "বিভাগ / Category",
       type: "reference",
       to: [{ type: "category" }],
+      description:
+        "ড্রপডাউন থেকে বিভাগ নির্বাচন করুন / Select category from dropdown",
       validation: (Rule) => Rule.required(),
+      options: {
+        disableNew: true,
+        filter: "_type == 'category'",
+      },
     }),
     defineField({
       name: "publishedDate",

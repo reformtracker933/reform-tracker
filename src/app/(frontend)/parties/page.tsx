@@ -1,11 +1,8 @@
 import PartiesClient from "@/components/screens/partiesSection/PartiesClient";
-import { getPartyStatistics, getAllProposals } from "@/sanity/lib/fetch";
+import { getPartyStatistics } from "@/sanity/lib/fetch";
 
 export default async function PartiesPage() {
-  const [parties, proposals] = await Promise.all([
-    getPartyStatistics(),
-    getAllProposals("bn", 0, 100),
-  ]);
+  const parties = await getPartyStatistics();
 
-  return <PartiesClient parties={parties} proposals={proposals} />;
+  return <PartiesClient parties={parties} />;
 }

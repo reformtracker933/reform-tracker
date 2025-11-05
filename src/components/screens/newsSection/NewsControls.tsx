@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC } from "react";
-import { Search, Clock } from "lucide-react";
+import { Search } from "lucide-react";
 import { RTLTranslations } from "@/types/translations.generated";
 
 const NewsControls: FC<{
@@ -14,8 +14,8 @@ const NewsControls: FC<{
   setSelectedWriter: (v: string) => void;
   selectedTime: string;
   setSelectedTime: (v: string) => void;
-  categories: string[];
-  writers: string[];
+  categories: { id: string; name: string }[];
+  writers: { id: string; name: string }[];
 }> = ({
   pageText,
   newsSearchTerm,
@@ -51,16 +51,10 @@ const NewsControls: FC<{
                 onChange={(e) => setSelectedNewsCategory(e.target.value)}
                 className="appearance-none text-center h-12 md:h-14 rounded-full border border-neutral-400 bg-white text-neutral-600 w-full text-sm md:text-base pr-8"
               >
+                <option value="all">{pageText.sector}</option>
                 {categories.map((category) => (
-                  <option
-                    key={category}
-                    value={
-                      category === "All Categories"
-                        ? "all"
-                        : category.toLowerCase()
-                    }
-                  >
-                    {pageText.sector}
+                  <option key={category.id} value={category.name}>
+                    {category.name}
                   </option>
                 ))}
               </select>
@@ -85,14 +79,10 @@ const NewsControls: FC<{
                 onChange={(e) => setSelectedWriter(e.target.value)}
                 className="appearance-none text-center h-12 md:h-14 rounded-full border border-neutral-400 bg-white text-neutral-600 w-full text-sm md:text-base pr-8"
               >
+                <option value="all">{pageText.writer}</option>
                 {writers.map((writer) => (
-                  <option
-                    key={writer}
-                    value={
-                      writer === "All Writers" ? "all" : writer.toLowerCase()
-                    }
-                  >
-                    {pageText.writer}
+                  <option key={writer.id} value={writer.name}>
+                    {writer.name}
                   </option>
                 ))}
               </select>
@@ -118,14 +108,13 @@ const NewsControls: FC<{
               placeholder={pageText.time}
               value={selectedTime}
               onChange={(e) => setSelectedTime(e.target.value)}
-              className="h-12 md:h-14 w-full px-4 pr-10 rounded-full border border-neutral-400 bg-white text-neutral-600 text-center text-sm md:text-base"
+              className="h-12 md:h-14 w-full px-4 rounded-full border border-neutral-400 bg-white text-neutral-600 text-center text-sm md:text-base [&::-webkit-calendar-picker-indicator]:opacity-100"
             />
-            <Clock className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 md:h-5 md:w-5 text-neutral-400 pointer-events-none" />
           </div>
 
-          <button className="h-12 md:h-14 px-6 md:px-8 rounded-full bg-secondary text-white font-semibold text-sm md:text-base hover:bg-secondary/90 transition-colors">
+          {/* <button className='h-12 md:h-14 px-6 md:px-8 rounded-full bg-secondary text-white font-semibold text-sm md:text-base hover:bg-secondary/90 transition-colors'>
             {pageText.searchBarPlaceHolder}
-          </button>
+          </button> */}
         </div>
       </div>
     </section>
