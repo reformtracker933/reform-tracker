@@ -1,5 +1,5 @@
 // AUTO-GENERATED - DO NOT EDIT
-// Generated: 2025-11-05T13:49:50.843Z
+// Generated: 2025-11-05T14:14:32.263Z
 // Run 'pnpm generate:types' to regenerate
 
 export type RTLTranslations = {
@@ -59,6 +59,23 @@ export type RTLTranslations = {
     description: string;
     emailPlaceholder: string;
     subscribeButton: string;
+  };
+  subscribeModal: {
+    title: string;
+    description: string;
+    emailLabel: string;
+    emailRequired: string;
+    emailPlaceholder: string;
+    nameLabel: string;
+    nameOptional: string;
+    namePlaceholder: string;
+    subscribeButton: string;
+    subscribing: string;
+    successTitle: string;
+    successMessage: string;
+    errorAlreadySubscribed: string;
+    errorInvalidEmail: string;
+    errorGeneric: string;
   };
   footer: {
     rightsReserved: string;
@@ -242,6 +259,7 @@ export interface TranslationPages {
   reformNewsSection: RTLTranslations["reformNewsSection"];
   reformUpdateSection: RTLTranslations["reformUpdateSection"];
   newsletter: RTLTranslations["newsletter"];
+  subscribeModal: RTLTranslations["subscribeModal"];
   footer: RTLTranslations["footer"];
   resource: RTLTranslations["resource"];
   reformNews: RTLTranslations["reformNews"];

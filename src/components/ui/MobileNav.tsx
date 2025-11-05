@@ -6,7 +6,11 @@ import { usePathname } from "next/navigation";
 import { useLocale } from "@/context/LocaleContext";
 import { gmailLogo, facebookLogo } from "@/assets";
 
-export default function MobileNav() {
+interface MobileNavProps {
+  onSubscribeClick: () => void;
+}
+
+export default function MobileNav({ onSubscribeClick }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { getTranslation } = useLocale();
@@ -157,11 +161,15 @@ export default function MobileNav() {
           </nav>
 
           <div className="border-t border-neutral-200 p-6 space-y-4 shadow-inner bg-neutral-50">
-            <Link href="/subscribe" onClick={closeMenu}>
-              <button className="w-full bg-secondary text-white rounded-full px-6 py-3 font-semibold hover:scale-105 transition-transform duration-200 shadow-md focus:outline-none">
-                {pageText.subscribe}
-              </button>
-            </Link>
+            <button
+              onClick={() => {
+                onSubscribeClick();
+                closeMenu();
+              }}
+              className="w-full bg-secondary text-white rounded-full px-6 py-3 font-semibold hover:scale-105 transition-transform duration-200 shadow-md focus:outline-none"
+            >
+              {pageText.subscribe}
+            </button>
 
             <div className="flex items-center justify-center gap-4 pt-2">
               {socialLinks.map((social) => (

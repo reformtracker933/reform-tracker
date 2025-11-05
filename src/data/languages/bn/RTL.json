@@ -57,6 +57,23 @@
     "emailPlaceholder": "আপনার ইমেইল ঠিকানা লিখুন",
     "subscribeButton": "সদস্যতা"
   },
+  "subscribeModal": {
+    "title": "নিউজলেটার সদস্যতা",
+    "description": "সর্বশেষ সংস্কার খবর এবং আপডেট সহ আপডেট থাকুন।",
+    "emailLabel": "ইমেইল ঠিকানা",
+    "emailRequired": "*",
+    "emailPlaceholder": "আপনার.ইমেইল@উদাহরণ.কম",
+    "nameLabel": "নাম",
+    "nameOptional": "(ঐচ্ছিক)",
+    "namePlaceholder": "আপনার নাম",
+    "subscribeButton": "সদস্যতা",
+    "subscribing": "সদস্যতা হচ্ছে...",
+    "successTitle": "সফলভাবে সদস্যতা নিয়েছেন!",
+    "successMessage": "আমাদের নিউজলেটার সদস্যতা নেওয়ার জন্য ধন্যবাদ।",
+    "errorAlreadySubscribed": "এই ইমেইল ইতিমধ্যে সদস্যতা নিয়েছে",
+    "errorInvalidEmail": "বৈধ ইমেইল প্রয়োজন",
+    "errorGeneric": "সদস্যতা ব্যর্থ হয়েছে। আবার চেষ্টা করুন।"
+  },
   "footer": {
     "rightsReserved": "সব অধিকার সংরক্ষিত",
     "navigation": "নেভিগেশন",

@@ -41,7 +41,7 @@ export function ReformUpdate({ updates }: ReformUpdateProps) {
         {/* View All Updates Button - Only show if there's update data */}
         {updates.length > 0 && (
           <div className="mt-6 md:mt-8 lg:mt-10 text-center">
-            <Link href="/updates">
+            <Link href="/news">
               <Button
                 variant="primary"
                 pageText={{ viewAll: pageText.viewAll }}

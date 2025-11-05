@@ -5,6 +5,7 @@ import { blockContentType } from "./blockContentType";
 import { categoryType } from "./categoryType";
 import { authorType } from "./authorType";
 import { commissionType } from "./commissionType";
+import { subscriberType } from "./subscriberType";
 
 // Content types
 import { newsArticleType } from "./newsArticleType";
@@ -24,6 +25,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     categoryType,
     authorType,
     commissionType,
+    subscriberType,
 
     // Content types
     newsArticleType,

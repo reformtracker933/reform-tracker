@@ -56,6 +56,23 @@
     "emailPlaceholder": "Enter your email address",
     "subscribeButton": "Subscribe"
   },
+  "subscribeModal": {
+    "title": "Subscribe to Newsletter",
+    "description": "Stay updated with the latest reform news and updates.",
+    "emailLabel": "Email Address",
+    "emailRequired": "*",
+    "emailPlaceholder": "your.email@example.com",
+    "nameLabel": "Name",
+    "nameOptional": "(Optional)",
+    "namePlaceholder": "Your name",
+    "subscribeButton": "Subscribe",
+    "subscribing": "Subscribing...",
+    "successTitle": "Successfully Subscribed!",
+    "successMessage": "Thank you for subscribing to our newsletter.",
+    "errorAlreadySubscribed": "This email is already subscribed",
+    "errorInvalidEmail": "Valid email is required",
+    "errorGeneric": "Failed to subscribe. Please try again."
+  },
   "footer": {
     "rightsReserved": "All Rights Reserved",
     "navigation": "Navigation",

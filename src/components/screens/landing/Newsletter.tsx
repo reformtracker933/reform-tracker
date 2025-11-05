@@ -1,12 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import { useLocale } from "@/context/LocaleContext";
-import Link from "next/link";
-import Button from "@/components/ui/NewsLetterButton";
+import SubscribeModal from "@/components/ui/SubscribeModal";
 
 export function Newsletter() {
   const { getTranslation } = useLocale();
   const pageText = getTranslation("newsletter");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [emailInput, setEmailInput] = useState("");
+
+  const handleSubscribeClick = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <section className="w-full py-8 md:py-12 bg-background">
@@ -23,16 +29,31 @@ export function Newsletter() {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 lg:gap-6">
-          <Link href="/emailAddress">
-            <Button variant="primary" text={pageText.emailPlaceholder} />
-          </Link>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 lg:gap-6 max-w-2xl mx-auto">
+          <input
+            type="email"
+            value={emailInput}
+            onChange={(e) => setEmailInput(e.target.value)}
+            placeholder={pageText.emailPlaceholder}
+            className="w-full sm:flex-1 px-6 md:px-8 py-3 md:py-4 rounded-full border-2 border-primary text-neutral-800 font-medium text-sm md:text-base focus:outline-none focus:border-secondary transition-colors"
+          />
 
-          <Link href="/subscribe">
-            <Button variant="secondary" text={pageText.subscribeButton} />
-          </Link>
+          <button
+            onClick={handleSubscribeClick}
+            className="w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 rounded-full bg-secondary text-white font-semibold text-sm md:text-base hover:bg-secondary/90 transition-colors whitespace-nowrap"
+          >
+            {pageText.subscribeButton}
+          </button>
         </div>
       </div>
+
+      <SubscribeModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        source="newsletter"
+        showNameField={true}
+        initialEmail={emailInput}
+      />
     </section>
   );
 }
