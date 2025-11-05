@@ -6,6 +6,7 @@ import { ChartData } from "chart.js";
 
 interface DoughnutItem {
   id: string | number;
+  name: string;
   data: ChartData<"doughnut">;
   stats: {
     approved: number;
@@ -46,7 +47,7 @@ const StatisticsSection = ({
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary/900 mb-3 md:mb-4">
           {pageText.title}
         </h2>
-        <p className="text-sm md:text-base text-primary/800 mb-6 md:mb-8">
+        <p className="text-lg md:text-xl text-primary/800 mb-6 md:mb-8">
           {pageText.description}
         </p>
       </div>
@@ -92,7 +93,7 @@ const StatisticsSection = ({
                       />
                     </div>
                     <span className="mt-2 font-medium text-sm md:text-base">
-                      {pageText.BNP}
+                      {item.name}
                     </span>
                   </div>
 

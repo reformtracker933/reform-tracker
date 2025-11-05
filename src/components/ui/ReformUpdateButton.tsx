@@ -49,7 +49,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 
             <div className="flex flex-col justify-center gap-2">
               <span
-                className="text-xs font-medium text-white px-2.5 py-0.5 rounded-full hidden sm:block w-fit"
+                className="text-xs font-medium text-primary-50 px-2.5 py-1 rounded-full w-fit"
                 style={{ backgroundColor: update.color }}
               >
                 {update.category}
@@ -60,7 +60,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 
           {/* Right: Navigation Circle */}
           <div className="flex items-center mr-1">
-            <div className="w-12 h-12 rounded-full bg-primary-50 flex items-center justify-center transition-colors duration-200">
+            <div className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center transition-colors duration-200">
               <ArrowUpRight className="w-5 h-5 text-neutral-900" />
             </div>
           </div>

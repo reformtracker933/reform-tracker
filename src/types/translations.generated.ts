@@ -1,5 +1,5 @@
 // AUTO-GENERATED - DO NOT EDIT
-// Generated: 2025-11-04T19:54:44.785Z
+// Generated: 2025-11-05T16:17:26.700Z
 // Run 'pnpm generate:types' to regenerate
 
 export type DemoTranslations = {
@@ -136,6 +136,23 @@ export type RTLTranslations = {
     emailPlaceholder: string;
     subscribeButton: string;
   };
+  subscribeModal: {
+    title: string;
+    description: string;
+    emailLabel: string;
+    emailRequired: string;
+    emailPlaceholder: string;
+    nameLabel: string;
+    nameOptional: string;
+    namePlaceholder: string;
+    subscribeButton: string;
+    subscribing: string;
+    successTitle: string;
+    successMessage: string;
+    errorAlreadySubscribed: string;
+    errorInvalidEmail: string;
+    errorGeneric: string;
+  };
   footer: {
     rightsReserved: string;
     navigation: string;
@@ -165,6 +182,7 @@ export type RTLTranslations = {
     dummyDate: string;
     commissionEx: string;
     sizeOfFile: string;
+    noResourcesFound: string;
   };
   reformNews: {
     title: string;
@@ -183,6 +201,9 @@ export type RTLTranslations = {
     seeRecentUpdate: string;
     corruptionAgainst: string;
     navigationDescription: string;
+    unknown: string;
+    noNewsFound: string;
+    noUpdatesFound: string;
   };
   parties: {
     title: string;
@@ -205,11 +226,15 @@ export type RTLTranslations = {
     logisession: string;
     support: string;
     against: string;
+    neutral: string;
     thirdTitle: string;
     graphTitle: string;
     acceptance: string;
     rejectance: string;
+    acceptable: string;
+    unacceptable: string;
     date: string;
+    noProposalsFound: string;
   };
   dashboard: {
     title: string;
@@ -235,6 +260,7 @@ export interface TranslationPages {
   reformNewsSection: RTLTranslations["reformNewsSection"];
   reformUpdateSection: RTLTranslations["reformUpdateSection"];
   newsletter: RTLTranslations["newsletter"];
+  subscribeModal: RTLTranslations["subscribeModal"];
   footer: RTLTranslations["footer"];
   resource: RTLTranslations["resource"];
   reformNews: RTLTranslations["reformNews"];

@@ -7,25 +7,24 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface DoughnutChartProps {
   labels: string[];
+  data: number[];
+  colors: string[];
+  title: string;
 }
 
-export default function DoughnutChart({ labels }: DoughnutChartProps) {
-  const colors = [
-    "#e83231",
-    "#4a7ec9",
-    "#31b36b",
-    "#f9d262",
-    "#e83231",
-    "#4a7ec9",
-  ];
-
+export default function DoughnutChart({
+  labels,
+  data: chartData,
+  colors,
+  title,
+}: DoughnutChartProps) {
   const data = {
     labels,
     datasets: [
       {
-        data: [40, 30, 20, 10],
+        data: chartData,
         borderWidth: 0,
-        cutout: "80%",
+        cutout: "65%",
         spacing: 4,
         hoverOffset: 4,
         backgroundColor: colors,
@@ -45,7 +44,7 @@ export default function DoughnutChart({ labels }: DoughnutChartProps) {
   return (
     <div className="w-full h-full bg-white rounded-3xl shadow-xl p-4 flex flex-col items-center justify-around">
       <div className="text-center text-5xl font-semibold text-neutral-900">
-        সেক্টর দ্বারা সংস্কার
+        {title}
       </div>
 
       <div className="w-64 h-64 flex items-center justify-center">

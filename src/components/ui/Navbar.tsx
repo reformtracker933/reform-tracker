@@ -1,15 +1,18 @@
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button, MobileNav } from "@/components/ui";
 import { useLocale } from "@/context/LocaleContext";
 import { mainLogoBn } from "@/assets";
+import SubscribeModal from "@/components/ui/SubscribeModal";
 
 export default function Navbar() {
   const pathname = usePathname();
   const { getTranslation } = useLocale();
   const pageText = getTranslation("navBar");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navItems: { label: string; href: string }[] = [
     { label: pageText.home, href: "/" },
@@ -62,17 +65,25 @@ export default function Navbar() {
           {/* Right: Subscribe & Mobile Menu */}
           <div className="flex items-center gap-4">
             {/* Subscribe Button - Hidden on mobile */}
-            <Link href="/subscribe" className="hidden md:block">
-              <button className="bg-secondary text-white rounded-full px-7 py-2 cursor-pointer hover:scale-105 transition-transform duration-200">
-                {pageText.subscribe}
-              </button>
-            </Link>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="hidden md:block bg-secondary text-white rounded-full px-7 py-2 cursor-pointer hover:scale-105 transition-transform duration-200"
+            >
+              {pageText.subscribe}
+            </button>
 
             {/* Mobile Navigation */}
-            <MobileNav />
+            <MobileNav onSubscribeClick={() => setIsModalOpen(true)} />
           </div>
         </div>
       </div>
+
+      <SubscribeModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        source="navbar"
+        showNameField={true}
+      />
     </header>
   );
 }
