@@ -1,10 +1,39 @@
-import { type SchemaTypeDefinition } from 'sanity'
+import { type SchemaTypeDefinition } from "sanity";
 
-import {blockContentType} from './blockContentType'
-import {categoryType} from './categoryType'
-import {postType} from './postType'
-import {authorType} from './authorType'
+// Base types
+import { blockContentType } from "./blockContentType";
+import { categoryType } from "./categoryType";
+import { authorType } from "./authorType";
+import { commissionType } from "./commissionType";
+
+// Content types
+import { newsArticleType } from "./newsArticleType";
+import { reformUpdateType } from "./reformUpdateType";
+import { resourceType } from "./resourceType";
+import { proposalType } from "./proposalType";
+import { politicalPartyType } from "./politicalPartyType";
+
+// Statistics & Chart types
+import { dashboardStatsType } from "./dashboardStatsType";
+import { chartConfigType } from "./chartConfigType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blockContentType, categoryType, postType, authorType],
-}
+  types: [
+    // Base types
+    blockContentType,
+    categoryType,
+    authorType,
+    commissionType,
+
+    // Content types
+    newsArticleType,
+    reformUpdateType,
+    resourceType,
+    proposalType,
+    politicalPartyType,
+
+    // Statistics & Charts
+    dashboardStatsType,
+    chartConfigType,
+  ],
+};

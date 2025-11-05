@@ -1,5 +1,5 @@
-import {defineType, defineArrayMember} from 'sanity'
-import {ImageIcon} from '@sanity/icons'
+import { defineType, defineArrayMember } from "sanity";
+import { ImageIcon } from "@sanity/icons";
 
 /**
  * This is the schema type for block content used in the post document type
@@ -13,44 +13,44 @@ import {ImageIcon} from '@sanity/icons'
  */
 
 export const blockContentType = defineType({
-  title: 'Block Content',
-  name: 'blockContent',
-  type: 'array',
+  title: "ব্লক কন্টেন্ট / Block Content",
+  name: "blockContent",
+  type: "array",
   of: [
     defineArrayMember({
-      type: 'block',
+      type: "block",
       // Styles let you define what blocks can be marked up as. The default
       // set corresponds with HTML tags, but you can set any title or value
       // you want, and decide how you want to deal with it where you want to
       // use your content.
       styles: [
-        {title: 'Normal', value: 'normal'},
-        {title: 'H1', value: 'h1'},
-        {title: 'H2', value: 'h2'},
-        {title: 'H3', value: 'h3'},
-        {title: 'H4', value: 'h4'},
-        {title: 'Quote', value: 'blockquote'},
+        { title: "সাধারণ / Normal", value: "normal" },
+        { title: "শিরোনাম ১ / H1", value: "h1" },
+        { title: "শিরোনাম ২ / H2", value: "h2" },
+        { title: "শিরোনাম ৩ / H3", value: "h3" },
+        { title: "শিরোনাম ৪ / H4", value: "h4" },
+        { title: "উদ্ধৃতি / Quote", value: "blockquote" },
       ],
-      lists: [{title: 'Bullet', value: 'bullet'}],
+      lists: [{ title: "বুলেট / Bullet", value: "bullet" }],
       // Marks let you mark up inline text in the Portable Text Editor
       marks: {
         // Decorators usually describe a single property – e.g. a typographic
         // preference or highlighting
         decorators: [
-          {title: 'Strong', value: 'strong'},
-          {title: 'Emphasis', value: 'em'},
+          { title: "গাঢ় / Strong", value: "strong" },
+          { title: "জোর / Emphasis", value: "em" },
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [
           {
-            title: 'URL',
-            name: 'link',
-            type: 'object',
+            title: "ইউআরএল / URL",
+            name: "link",
+            type: "object",
             fields: [
               {
-                title: 'URL',
-                name: 'href',
-                type: 'url',
+                title: "ইউআরএল / URL",
+                name: "href",
+                type: "url",
               },
             ],
           },
@@ -61,16 +61,16 @@ export const blockContentType = defineType({
     // primitive types such as 'string' and 'number' in the same array
     // as a block type.
     defineArrayMember({
-      type: 'image',
+      type: "image",
       icon: ImageIcon,
-      options: {hotspot: true},
+      options: { hotspot: true },
       fields: [
         {
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative Text',
-        }
-      ]
+          name: "alt",
+          type: "string",
+          title: "বিকল্প টেক্সট / Alternative Text",
+        },
+      ],
     }),
   ],
-})
+});

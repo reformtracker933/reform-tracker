@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export interface CardProps {
   title: string;
@@ -6,6 +7,7 @@ export interface CardProps {
   imageSrc?: string;
   className?: string;
   buttonName?: string;
+  href?: string;
 }
 
 export function Card({
@@ -14,8 +16,9 @@ export function Card({
   imageSrc,
   className = "",
   buttonName = "",
+  href = "#",
 }: CardProps) {
-  return (
+  const CardContent = (
     <div
       className={`bg-neutral-100 rounded-3xl shadow-2xl overflow-hidden transition-transform duration-300 w-full md:max-w-[415px] max-h-[296px] hover:scale-105 ${className}`}
     >
@@ -45,4 +48,14 @@ export function Card({
       </div>
     </div>
   );
+
+  if (href && href !== "#") {
+    return (
+      <Link href={href} className="block">
+        {CardContent}
+      </Link>
+    );
+  }
+
+  return CardContent;
 }

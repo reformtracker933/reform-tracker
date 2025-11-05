@@ -4,4 +4,7 @@ export {
   formatNumber,
   getLocaleDisplayName,
   getTextDirection,
-} from './locale';
+} from "./locale";
+
+// Color utilities
+export { getColorValue, getColorWithFallback } from "./colorMapper";

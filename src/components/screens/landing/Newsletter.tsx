@@ -1,3 +1,5 @@
+"use client";
+
 import { useLocale } from "@/context/LocaleContext";
 import Link from "next/link";
 import Button from "@/components/ui/NewsLetterButton";

@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Card } from "@/components/ui/Card";
 import { useLocale } from "@/context/LocaleContext";
@@ -14,18 +16,21 @@ export function Hero() {
       description: cardTexts["newsCardTitle"],
       imageSrc: card1,
       buttonName: cardTexts["buttonName1"],
+      href: "/news",
     },
     {
       title: pageText["dashboard"],
       description: cardTexts["dashboardCardTitle"],
       imageSrc: card2,
       buttonName: cardTexts["buttonName2"],
+      href: "/dashboard",
     },
     {
       title: pageText["politicalTime"],
       description: cardTexts["politicalTimeCardTitle"],
       imageSrc: card3,
       buttonName: cardTexts["buttonName3"],
+      href: "/parties",
     },
   ];
 

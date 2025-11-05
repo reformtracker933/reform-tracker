@@ -1,5 +1,5 @@
 // AUTO-GENERATED - DO NOT EDIT
-// Generated: 2025-11-04T15:40:38.899Z
+// Generated: 2025-11-05T13:49:50.843Z
 // Run 'pnpm generate:types' to regenerate
 
 export type RTLTranslations = {
@@ -89,6 +89,7 @@ export type RTLTranslations = {
     dummyDate: string;
     commissionEx: string;
     sizeOfFile: string;
+    noResourcesFound: string;
   };
   reformNews: {
     title: string;
@@ -107,6 +108,9 @@ export type RTLTranslations = {
     seeRecentUpdate: string;
     corruptionAgainst: string;
     navigationDescription: string;
+    unknown: string;
+    noNewsFound: string;
+    noUpdatesFound: string;
   };
   parties: {
     title: string;
@@ -129,11 +133,15 @@ export type RTLTranslations = {
     logisession: string;
     support: string;
     against: string;
+    neutral: string;
     thirdTitle: string;
     graphTitle: string;
     acceptance: string;
     rejectance: string;
+    acceptable: string;
+    unacceptable: string;
     date: string;
+    noProposalsFound: string;
   };
   dashboard: {
     title: string;
