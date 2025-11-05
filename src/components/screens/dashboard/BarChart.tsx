@@ -23,14 +23,21 @@ ChartJS.register(
 interface BarChartProps {
   labels: string[];
   data: number[];
+  title: string;
+  subtitle?: string;
 }
 
-export default function BarChart({ labels, data }: BarChartProps) {
+export default function BarChart({
+  labels,
+  data,
+  title,
+  subtitle,
+}: BarChartProps) {
   const chartData = {
     labels,
     datasets: [
       {
-        label: "সংস্কার সংখ্যা",
+        label: title,
         data,
         borderRadius: 12,
         backgroundColor: "#81b5e9",
@@ -62,10 +69,8 @@ export default function BarChart({ labels, data }: BarChartProps) {
   return (
     <div className="w-full h-full bg-white rounded-3xl shadow-xl py-8 px-16 flex flex-col">
       <div className="mb-4">
-        <div className="text-lg font-semibold text-neutral-900">
-          অবস্থা দ্বারা সংস্কার
-        </div>
-        <div className="text-xs text-neutral-600">2023-2024</div>
+        <div className="text-lg font-semibold text-neutral-900">{title}</div>
+        {subtitle && <div className="text-xs text-neutral-600">{subtitle}</div>}
       </div>
 
       <div className="w-full h-full">

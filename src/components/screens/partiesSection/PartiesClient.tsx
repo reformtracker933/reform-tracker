@@ -13,9 +13,13 @@ import {
   Legend,
 } from "chart.js";
 import StatisticsSection from "@/components/screens/partiesSection/StatisticsSection";
-import TableSection from "@/components/screens/partiesSection/TableSection";
+import TableSection, {
+  type PartyColumn,
+  type TableDataRow,
+} from "@/components/screens/partiesSection/TableSection";
 import BarChartSection from "@/components/screens/partiesSection/BarChartSection";
 import { PoliticalParty, Proposal } from "@/types/sanity";
+import { getColorWithFallback } from "@/lib/utils/colorMapper";
 
 ChartJS.register(
   ArcElement,
@@ -162,22 +166,57 @@ export default function PartiesClient({
     }
   };
 
-  const defaultTableData = Array(6)
+  const getStanceStyle = (stanceText: string) => {
+    if (stanceText === pageText.support || stanceText === "সমর্থন") {
+      return {
+        text: stanceText,
+        color: "var(--color-success)",
+        borderColor: "var(--color-success)",
+      };
+    } else if (stanceText === pageText.against || stanceText === "বিরোধিতা") {
+      return { text: stanceText, color: "#e83231", borderColor: "#e83231" };
+    } else {
+      return { text: stanceText, color: "#FFA726", borderColor: "#FFA726" };
+    }
+  };
+
+  // Get party slugs dynamically from backend data
+  const partyColumns: PartyColumn[] =
+    parties.length > 0
+      ? parties.slice(0, 3).map((party) => ({
+          key:
+            party.slug?.current ||
+            party.name.toLowerCase().replace(/\s+/g, "-"),
+          name: party.name,
+        }))
+      : [
+          { key: "bnp", name: pageText.BNP },
+          { key: "ncp", name: pageText.NCP },
+          { key: "jamat", name: pageText.Jamat },
+        ];
+
+  const defaultTableData: TableDataRow[] = Array(6)
     .fill(null)
-    .map((_, i) => ({
-      proposalName: pageText.educationReformLaw,
-      commission: pageText.commissionEx,
-      category: pageText.logisession,
-      color:
-        i % 3 === 0
-          ? "var(--color-success)"
-          : i % 3 === 1
-            ? "var(--color-purple)"
-            : "var(--color-primary-400)",
-      bnp: "-",
-      ncp: "-",
-      jamat: "-",
-    }));
+    .map((_, i) => {
+      const row: TableDataRow = {
+        proposalName: pageText.educationReformLaw,
+        commission: pageText.commissionEx,
+        category: pageText.logisession,
+        color:
+          i % 3 === 0
+            ? "var(--color-success)"
+            : i % 3 === 1
+              ? "var(--color-purple)"
+              : "var(--color-primary-400)",
+      };
+
+      // Add default party stances
+      partyColumns.forEach(({ key }) => {
+        row[key] = getStanceStyle("-");
+      });
+
+      return row;
+    });
 
   const filteredProposals = proposals.filter((proposal) => {
     const matchesSearch = searchTerm
@@ -199,33 +238,46 @@ export default function PartiesClient({
     return matchesSearch && matchesCategory && matchesWriter && matchesDate;
   });
 
-  const tableData =
+  const tableData: TableDataRow[] =
     proposals.length > 0
-      ? filteredProposals.map((proposal) => {
+      ? filteredProposals.map((proposal, index) => {
           const partyPositions: Record<string, string> = {};
 
           proposal.partyPositions?.forEach((position) => {
-            const partyKey = position.party.name
-              .toLowerCase()
-              .replace(/\s+/g, "");
-            const stanceMap: Record<string, string> = {
-              support: pageText.support,
-              against: pageText.against,
-              neutral: "-",
-            };
-            partyPositions[partyKey] =
-              stanceMap[position.stance] || position.stance;
+            const partyKey =
+              position.party.slug?.current ||
+              position.party.name.toLowerCase().replace(/\s+/g, "-");
+            const stance = position.stance.toLowerCase();
+
+            let displayValue = "-";
+            if (stance === "support") {
+              displayValue = pageText.support;
+            } else if (stance === "against") {
+              displayValue = pageText.against;
+            } else if (stance === "neutral") {
+              displayValue = pageText.neutral;
+            }
+
+            partyPositions[partyKey] = displayValue;
           });
 
-          return {
+          const rowData: TableDataRow = {
             proposalName: proposal.title,
-            commission: proposal.commission?.name || "",
-            category: proposal.category?.title || "",
-            color: proposal.category?.color || "var(--color-primary-400)",
-            bnp: partyPositions.bnp || "-",
-            ncp: partyPositions.ncp || "-",
-            jamat: partyPositions.jamat || "-",
+            commission: proposal.commission?.name || "-",
+            category: proposal.category?.title || "-",
+            color: getColorWithFallback(
+              proposal.category?.color,
+              undefined,
+              index,
+            ),
           };
+
+          // Dynamically add party columns
+          partyColumns.forEach(({ key }) => {
+            rowData[key] = getStanceStyle(partyPositions[key] || "-");
+          });
+
+          return rowData;
         })
       : defaultTableData;
 
@@ -300,6 +352,7 @@ export default function PartiesClient({
       <TableSection
         pageText={pageText}
         tableData={tableData}
+        partyColumns={partyColumns}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         selectedCategory={selectedCategory}

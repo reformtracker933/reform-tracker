@@ -27,6 +27,8 @@ export default function DashboardClient({ stats }: DashboardClientProps) {
     pageText.antiCorruption,
     pageText.reformUsingSector,
   ];
+  const defaultDoughData = [0, 0];
+  const defaultDoughColors = ["#e83231", "#4a7ec9"];
 
   const barLabels =
     stats?.statusBreakdown?.map((item) =>
@@ -40,6 +42,12 @@ export default function DashboardClient({ stats }: DashboardClientProps) {
     stats?.sectorBreakdown?.map((item) =>
       locale === "bn" ? item.sectorName_bn : item.sectorName_en,
     ) || defaultDoughLabels;
+
+  const doughData =
+    stats?.sectorBreakdown?.map((item) => item.value) || defaultDoughData;
+
+  const doughColors =
+    stats?.sectorBreakdown?.map((item) => item.color) || defaultDoughColors;
 
   return (
     <section className="w-full min-h-screen pt-24 md:pt-32 px-4 md:px-6 lg:px-8 space-y-12 md:space-y-16 pb-12">
@@ -72,12 +80,22 @@ export default function DashboardClient({ stats }: DashboardClientProps) {
             </div>
 
             <div className="w-full h-[350px] md:h-[410px]">
-              <BarChart labels={barLabels} data={barData} />
+              <BarChart
+                labels={barLabels}
+                data={barData}
+                title={pageText.graphTitle}
+                subtitle="2023-2024"
+              />
             </div>
           </div>
 
           <div className="w-full lg:w-[540px] h-[500px] md:h-[600px]">
-            <DoughnutChart labels={doughLabels} />
+            <DoughnutChart
+              labels={doughLabels}
+              data={doughData}
+              colors={doughColors}
+              title={pageText.reformUsingSector}
+            />
           </div>
         </div>
       </div>

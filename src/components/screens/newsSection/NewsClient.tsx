@@ -8,6 +8,7 @@ import UpdatesSection from "./UpdatesSection";
 import { NewsArticle, ReformUpdate } from "@/types/sanity";
 import { newsSectionBackgroundImage, rightSideCardPerson } from "@/assets";
 import { useLocale } from "@/context/LocaleContext";
+import { getColorWithFallback } from "@/lib/utils/colorMapper";
 
 interface NewsClientProps {
   allNews: NewsArticle[];
@@ -164,10 +165,10 @@ export default function NewsClient({
     [filteredUpdateItems, safeCurrentUpdatePage],
   );
 
-  const updates = currentUpdateItems.map((update) => ({
+  const updates = currentUpdateItems.map((update, index) => ({
     category: update.category?.title || pageText.corruptionAgainst,
     title: update.title,
-    color: update.color || update.category?.color || "var(--color-primary-400)",
+    color: getColorWithFallback(update.color, update.category?.color, index),
     href: `/news/${update.slug?.current || ""}`,
   }));
 

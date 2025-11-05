@@ -4,7 +4,7 @@ import { groq } from "next-sanity";
  * Get all reform updates with pagination
  */
 export const getAllUpdatesQuery = groq`
-  *[_type == "reformUpdate" && language == $language] | order(priority desc, publishedDate desc) [$start...$end] {
+  *[_type == "reformUpdate"] | order(priority desc, publishedDate desc) [$start...$end] {
     _id,
     title,
     slug,
@@ -15,7 +15,8 @@ export const getAllUpdatesQuery = groq`
     },
     color,
     publishedDate,
-    priority
+    priority,
+    language
   }
 `;
 
@@ -23,7 +24,7 @@ export const getAllUpdatesQuery = groq`
  * Get recent updates for homepage (top 4 by priority)
  */
 export const getRecentUpdatesQuery = groq`
-  *[_type == "reformUpdate" && language == $language] | order(priority desc, publishedDate desc) [0...4] {
+  *[_type == "reformUpdate"] | order(priority desc, publishedDate desc) [0...4] {
     _id,
     title,
     slug,
@@ -34,7 +35,8 @@ export const getRecentUpdatesQuery = groq`
     },
     color,
     publishedDate,
-    priority
+    priority,
+    language
   }
 `;
 

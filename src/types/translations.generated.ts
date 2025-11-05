@@ -1,5 +1,5 @@
 // AUTO-GENERATED - DO NOT EDIT
-// Generated: 2025-11-04T19:20:47.286Z
+// Generated: 2025-11-05T11:47:28.024Z
 // Run 'pnpm generate:types' to regenerate
 
 export type RTLTranslations = {
@@ -130,6 +130,7 @@ export type RTLTranslations = {
     logisession: string;
     support: string;
     against: string;
+    neutral: string;
     thirdTitle: string;
     graphTitle: string;
     acceptance: string;

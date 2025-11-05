@@ -16,19 +16,29 @@ interface PageText {
   Jamat: string;
 }
 
-interface TableDataRow {
+export interface PartyStance {
+  text: string;
+  color: string;
+  borderColor: string;
+}
+
+export interface PartyColumn {
+  key: string;
+  name: string;
+}
+
+export interface TableDataRow {
   proposalName: string;
   commission: string;
   category: string;
   color: string;
-  bnp: string;
-  ncp: string;
-  jamat: string;
+  [key: string]: string | PartyStance; // Dynamic party columns
 }
 
 interface TableSectionProps {
   pageText: PageText;
   tableData: TableDataRow[];
+  partyColumns: PartyColumn[];
   searchTerm: string;
   setSearchTerm: (value: string) => void;
   selectedCategory: string;
@@ -42,6 +52,7 @@ interface TableSectionProps {
 const TableSection = ({
   pageText,
   tableData,
+  partyColumns,
   searchTerm,
   setSearchTerm,
   selectedCategory,
@@ -154,57 +165,61 @@ const TableSection = ({
                 <th className="py-3 md:py-4 font-semibold pl-3 md:pl-6">
                   {pageText.category}
                 </th>
-                <th className="py-3 md:py-4 font-semibold pl-4 md:pl-8">
-                  {pageText.BNP}
-                </th>
-                <th className="py-3 md:py-4 font-semibold pl-4 md:pl-8">
-                  {pageText.NCP}
-                </th>
-                <th className="py-3 md:py-4 font-semibold pl-4 md:pl-8">
-                  {pageText.Jamat}
-                </th>
+                {partyColumns.map((party) => (
+                  <th
+                    key={party.key}
+                    className="py-3 md:py-4 font-semibold pl-4 md:pl-8"
+                  >
+                    {party.name}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {tableData.map((row, index) => (
-                <tr
-                  key={index}
-                  className="border-b border-neutral-300 h-20 md:h-24 text-sm md:text-base text-neutral-800 text-left font-medium"
-                >
-                  <td className="py-3 md:py-4 font-semibold text-base md:text-lg lg:text-xl pl-4 md:pl-8">
-                    {row.proposalName}
-                  </td>
-                  <td className="py-3 md:py-4 pl-3 md:pl-4 text-xs md:text-sm lg:text-base">
-                    {row.commission}
-                  </td>
-                  <td className="py-3 md:py-4 pl-3 md:pl-4">
-                    <span
-                      className="inline-flex items-center px-2 md:px-4 py-1 rounded-full text-white text-xs md:text-sm"
-                      style={{ backgroundColor: row.color }}
-                    >
-                      {row.category}
-                    </span>
-                  </td>
-                  <td className="py-3 md:py-4 pl-3 md:pl-4">
-                    <span className="inline-flex items-center px-2 md:px-4 py-1 rounded-full border border-success gap-1 text-xs md:text-sm">
-                      <div className="w-3 h-3 md:w-4 md:h-4 bg-success rounded-full"></div>
-                      {row.bnp}
-                    </span>
-                  </td>
-                  <td className="py-3 md:py-4 pl-3 md:pl-4">
-                    <span className="inline-flex items-center px-2 md:px-4 py-1 rounded-full border border-primary/900 gap-1 text-xs md:text-sm">
-                      <div className="w-3 h-3 md:w-4 md:h-4 bg-primary/900 rounded-full"></div>
-                      {row.ncp}
-                    </span>
-                  </td>
-                  <td className="py-3 md:py-4 pl-3 md:pl-4">
-                    <span className="inline-flex items-center px-2 md:px-4 py-1 rounded-full border border-primary/900 gap-1 text-xs md:text-sm">
-                      <div className="w-3 h-3 md:w-4 md:h-4 bg-primary/900 rounded-full"></div>
-                      {row.jamat}
-                    </span>
-                  </td>
-                </tr>
-              ))}
+              {tableData.map((row, index) => {
+                const rowData = row as Record<string, string | PartyStance>;
+                return (
+                  <tr
+                    key={index}
+                    className="border-b border-neutral-300 h-20 md:h-24 text-sm md:text-base text-neutral-800 text-left font-medium"
+                  >
+                    <td className="py-3 md:py-4 font-semibold text-base md:text-lg lg:text-xl pl-4 md:pl-8">
+                      {row.proposalName}
+                    </td>
+                    <td className="py-3 md:py-4 pl-3 md:pl-4 text-xs md:text-sm lg:text-base">
+                      {row.commission}
+                    </td>
+                    <td className="py-3 md:py-4 pl-3 md:pl-4">
+                      <span
+                        className="inline-flex items-center px-2 md:px-4 py-1 rounded-full text-white text-xs md:text-sm"
+                        style={{ backgroundColor: row.color as string }}
+                      >
+                        {row.category}
+                      </span>
+                    </td>
+                    {partyColumns.map((party) => {
+                      const stance = rowData[party.key] as PartyStance;
+                      return (
+                        <td
+                          key={party.key}
+                          className="py-3 md:py-4 pl-3 md:pl-4"
+                        >
+                          <span
+                            className="inline-flex items-center px-2 md:px-4 py-1 rounded-full border gap-1 text-xs md:text-sm"
+                            style={{ borderColor: stance.borderColor }}
+                          >
+                            <div
+                              className="w-3 h-3 md:w-4 md:h-4 rounded-full"
+                              style={{ backgroundColor: stance.color }}
+                            ></div>
+                            {stance.text}
+                          </span>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

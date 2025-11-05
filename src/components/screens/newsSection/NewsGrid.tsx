@@ -22,6 +22,21 @@ const NewsGrid: FC<{
   setCurrentNewsPage,
   rightSideCardPerson,
 }) => {
+  if (currentNewsItems.length === 0) {
+    return (
+      <section className="w-full py-6 md:py-8">
+        <div className="max-w-7xl bg-neutral-100 rounded-2xl md:rounded-3xl mx-auto px-4 py-6 md:px-6 md:py-8 lg:px-8 lg:py-10">
+          <div className="text-neutral-600 font-semibold text-base md:text-lg lg:text-xl mb-4">
+            {pageText.seeRecentNews}
+          </div>
+          <div className="text-center py-12 text-neutral-500">
+            No news articles found. Please add content in Sanity Studio.
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="w-full py-6 md:py-8">
       <div className="max-w-7xl bg-neutral-100 rounded-2xl md:rounded-3xl mx-auto px-4 py-6 md:px-6 md:py-8 lg:px-8 lg:py-10">

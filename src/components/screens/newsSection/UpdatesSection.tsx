@@ -36,7 +36,7 @@ const UpdatesSection: FC<{
   setSelectedUpdateWriter,
   categories,
   writers,
-  currentUpdateItems,
+  updates,
   totalUpdatePages,
   currentUpdatePage,
   setCurrentUpdatePage,
@@ -53,7 +53,7 @@ const UpdatesSection: FC<{
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-3 md:gap-4 mb-8 md:mb-16">
+        <div className="flex flex-col max-w-4xl mx-auto md:flex-row gap-3 md:gap-4 mb-8 md:mb-16">
           <div className="relative flex-1">
             <input
               type="text"
@@ -143,8 +143,8 @@ const UpdatesSection: FC<{
         </div>
 
         <div className="space-y-3 md:space-y-4">
-          {currentUpdateItems.map((update) => (
-            <Button key={update.id} variant="card" update={update} />
+          {updates.map((update, index) => (
+            <Button key={index} variant="card" update={update} />
           ))}
         </div>
 

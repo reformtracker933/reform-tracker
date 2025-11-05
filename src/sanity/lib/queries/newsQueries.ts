@@ -4,7 +4,7 @@ import { groq } from "next-sanity";
  * Get all news articles with pagination
  */
 export const getAllNewsQuery = groq`
-  *[_type == "newsArticle" && language == $language] | order(publishedDate desc) [$start...$end] {
+  *[_type == "newsArticle"] | order(publishedDate desc) [$start...$end] {
     _id,
     title,
     slug,
@@ -21,7 +21,8 @@ export const getAllNewsQuery = groq`
     },
     publishedDate,
     isFeatured,
-    tags
+    tags,
+    language
   }
 `;
 
@@ -29,7 +30,7 @@ export const getAllNewsQuery = groq`
  * Get featured news articles for homepage
  */
 export const getFeaturedNewsQuery = groq`
-  *[_type == "newsArticle" && isFeatured == true && language == $language] | order(publishedDate desc) [0...4] {
+  *[_type == "newsArticle" && isFeatured == true] | order(publishedDate desc) [0...4] {
     _id,
     title,
     slug,
@@ -44,7 +45,8 @@ export const getFeaturedNewsQuery = groq`
       title,
       color
     },
-    publishedDate
+    publishedDate,
+    language
   }
 `;
 

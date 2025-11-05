@@ -22,6 +22,7 @@ export const getAllProposalsQuery = groq`
       "party": party->{
         _id,
         name,
+        slug,
         color
       },
       stance,
