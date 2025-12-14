@@ -6,10 +6,182 @@ import DoughnutChart from "@/components/screens/dashboard/DoughnutChart";
 import { FileText, BarChart as BarIcon } from "lucide-react";
 import { useLocale } from "@/context/LocaleContext";
 import { DashboardStats } from "@/types/sanity";
+import UpdatesSection from "./UpdatesSection";
 
 interface DashboardClientProps {
   stats: DashboardStats | null;
 }
+
+// Dummy data section starts from here
+import { UpdateCard } from "@/data/sampleNewsData";
+import { RTLTranslations } from "@/types/translations.generated";
+
+export const dummyUpdatesSectionProps = {
+  pageText: {
+    reformUpdateTitle: "সংস্কার আপডেট",
+    searchBarPlaceHolder: "অনুসন্ধান করুন",
+    sector: "সেক্টর",
+    seeRecentUpdate: "See Recent Updates",
+    noUpdatesFound: "No updates found for your selection.",
+  } as RTLTranslations["reformNews"],
+
+  updateSearchTerm: "",
+  setUpdateSearchTerm: (v: string) => console.log("Search:", v),
+
+  selectedUpdateCategory: "all",
+  setSelectedUpdateCategory: (v: string) => console.log("Category:", v),
+
+  selectedUpdateDate: "",
+  setSelectedUpdateDate: (v: string) => console.log("Date:", v),
+
+  categories: [
+    { id: "1", name: "Politics" },
+    { id: "2", name: "Education" },
+    { id: "3", name: "Health" },
+    { id: "4", name: "Environment" },
+    { id: "5", name: "Economy" },
+    { id: "6", name: "Technology" },
+  ],
+
+  updates: [
+    {
+      category: "দুর্নীতিবিরোধী",
+      date: "২৭,জানুয়ারি,২০২৫",
+      title: "নতুন শিক্ষা ব্যবস্থা চালু হয়েছে.",
+      color: "#EA8389",
+      href: "/news/election-reform-act-2024",
+      text: "চলছে",
+      colorStat: "#4A7EC9",
+      borderColor: "#4A7EC9",
+    },
+    {
+      category: "দুর্নীতিবিরোধী",
+      date: "২৭,জানুয়ারি,২০২৫",
+      title: "নতুন শিক্ষা ব্যবস্থা চালু হয়েছে.",
+      color: "#EA8389",
+      href: "/news/education-curriculum-update",
+      text: "সম্পন্ন",
+      colorStat: "#31B36B",
+      borderColor: "#31B36B",
+    },
+    {
+      category: "দুর্নীতিবিরোধী",
+      date: "২৭,জানুয়ারি,২০২৫",
+      title: "নতুন শিক্ষা ব্যবস্থা চালু হয়েছে.",
+      color: "#EA8389",
+      href: "/news/digital-health-cards",
+      text: "বাতিল",
+      colorStat: "#E83231CC",
+      borderColor: "#E83231CC",
+    },
+    {
+      category: "দুর্নীতিবিরোধী",
+      date: "২৭,জানুয়ারি,২০২৫",
+      title: "নতুন শিক্ষা ব্যবস্থা চালু হয়েছে.",
+      color: "#EA8389",
+      href: "/news/forest-conservation-program",
+      text: "পরিকল্পিত",
+      colorStat: "#F9D262",
+      borderColor: "#F9D262",
+    },
+    {
+      category: "দুর্নীতিবিরোধী",
+      date: "২৭,জানুয়ারি,২০২৫",
+      title: "নতুন শিক্ষা ব্যবস্থা চালু হয়েছে.",
+      color: "#EA8389",
+      href: "/news/national-budget-2025",
+      text: "সম্পন্ন",
+      colorStat: "#31B36B",
+      borderColor: "#31B36B",
+    },
+    {
+      category: "দুর্নীতিবিরোধী",
+      date: "২৭,জানুয়ারি,২০২৫",
+      title: "নতুন শিক্ষা ব্যবস্থা চালু হয়েছে.",
+      color: "#EA8389",
+      href: "/news/smart-city-expansion",
+      text: "বাতিল",
+      colorStat: "#E83231CC",
+      borderColor: "#E83231CC",
+    },
+  ],
+
+  currentUpdateItems: [
+    {
+      id: "u1",
+      title: "Election Reform Act 2024",
+      category: "Politics",
+      image: "/images/sample1.jpg",
+      description:
+        "A new reform law to enhance transparency and ensure fair elections across the country.",
+      date: "2024-11-10",
+      slug: "election-reform-act-2024",
+    },
+    {
+      id: "u2",
+      title: "Healthcare Modernization Policy 2025",
+      category: "Health",
+      image: "/images/sample2.jpg",
+      description:
+        "Policy introducing digital health records and improved access to healthcare in rural areas.",
+      date: "2025-01-15",
+      slug: "healthcare-modernization-policy-2025",
+    },
+    {
+      id: "u3",
+      title: "Green Investment Budget 2025",
+      category: "Economy",
+      image: "/images/sample3.jpg",
+      description:
+        "The government introduces new incentives for renewable energy and eco-friendly startups.",
+      date: "2025-02-20",
+      slug: "green-investment-budget-2025",
+    },
+    {
+      id: "u4",
+      title: "Smart City Expansion Project",
+      category: "Technology",
+      image: "/images/sample4.jpg",
+      description:
+        "Phase two of the Smart City initiative expands digital infrastructure to 10 new districts.",
+      date: "2025-03-10",
+      slug: "smart-city-expansion-project",
+    },
+    {
+      id: "u5",
+      title: "Education Curriculum Overhaul",
+      category: "Education",
+      image: "/images/sample5.jpg",
+      description:
+        "A modernized curriculum focusing on critical thinking and digital literacy has been introduced nationwide.",
+      date: "2025-04-05",
+      slug: "education-curriculum-overhaul",
+    },
+    {
+      id: "u6",
+      title: "Forest Conservation Program Launched",
+      category: "Environment",
+      image: "/images/sample6.jpg",
+      description:
+        "A long-term initiative to protect 1 million acres of forest and promote eco-tourism.",
+      date: "2025-05-12",
+      slug: "forest-conservation-program-launched",
+    },
+  ] as unknown as UpdateCard[],
+
+  totalUpdatePages: 3,
+  currentUpdatePage: 1,
+
+  setCurrentUpdatePage: (v: React.SetStateAction<number>) => {
+    if (typeof v === "function") {
+      console.log("Page set via updater fn:", v(1));
+    } else {
+      console.log("Page set directly:", v);
+    }
+  },
+
+  isLoading: false,
+};
 
 export default function DashboardClient({ stats }: DashboardClientProps) {
   const { getTranslation, locale } = useLocale();
@@ -97,6 +269,9 @@ export default function DashboardClient({ stats }: DashboardClientProps) {
               title={pageText.reformUsingSector}
             />
           </div>
+        </div>
+        <div>
+          <UpdatesSection {...dummyUpdatesSectionProps} />
         </div>
       </div>
     </section>
