@@ -1,5 +1,5 @@
 // AUTO-GENERATED - DO NOT EDIT
-// Generated: 2025-11-05T16:17:26.700Z
+// Generated: 2025-12-14T22:55:35.790Z
 // Run 'pnpm generate:types' to regenerate
 
 export type RTLTranslations = {
@@ -251,20 +251,20 @@ export type DemoTranslations = {
 };
 
 export interface TranslationPages {
-  homePage: RTLTranslations["homePage"];
-  aboutPage: RTLTranslations["aboutPage"];
-  navBar: RTLTranslations["navBar"];
-  heroSection: RTLTranslations["heroSection"];
-  heroSectionCards: RTLTranslations["heroSectionCards"];
-  reformNewsSection: RTLTranslations["reformNewsSection"];
-  reformUpdateSection: RTLTranslations["reformUpdateSection"];
-  newsletter: RTLTranslations["newsletter"];
-  subscribeModal: RTLTranslations["subscribeModal"];
-  footer: RTLTranslations["footer"];
-  resource: RTLTranslations["resource"];
-  reformNews: RTLTranslations["reformNews"];
-  parties: RTLTranslations["parties"];
-  dashboard: RTLTranslations["dashboard"];
+  homePage: RTLTranslations['homePage'];
+  aboutPage: RTLTranslations['aboutPage'];
+  navBar: RTLTranslations['navBar'];
+  heroSection: RTLTranslations['heroSection'];
+  heroSectionCards: RTLTranslations['heroSectionCards'];
+  reformNewsSection: RTLTranslations['reformNewsSection'];
+  reformUpdateSection: RTLTranslations['reformUpdateSection'];
+  newsletter: RTLTranslations['newsletter'];
+  subscribeModal: RTLTranslations['subscribeModal'];
+  footer: RTLTranslations['footer'];
+  resource: RTLTranslations['resource'];
+  reformNews: RTLTranslations['reformNews'];
+  parties: RTLTranslations['parties'];
+  dashboard: RTLTranslations['dashboard'];
   demo: DemoTranslations;
 }
 
