@@ -1,10 +1,26 @@
-import type { StructureResolver } from "sanity/structure";
+import type { StructureResolver } from 'sanity/structure';
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S) =>
   S.list()
-    .title("সংস্কার ট্র্যাকার সিএমএস / Reform Tracker CMS")
+    .title('সংস্কার ট্র্যাকার সিএমএস / Reform Tracker CMS')
     .items([
+      // Newsletter Subscribers
+      S.documentTypeListItem('subscriber').title('Newsletter Subscribers'),
+
+      S.divider(),
+
+      // Commission Reports Section
+      S.documentTypeListItem('theme').title('থিম / Theme'),
+      S.documentTypeListItem('commissionReport').title(
+        'কমিশন রিপোর্ট / Commission Report'
+      ),
+      S.documentTypeListItem('commissionParty').title(
+        'কমিশন দল / Commission Party'
+      ),
+
+      // Commented out sections - uncomment if needed
+      /*
       // Content Section
       S.listItem()
         .title("কন্টেন্ট / Content")
@@ -90,4 +106,5 @@ export const structure: StructureResolver = (S) =>
             "commission",
           ].includes(item.getId()!),
       ),
+      */
     ]);
