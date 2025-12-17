@@ -7,27 +7,27 @@
 export interface SanityImage {
   asset: {
     _ref: string;
-    _type: "reference";
+    _type: 'reference';
   };
-  _type: "image";
+  _type: 'image';
 }
 
 export interface SanityFile {
   asset: {
     _ref: string;
-    _type: "reference";
+    _type: 'reference';
   };
-  _type: "file";
+  _type: 'file';
 }
 
 export interface Slug {
   current: string;
-  _type: "slug";
+  _type: 'slug';
 }
 
 // Block Content Type (for rich text)
 export type BlockContent = Array<{
-  _type: "block";
+  _type: 'block';
   [key: string]: unknown;
 }>;
 
@@ -38,8 +38,8 @@ export interface Category {
   slug: Slug;
   description?: string;
   color?: string;
-  language: "en" | "bn";
-  type: "news" | "update" | "proposal" | "resource" | "all";
+  language: 'en' | 'bn';
+  type: 'news' | 'update' | 'proposal' | 'resource' | 'all';
 }
 
 // Author
@@ -49,7 +49,7 @@ export interface Author {
   slug: Slug;
   avatar: string; // URL after resolution
   bio?: string;
-  language: "en" | "bn";
+  language: 'en' | 'bn';
 }
 
 // Commission
@@ -61,7 +61,7 @@ export interface Commission {
   description?: string;
   establishedDate?: string;
   website?: string;
-  language: "en" | "bn";
+  language: 'en' | 'bn';
 }
 
 // News Article
@@ -77,7 +77,7 @@ export interface NewsArticle {
   category: Category;
   publishedDate: string;
   isFeatured: boolean;
-  language: "en" | "bn";
+  language: 'en' | 'bn';
   tags?: string[];
 }
 
@@ -91,7 +91,7 @@ export interface ReformUpdate {
   color: string;
   publishedDate: string;
   priority: number;
-  language: "en" | "bn";
+  language: 'en' | 'bn';
   relatedArticles?: NewsArticle[];
 }
 
@@ -111,21 +111,21 @@ export interface Resource {
   publishedDate: string;
   description?: string;
   color: string;
-  language: "en" | "bn";
+  language: 'en' | 'bn';
   thumbnail?: string;
 }
 
-// Political Party
+// Political Party (Complex - for parties page with statistics)
 export interface PoliticalParty {
   _id: string;
   name: string;
-  slug: Slug;
-  fullName?: string;
+  slug?: Slug;
+  fullName: string;
   logo?: string;
   color: string;
   description?: string;
   established?: string;
-  statistics: {
+  statistics?: {
     totalStatements: number;
     approved: number;
     rejected: number;
@@ -137,13 +137,23 @@ export interface PoliticalParty {
     acceptable: number;
     unacceptable: number;
   }>;
-  displayOrder: number;
+  displayOrder?: number;
+}
+
+// Commission Party (Simplified - for commission reports)
+export interface CommissionParty {
+  _id: string;
+  name: string;
+  fullName: string;
+  logo?: string;
+  color: string;
+  description?: string;
 }
 
 // Proposal
 export interface PartyPosition {
   party: PoliticalParty;
-  stance: "support" | "against" | "neutral";
+  stance: 'support' | 'against' | 'neutral';
   votingDate?: string;
 }
 
@@ -156,14 +166,14 @@ export interface Proposal {
   category: Category;
   color: string;
   publishedDate: string;
-  status: "running" | "completed" | "preplanned" | "expelled";
+  status: 'running' | 'completed' | 'preplanned' | 'expelled';
   partyPositions?: PartyPosition[];
-  language: "en" | "bn";
+  language: 'en' | 'bn';
 }
 
 // Dashboard Statistics
 export interface StatusBreakdown {
-  status: "running" | "completed" | "preplanned" | "expelled";
+  status: 'running' | 'completed' | 'preplanned' | 'expelled';
   count: number;
   label_en: string;
   label_bn: string;
@@ -192,7 +202,7 @@ export interface DashboardStats {
 export interface ChartConfig {
   _id: string;
   name: string;
-  chartType: "bar" | "doughnut" | "line";
+  chartType: 'bar' | 'doughnut' | 'line';
   chartId: string;
   colorScheme: string[];
   labels: {
@@ -217,7 +227,7 @@ export interface PaginationParams {
 }
 
 export interface LanguageParam {
-  language: "en" | "bn";
+  language: 'en' | 'bn';
 }
 
 export interface SearchParams extends PaginationParams, LanguageParam {
@@ -231,4 +241,41 @@ export interface CategoryFilterParams extends PaginationParams, LanguageParam {
 export interface DateRangeParams {
   yearStart: string;
   yearEnd: string;
+}
+
+export interface Theme {
+  _id: string;
+  name: string;
+  slug: Slug;
+  description?: string;
+  color: string;
+  icon: string;
+}
+
+export interface ThemeSection {
+  title: string;
+  content: BlockContent;
+  politicalParties: CommissionParty[];
+  order: number;
+}
+
+export interface ThemeGroup {
+  theme: Theme;
+  sections: ThemeSection[];
+}
+
+export interface CommissionReport {
+  _id: string;
+  title: string;
+  slug: Slug;
+  featuredImage: string;
+  featuredImageAlt?: string;
+  excerpt: string;
+  publishedDate: string;
+  status: 'draft' | 'published' | 'archived';
+  themes: ThemeGroup[];
+  tags: string[];
+  isFeatured: boolean;
+  allParties?: CommissionParty[];
+  themeList?: Theme[];
 }

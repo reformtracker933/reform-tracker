@@ -1,75 +1,56 @@
-import { groq } from "next-sanity";
+import { groq } from 'next-sanity';
 
 /**
  * Get all political parties
  */
 export const getAllPartiesQuery = groq`
-  *[_type == "politicalParty"] | order(displayOrder asc) {
+  *[_type == "politicalParty"] | order(name asc) {
     _id,
     name,
-    slug,
     fullName,
     "logo": logo.asset->url,
     color,
-    description,
-    established,
-    statistics,
-    annualData,
-    displayOrder
+    description
   }
 `;
 
 /**
  * Get party statistics for doughnut charts
+ * TODO: Statistics removed from schema - implement when data source is available
  */
 export const getPartyStatisticsQuery = groq`
-  *[_type == "politicalParty"] | order(displayOrder asc) {
+  *[_type == "politicalParty"] | order(name asc) {
     _id,
     name,
     "logo": logo.asset->url,
-    color,
-    statistics {
-      totalStatements,
-      approved,
-      rejected,
-      completionPercentage,
-      pendingPercentage
-    }
+    color
   }
 `;
 
 /**
  * Get single party by slug
+ * Note: Slug field removed from simplified schema
  */
 export const getPartyBySlugQuery = groq`
-  *[_type == "politicalParty" && slug.current == $slug][0] {
+  *[_type == "politicalParty" && _id == $id][0] {
     _id,
     name,
-    slug,
     fullName,
     "logo": logo.asset->url,
     color,
-    description,
-    established,
-    statistics,
-    annualData
+    description
   }
 `;
 
 /**
  * Get party annual comparison data
- * This fetches party data for bar chart
+ * TODO: Annual data removed from schema - implement when data source is available
  */
 export const getPartyAnnualDataQuery = groq`
-  *[_type == "politicalParty"] | order(displayOrder asc) {
+  *[_type == "politicalParty"] | order(name asc) {
     _id,
     name,
-    color,
-    annualData[] {
-      year,
-      acceptable,
-      unacceptable
-    }
+    color
   }
 `;
 

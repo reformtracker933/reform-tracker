@@ -1,28 +1,35 @@
-import { client } from "./client";
+import { client } from './client';
 import {
   getFeaturedNewsQuery,
   getAllNewsQuery,
   getNewsBySlugQuery,
-} from "./queries/newsQueries";
+} from './queries/newsQueries';
 import {
   getRecentUpdatesQuery,
   getAllUpdatesQuery,
-} from "./queries/updateQueries";
+} from './queries/updateQueries';
 import {
   getDashboardStatsQuery,
   getChartConfigQuery,
-} from "./queries/dashboardQueries";
+} from './queries/dashboardQueries';
 import {
   getAllPartiesQuery,
   getPartyStatisticsQuery,
   getPartyBySlugQuery,
-} from "./queries/partyQueries";
+} from './queries/partyQueries';
 import {
   getAllProposalsQuery,
   getProposalsByStatusQuery,
   getProposalBySlugQuery,
-} from "./queries/proposalQueries";
-import { getAllResourcesQuery } from "./queries/resourceQueries";
+} from './queries/proposalQueries';
+import { getAllResourcesQuery } from './queries/resourceQueries';
+import {
+  getFeaturedCommissionReportsQuery,
+  getAllCommissionReportsQuery,
+  getCommissionReportBySlugQuery,
+  searchCommissionReportsQuery,
+  getAllThemesQuery,
+} from './queries/commissionQueries';
 import {
   NewsArticle,
   ReformUpdate,
@@ -30,47 +37,49 @@ import {
   PoliticalParty,
   Proposal,
   Resource,
-} from "@/types/sanity";
+  CommissionReport,
+  Theme,
+} from '@/types/sanity';
 
 /**
  * NEWS ARTICLE FETCHERS
  */
 
 export async function getFeaturedNews(
-  language: "en" | "bn" = "bn",
+  language: 'en' | 'bn' = 'bn'
 ): Promise<NewsArticle[]> {
   try {
     const news = await client.fetch(getFeaturedNewsQuery, { language });
     return news || [];
   } catch (error) {
-    console.error("Error fetching featured news:", error);
+    console.error('Error fetching featured news:', error);
     return [];
   }
 }
 
 export async function getAllNews(
-  language: "en" | "bn" = "bn",
+  language: 'en' | 'bn' = 'bn',
   start: number = 0,
-  end: number = 10,
+  end: number = 10
 ): Promise<NewsArticle[]> {
   try {
     const news = await client.fetch(getAllNewsQuery, { language, start, end });
     return news || [];
   } catch (error) {
-    console.error("Error fetching all news:", error);
+    console.error('Error fetching all news:', error);
     return [];
   }
 }
 
 export async function getNewsBySlug(
   slug: string,
-  language: "en" | "bn" = "bn",
+  language: 'en' | 'bn' = 'bn'
 ): Promise<NewsArticle | null> {
   try {
     const news = await client.fetch(getNewsBySlugQuery, { slug, language });
     return news || null;
   } catch (error) {
-    console.error("Error fetching news by slug:", error);
+    console.error('Error fetching news by slug:', error);
     return null;
   }
 }
@@ -80,22 +89,22 @@ export async function getNewsBySlug(
  */
 
 export async function getRecentUpdates(
-  language: "en" | "bn" = "bn",
-  limit: number = 4,
+  language: 'en' | 'bn' = 'bn',
+  limit: number = 4
 ): Promise<ReformUpdate[]> {
   try {
     const updates = await client.fetch(getRecentUpdatesQuery, { language });
     return updates?.slice(0, limit) || [];
   } catch (error) {
-    console.error("Error fetching recent updates:", error);
+    console.error('Error fetching recent updates:', error);
     return [];
   }
 }
 
 export async function getAllUpdates(
-  language: "en" | "bn" = "bn",
+  language: 'en' | 'bn' = 'bn',
   start: number = 0,
-  end: number = 10,
+  end: number = 10
 ): Promise<ReformUpdate[]> {
   try {
     const updates = await client.fetch(getAllUpdatesQuery, {
@@ -105,7 +114,7 @@ export async function getAllUpdates(
     });
     return updates || [];
   } catch (error) {
-    console.error("Error fetching all updates:", error);
+    console.error('Error fetching all updates:', error);
     return [];
   }
 }
@@ -119,7 +128,7 @@ export async function getDashboardStats(): Promise<DashboardStats | null> {
     const stats = await client.fetch(getDashboardStatsQuery);
     return stats || null;
   } catch (error) {
-    console.error("Error fetching dashboard stats:", error);
+    console.error('Error fetching dashboard stats:', error);
     return null;
   }
 }
@@ -129,7 +138,7 @@ export async function getChartConfig(chartId: string) {
     const config = await client.fetch(getChartConfigQuery, { chartId });
     return config || null;
   } catch (error) {
-    console.error("Error fetching chart config:", error);
+    console.error('Error fetching chart config:', error);
     return null;
   }
 }
@@ -143,7 +152,7 @@ export async function getAllParties(): Promise<PoliticalParty[]> {
     const parties = await client.fetch(getAllPartiesQuery);
     return parties || [];
   } catch (error) {
-    console.error("Error fetching all parties:", error);
+    console.error('Error fetching all parties:', error);
     return [];
   }
 }
@@ -153,19 +162,19 @@ export async function getPartyStatistics(): Promise<PoliticalParty[]> {
     const parties = await client.fetch(getPartyStatisticsQuery);
     return parties || [];
   } catch (error) {
-    console.error("Error fetching party statistics:", error);
+    console.error('Error fetching party statistics:', error);
     return [];
   }
 }
 
 export async function getPartyBySlug(
-  slug: string,
+  slug: string
 ): Promise<PoliticalParty | null> {
   try {
     const party = await client.fetch(getPartyBySlugQuery, { slug });
     return party || null;
   } catch (error) {
-    console.error("Error fetching party by slug:", error);
+    console.error('Error fetching party by slug:', error);
     return null;
   }
 }
@@ -175,9 +184,9 @@ export async function getPartyBySlug(
  */
 
 export async function getAllProposals(
-  language: "en" | "bn" = "bn",
+  language: 'en' | 'bn' = 'bn',
   start: number = 0,
-  end: number = 10,
+  end: number = 10
 ): Promise<Proposal[]> {
   try {
     const proposals = await client.fetch(getAllProposalsQuery, {
@@ -187,16 +196,16 @@ export async function getAllProposals(
     });
     return proposals || [];
   } catch (error) {
-    console.error("Error fetching all proposals:", error);
+    console.error('Error fetching all proposals:', error);
     return [];
   }
 }
 
 export async function getProposalsByStatus(
   status: string,
-  language: "en" | "bn" = "bn",
+  language: 'en' | 'bn' = 'bn',
   start: number = 0,
-  end: number = 10,
+  end: number = 10
 ): Promise<Proposal[]> {
   try {
     const proposals = await client.fetch(getProposalsByStatusQuery, {
@@ -207,14 +216,14 @@ export async function getProposalsByStatus(
     });
     return proposals || [];
   } catch (error) {
-    console.error("Error fetching proposals by status:", error);
+    console.error('Error fetching proposals by status:', error);
     return [];
   }
 }
 
 export async function getProposalBySlug(
   slug: string,
-  language: "en" | "bn" = "bn",
+  language: 'en' | 'bn' = 'bn'
 ): Promise<Proposal | null> {
   try {
     const proposal = await client.fetch(getProposalBySlugQuery, {
@@ -223,7 +232,7 @@ export async function getProposalBySlug(
     });
     return proposal || null;
   } catch (error) {
-    console.error("Error fetching proposal by slug:", error);
+    console.error('Error fetching proposal by slug:', error);
     return null;
   }
 }
@@ -233,9 +242,9 @@ export async function getProposalBySlug(
  */
 
 export async function getAllResources(
-  language: "en" | "bn" = "bn",
+  language: 'en' | 'bn' = 'bn',
   start: number = 0,
-  end: number = 100,
+  end: number = 100
 ): Promise<Resource[]> {
   try {
     const resources = await client.fetch(getAllResourcesQuery, {
@@ -245,7 +254,72 @@ export async function getAllResources(
     });
     return resources || [];
   } catch (error) {
-    console.error("Error fetching all resources:", error);
+    console.error('Error fetching all resources:', error);
+    return [];
+  }
+}
+
+export async function getFeaturedCommissionReports(): Promise<
+  CommissionReport[]
+> {
+  try {
+    const reports = await client.fetch(getFeaturedCommissionReportsQuery);
+    return reports || [];
+  } catch (error) {
+    console.error('Error fetching featured commission reports:', error);
+    return [];
+  }
+}
+
+export async function getAllCommissionReports(
+  start: number = 0,
+  end: number = 100
+): Promise<CommissionReport[]> {
+  try {
+    const reports = await client.fetch(getAllCommissionReportsQuery, {
+      start,
+      end,
+    });
+    return reports || [];
+  } catch (error) {
+    console.error('Error fetching all commission reports:', error);
+    return [];
+  }
+}
+
+export async function getCommissionReportBySlug(
+  slug: string
+): Promise<CommissionReport | null> {
+  try {
+    const report = await client.fetch(getCommissionReportBySlugQuery, { slug });
+    return report || null;
+  } catch (error) {
+    console.error('Error fetching commission report by slug:', error);
+    return null;
+  }
+}
+
+export async function searchCommissionReports(
+  searchQuery: string
+): Promise<CommissionReport[]> {
+  try {
+    const reports = await client.fetch<CommissionReport[]>(
+      searchCommissionReportsQuery,
+      { query: searchQuery } as any
+    );
+    return reports || [];
+  } catch (error) {
+    console.error('Error searching commission reports:', error);
+    return [];
+  }
+}
+
+export async function getAllThemes(): Promise<Theme[]> {
+  try {
+    const themes = await client.fetch(getAllThemesQuery);
+    return themes || [];
+  } catch (error) {
+    console.error('Error fetching all themes:', error);
     return [];
   }
 }

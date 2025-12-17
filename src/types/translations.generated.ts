@@ -1,5 +1,5 @@
 // AUTO-GENERATED - DO NOT EDIT
-// Generated: 2025-12-17T13:12:20.411Z
+// Generated: 2025-12-17T17:22:07.662Z
 // Run 'pnpm generate:types' to regenerate
 
 export type RTLTranslations = {
@@ -11,7 +11,42 @@ export type RTLTranslations = {
   aboutPage: {
     title: string;
     subtitle: string;
-    learnMore: string;
+    heroDescription: string;
+    missionTitle: string;
+    missionDescription: string;
+    visionTitle: string;
+    visionDescription: string;
+    whatWeDoTitle: string;
+    whatWeDoDescription: string;
+    feature1Title: string;
+    feature1Description: string;
+    feature2Title: string;
+    feature2Description: string;
+    feature3Title: string;
+    feature3Description: string;
+    feature4Title: string;
+    feature4Description: string;
+    valuesTitle: string;
+    value1Title: string;
+    value1Description: string;
+    value2Title: string;
+    value2Description: string;
+    value3Title: string;
+    value3Description: string;
+    value4Title: string;
+    value4Description: string;
+    teamTitle: string;
+    teamDescription: string;
+    impactTitle: string;
+    impactStat1: string;
+    impactStat2: string;
+    impactStat3: string;
+    impactStat4: string;
+    ctaTitle: string;
+    ctaDescription: string;
+    ctaButton: string;
+    contactTitle: string;
+    contactDescription: string;
   };
   navBar: {
     home: string;
@@ -174,6 +209,44 @@ export type RTLTranslations = {
     preplanned: string;
     expelled: string;
   };
+  commissionReports: {
+    sectionTitle: string;
+    seeAll: string;
+    viewReport: string;
+    themes: string;
+    parties: string;
+    more: string;
+    noParties: string;
+  };
+  proposalsPage: {
+    title: string;
+    subtitle: string;
+    searchPlaceholder: string;
+    filters: string;
+    filterByTheme: string;
+    filterByParty: string;
+    clearFilters: string;
+    showingResults: string;
+    noResults: string;
+    noResultsDescription: string;
+    previous: string;
+    next: string;
+    loading: string;
+  };
+  commissionDetail: {
+    contents: string;
+    backToReports: string;
+    publishedOn: string;
+    downloadPDF: string;
+    politicalStance: string;
+    supportedBy: string;
+    noPartyStance: string;
+    documentInfo: string;
+    totalPages: string;
+    fileSize: string;
+    tags: string;
+    relatedReports: string;
+  };
 };
 
 export type DemoTranslations = {
@@ -267,6 +340,9 @@ export interface TranslationPages {
   reformNews: RTLTranslations['reformNews'];
   parties: RTLTranslations['parties'];
   dashboard: RTLTranslations['dashboard'];
+  commissionReports: RTLTranslations['commissionReports'];
+  proposalsPage: RTLTranslations['proposalsPage'];
+  commissionDetail: RTLTranslations['commissionDetail'];
   demo: DemoTranslations;
 }
 
