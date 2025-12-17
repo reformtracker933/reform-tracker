@@ -92,7 +92,7 @@ export function CollapsibleTheme({
         id={`theme-content-${themeIndex}`}
         className={`divide-y divide-gray-200 transition-all duration-300 ease-in-out lg:block ${
           isExpanded
-            ? 'max-h-[10000px] opacity-100'
+            ? 'max-h-2500 opacity-100'
             : 'max-h-0 opacity-0 overflow-hidden lg:max-h-none lg:opacity-100 lg:overflow-visible'
         }`}
       >
