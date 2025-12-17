@@ -11,6 +11,8 @@
   },
   "navBar": {
     "home": "Home",
+    "proposals": "Proposals",
+    "aboutUs": "About Us",
     "dashboard": "Dashboard",
     "parties": "Parties",
     "asset": "Asset",
@@ -19,7 +21,7 @@
     "menu": "Menu"
   },
   "heroSection": {
-    "heading": "Explore Reform Situation Across Bangladesh",
+    "heading": "Track Reform Commission Proposals & Reports",
     "news": "News",
     "dashboard": "Dashboard",
     "politicalTime": "Political Time"

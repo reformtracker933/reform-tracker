@@ -1,5 +1,5 @@
 // AUTO-GENERATED - DO NOT EDIT
-// Generated: 2025-12-14T23:01:10.028Z
+// Generated: 2025-12-17T13:12:20.411Z
 // Run 'pnpm generate:types' to regenerate
 
 export type RTLTranslations = {
@@ -15,6 +15,8 @@ export type RTLTranslations = {
   };
   navBar: {
     home: string;
+    proposals: string;
+    aboutUs: string;
     dashboard: string;
     parties: string;
     asset: string;
