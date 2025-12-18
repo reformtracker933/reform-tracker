@@ -21,7 +21,7 @@ export default function ProposalsPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
 
-  const reportsPerPage = 12;
+  const reportsPerPage = 9;
 
   // Fetch reports
   const fetchReports = useCallback(async () => {
@@ -128,7 +128,7 @@ export default function ProposalsPage() {
       <div className='relative bg-linear-to-br from-primary to-secondary text-white'>
         <div className='absolute inset-0 bg-black/20'></div>
         <div className='absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-size-[4rem_4rem]'></div>
-        <div className='relative max-w-7xl mx-auto px-4 pt-32 md:pt-36 pb-16 md:pb-20'>
+        <div className='relative max-w-7xl mx-auto px-4 xl:px-0 pt-32 md:pt-36 pb-16 md:pb-20'>
           <div className='max-w-4xl'>
             <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight'>
               {text.title}
@@ -140,7 +140,7 @@ export default function ProposalsPage() {
         </div>
       </div>
 
-      <div className='max-w-7xl mx-auto px-4 py-12 pt-6 md:pt-8 md:py-16'>
+      <div className='max-w-7xl mx-auto px-4 xl:px-0  py-12 pt-6 md:pt-8 md:py-16'>
         {/* Search Bar on Top */}
         <div className='mb-6 md:mb-8'>
           <div className='bg-white rounded-lg shadow-sm p-3 md:p-4'>
@@ -156,7 +156,7 @@ export default function ProposalsPage() {
 
         <div className='grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8'>
           <div className='lg:col-span-1'>
-            <div className='bg-white rounded-lg shadow-sm p-4 md:p-6 sticky top-4'>
+            <div className='bg-white rounded-lg shadow-sm p-4 md:p-6 sticky top-24'>
               <div className='flex items-center justify-between mb-4 md:mb-6'>
                 <h2 className='text-base md:text-lg font-bold text-gray-900'>
                   {text.filters}
@@ -243,13 +243,18 @@ export default function ProposalsPage() {
               <>
                 {/* Results Count */}
                 {totalResults > 0 && (
-                  <div className='mb-4'>
+                  <div className='mb-4 flex items-center justify-between'>
                     <p className='text-sm text-gray-600'>
                       {text.showingResults.replace(
                         '{count}',
                         totalResults.toString()
                       )}
                     </p>
+                    {totalPages > 1 && (
+                      <p className='text-sm text-gray-600'>
+                        {text.page}: {currentPage}/{totalPages}
+                      </p>
+                    )}
                   </div>
                 )}
 
@@ -288,66 +293,74 @@ export default function ProposalsPage() {
                   </div>
                 ) : (
                   <>
-                    {/* Reports Grid - Wider Cards with Better Spacing */}
-                    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8'>
+                    {/* Reports Grid - 3 columns layout for 9 cards */}
+                    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8'>
                       {reports.map((report, index) => (
                         <CommissionCard
                           key={report._id}
                           report={report}
-                          priority={index < 4}
+                          priority={index < 6}
                         />
                       ))}
                     </div>
 
                     {/* Pagination */}
                     {totalPages > 1 && (
-                      <div className='flex justify-center items-center gap-1.5 md:gap-2 mt-8'>
-                        <button
-                          onClick={() => handlePageChange(currentPage - 1)}
-                          disabled={currentPage === 1}
-                          className='px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors'
-                        >
-                          {text.previous}
-                        </button>
+                      <div className='flex items-center justify-center mt-12'>
+                        <div className='flex items-center gap-2'>
+                          <button
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                            className='px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm md:text-base'
+                            aria-label='Previous page'
+                          >
+                            {text.previous}
+                          </button>
 
-                        <div className='flex gap-1'>
-                          {Array.from(
-                            { length: Math.min(totalPages, 5) },
-                            (_, i) => {
-                              let page;
-                              if (totalPages <= 5) {
-                                page = i + 1;
-                              } else if (currentPage <= 3) {
-                                page = i + 1;
-                              } else if (currentPage >= totalPages - 2) {
-                                page = totalPages - 4 + i;
-                              } else {
-                                page = currentPage - 2 + i;
+                          <div className='flex gap-1.5'>
+                            {Array.from(
+                              { length: Math.min(totalPages, 7) },
+                              (_, i) => {
+                                let page;
+                                if (totalPages <= 7) {
+                                  page = i + 1;
+                                } else if (currentPage <= 4) {
+                                  page = i + 1;
+                                } else if (currentPage >= totalPages - 3) {
+                                  page = totalPages - 6 + i;
+                                } else {
+                                  page = currentPage - 3 + i;
+                                }
+                                return (
+                                  <button
+                                    key={page}
+                                    onClick={() => handlePageChange(page)}
+                                    className={`w-10 h-10 md:w-11 md:h-11 rounded-lg font-medium transition-colors text-sm md:text-base ${
+                                      currentPage === page
+                                        ? 'bg-primary text-white shadow-md'
+                                        : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
+                                    }`}
+                                    aria-label={`Page ${page}`}
+                                    aria-current={
+                                      currentPage === page ? 'page' : undefined
+                                    }
+                                  >
+                                    {page}
+                                  </button>
+                                );
                               }
-                              return (
-                                <button
-                                  key={page}
-                                  onClick={() => handlePageChange(page)}
-                                  className={`w-10 h-10 rounded-lg font-medium transition-colors ${
-                                    currentPage === page
-                                      ? 'bg-primary text-white'
-                                      : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
-                                  }`}
-                                >
-                                  {page}
-                                </button>
-                              );
-                            }
-                          )}
-                        </div>
+                            )}
+                          </div>
 
-                        <button
-                          onClick={() => handlePageChange(currentPage + 1)}
-                          disabled={currentPage === totalPages}
-                          className='px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors'
-                        >
-                          {text.next}
-                        </button>
+                          <button
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                            className='px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm md:text-base'
+                            aria-label='Next page'
+                          >
+                            {text.next}
+                          </button>
+                        </div>
                       </div>
                     )}
                   </>

@@ -14,7 +14,7 @@ export default function AboutPage() {
         <div className='absolute inset-0 bg-black/20'></div>
         <div className='absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-size-[4rem_4rem]'></div>
 
-        <div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-36 pb-16 md:pb-20'>
+        <div className='relative max-w-7xl mx-auto px-4 xl:px-0 pt-32 md:pt-36 pb-16 md:pb-20'>
           <div className='max-w-4xl'>
             <div className='inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-xs md:text-sm font-medium mb-4 border border-white/20'>
               {text.subtitle}
@@ -95,7 +95,7 @@ export default function AboutPage() {
       </div>
 
       {/* What We Do Section */}
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28'>
+      <div className='max-w-7xl mx-auto px-4 xl:px-0 py-20 md:py-28'>
         <div className='text-center mb-12'>
           <h2 className='text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4'>
             {text.whatWeDoTitle}

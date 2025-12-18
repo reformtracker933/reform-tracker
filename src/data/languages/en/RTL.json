@@ -46,7 +46,7 @@
   },
   "navBar": {
     "home": "Home",
-    "proposals": "Proposals",
+    "proposals": "Reports & Proposals",
     "aboutUs": "About Us",
     "dashboard": "Dashboard",
     "parties": "Parties",
@@ -227,6 +227,8 @@
     "noResultsDescription": "Try adjusting your search or filters to find what you're looking for",
     "previous": "Previous",
     "next": "Next",
+    "page": "Page",
+    "of": "of",
     "loading": "Loading reports..."
   },
   "commissionDetail": {

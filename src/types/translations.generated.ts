@@ -1,5 +1,5 @@
 // AUTO-GENERATED - DO NOT EDIT
-// Generated: 2025-12-17T17:53:15.746Z
+// Generated: 2025-12-18T18:04:38.673Z
 // Run 'pnpm generate:types' to regenerate
 
 export type RTLTranslations = {
@@ -231,6 +231,8 @@ export type RTLTranslations = {
     noResultsDescription: string;
     previous: string;
     next: string;
+    page: string;
+    of: string;
     loading: string;
   };
   commissionDetail: {
