@@ -3,7 +3,6 @@ import { client } from '@/sanity/lib/client';
 import { groq } from 'next-sanity';
 import type { CommissionParty, Theme } from '@/types/sanity';
 
-// API Response Types
 interface ThemeWithParties extends Theme {
   parties: CommissionParty[];
 }
@@ -37,14 +36,10 @@ interface RawReport {
   themes: RawThemeGroup[];
 }
 
-// Validation constants
 const MAX_LIMIT = 100;
 const DEFAULT_LIMIT = 12;
 const MAX_SEARCH_LENGTH = 200;
 
-/**
- * Safely parses and validates pagination parameters
- */
 function parsePaginationParams(searchParams: URLSearchParams): {
   page: number;
   limit: number;
@@ -63,19 +58,10 @@ function parsePaginationParams(searchParams: URLSearchParams): {
   return { page, limit, offset };
 }
 
-/**
- * Sanitizes search input to prevent injection attacks
- */
 function sanitizeSearchInput(input: string): string {
-  return input
-    .slice(0, MAX_SEARCH_LENGTH)
-    .replace(/[\\"]/g, '') // Remove backslashes and quotes
-    .trim();
+  return input.slice(0, MAX_SEARCH_LENGTH).replace(/[\\"]/g, '').trim();
 }
 
-/**
- * Deduplicates parties by _id using Map for O(n) performance
- */
 function deduplicateParties(
   parties: (CommissionParty | null)[]
 ): CommissionParty[] {
@@ -89,9 +75,6 @@ function deduplicateParties(
   );
 }
 
-/**
- * Processes raw report data to flatten themes and deduplicate parties
- */
 function processReport(report: RawReport): ProcessedReport {
   const themes = (report.themes || [])
     .filter(
@@ -118,7 +101,6 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const { page, limit, offset } = parsePaginationParams(searchParams);
 
-    // Extract and validate filter parameters
     const rawSearch = searchParams.get('search') || '';
     const search = rawSearch ? sanitizeSearchInput(rawSearch) : '';
     const themeIds =
@@ -138,16 +120,29 @@ export async function GET(request: NextRequest) {
       'status == "published"',
     ];
 
-    // Search condition - optimized for performance
     if (search) {
       const searchLower = search.toLowerCase();
-      filterConditions.push(`(
-        lower(title) match "*${searchLower}*" ||
-        lower(excerpt) match "*${searchLower}*"
-      )`);
-    }
 
-    // Theme filter - using array containment for better performance
+      const primarySearch = `(
+        lower(title) match "*${searchLower}*" ||
+        title match "*${search}*" ||
+        lower(excerpt) match "*${searchLower}*" ||
+        excerpt match "*${search}*" ||
+        tags[] match "*${search}*" ||
+        lower(themes[].theme->name) match "*${searchLower}*" ||
+        themes[].theme->name match "*${search}*"
+      )`;
+
+      const deepSearch = `(
+        lower(themes[].sections[].title) match "*${searchLower}*" ||
+        themes[].sections[].title match "*${search}*" ||
+        pt::text(themes[].sections[].content) match "*${search}*" ||
+        lower(themes[].sections[].politicalParties[]->name) match "*${searchLower}*" ||
+        themes[].sections[].politicalParties[]->name match "*${search}*"
+      )`;
+
+      filterConditions.push(`(${primarySearch} || ${deepSearch})`);
+    }
     if (themeIds.length > 0) {
       const themeFilter = themeIds
         .map((id) => `themes[].theme._ref == "${id.replace(/"/g, '')}"`) // Sanitize IDs
@@ -168,7 +163,6 @@ export async function GET(request: NextRequest) {
 
     const filter = filterConditions.join(' && ');
 
-    // Optimized query for reports with selective field projection
     const reportsQuery = groq`
       *[${filter}] | order(publishedDate desc, _createdAt desc) [${offset}...${offset + limit}] {
         _id,
@@ -202,19 +196,15 @@ export async function GET(request: NextRequest) {
       }
     `;
 
-    // Optimized count query with same filter
     const countQuery = groq`count(*[${filter}])`;
 
-    // Execute queries in parallel for better performance
     const [reports, total] = await Promise.all([
       client.fetch<RawReport[]>(reportsQuery),
       client.fetch<number>(countQuery),
     ]);
 
-    // Process reports using optimized helper function
     const processedReports = reports.map(processReport);
 
-    // Calculate pagination metadata
     const totalPages = Math.ceil(total / limit);
     const hasNextPage = page < totalPages;
     const hasPrevPage = page > 1;
@@ -243,14 +233,13 @@ export async function GET(request: NextRequest) {
       {
         status: 200,
         headers: {
-          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
+          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
         },
       }
     );
   } catch (error) {
     console.error('[API Error] Commission reports fetch failed:', error);
 
-    // Determine appropriate error status
     const isClientError =
       error instanceof Error &&
       (error.message.includes('invalid') ||
