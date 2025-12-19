@@ -130,9 +130,9 @@ export function CollapsibleTheme({
                           <Badge
                             key={party._id}
                             style={{
-                              backgroundColor: party.color || '#4a7ec9',
+                              color: party.color || '#4a7ec9',
                             }}
-                            className='text-white text-xs md:text-sm'
+                            className='text-xs md:text-sm bg-white shadow-sm hover:shadow-md transition-shadow border-0 px-3 py-1.5'
                           >
                             {party.logo && (
                               <Image

@@ -126,7 +126,7 @@ export const getCommissionReportBySlugQuery = groq`
         title,
         content,
         order,
-        "politicalParties": politicalParties[defined(@)]->[defined(_id)]{
+        "politicalParties": politicalParties[]-> {
           _id,
           name,
           fullName,

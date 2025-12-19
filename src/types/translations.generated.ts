@@ -1,5 +1,5 @@
 // AUTO-GENERATED - DO NOT EDIT
-// Generated: 2025-12-18T18:17:14.427Z
+// Generated: 2025-12-19T07:05:31.862Z
 // Run 'pnpm generate:types' to regenerate
 
 export type RTLTranslations = {

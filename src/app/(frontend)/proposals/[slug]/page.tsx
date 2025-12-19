@@ -13,7 +13,6 @@ interface PageProps {
 export default async function CommissionDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const report = await getCommissionReportBySlug(slug);
-
   if (!report) {
     notFound();
   }

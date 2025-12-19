@@ -45,11 +45,9 @@ export async function GET(request: NextRequest) {
 
     let items;
     if (type === 'themes' || type === 'parties') {
-      // Return full object for themes and parties
-      items = result.map((item: any) => ({
-        _id: item._id,
-        ...item,
-      }));
+      items = result.map(
+        (item: { _id: string; [key: string]: unknown }) => item
+      );
     } else {
       // For other types, use existing mapping
       items =

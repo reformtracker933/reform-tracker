@@ -145,18 +145,18 @@ export async function GET(request: NextRequest) {
     }
     if (themeIds.length > 0) {
       const themeFilter = themeIds
-        .map((id) => `themes[].theme._ref == "${id.replace(/"/g, '')}"`) // Sanitize IDs
+        .map((id) => `"${id.replace(/"/g, '')}" in themes[].theme._ref`)
         .join(' || ');
       filterConditions.push(`(${themeFilter})`);
     }
 
-    // Party filter - optimized query structure
+    // Party filter - use 'in' operator for nested array filtering
     if (partyIds.length > 0) {
       const partyFilter = partyIds
         .map(
           (id) =>
-            `themes[].sections[].politicalParties[]._ref == "${id.replace(/"/g, '')}"`
-        ) // Sanitize IDs
+            `"${id.replace(/"/g, '')}" in themes[].sections[].politicalParties[]._ref`
+        )
         .join(' || ');
       filterConditions.push(`(${partyFilter})`);
     }
@@ -172,27 +172,7 @@ export async function GET(request: NextRequest) {
         "featuredImageAlt": featuredImage.alt,
         excerpt,
         publishedDate,
-        tags,
-        "themes": themes[defined(@) && defined(theme)] {
-          "theme": theme[defined(@)]->{
-            _id,
-            name,
-            slug,
-            color,
-            icon
-          },
-          "parties": array::unique(
-            sections[defined(@)].politicalParties[defined(@)]->[
-              defined(_id) && 
-              defined(name) && 
-              defined(color)
-            ]{
-              _id,
-              name,
-              color
-            }
-          )
-        }
+        tags
       }
     `;
 
