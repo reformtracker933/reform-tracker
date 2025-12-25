@@ -12,8 +12,8 @@ export function TableOfContents({
 
   return (
     <aside className='lg:col-span-1'>
-      <div className='sticky top-24 bg-white rounded-xl shadow-md p-6'>
-        <h3 className='font-bold text-lg mb-4 text-gray-900'>
+      <div className='sticky top-24 bg-white rounded-xl border-2 border-neutral-900 shadow-[4px_4px_0px_#1a1a1a] p-6'>
+        <h3 className='font-black text-lg mb-4 text-neutral-900 pb-2 border-b-2 border-neutral-900'>
           {text.contents}
         </h3>
         <nav className='space-y-2'>
@@ -21,7 +21,7 @@ export function TableOfContents({
             <a
               key={themeGroup.theme._id}
               href={`#theme-${index}`}
-              className='block text-sm text-gray-600 hover:text-primary transition-colors py-1.5 px-3 rounded-lg hover:bg-gray-50'
+              className='block text-sm font-bold text-neutral-800 hover:text-primary transition-all py-2 px-3 rounded-lg hover:bg-warning border-2 border-transparent hover:border-neutral-900'
             >
               <span className='mr-2'>{themeGroup.theme.icon}</span>
               {themeGroup.theme.name}

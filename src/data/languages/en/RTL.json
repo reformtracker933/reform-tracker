@@ -212,7 +212,10 @@
     "themes": "Themes",
     "parties": "Parties",
     "more": "more",
-    "noParties": "No party stance"
+    "noParties": "No party stance",
+    "searchPlaceholder": "Search reports by title, topic, or tag...",
+    "noResults": "No reports found matching your search.",
+    "clearSearch": "Clear Search"
   },
   "proposalsPage": {
     "title": "Commission Reports & Proposals",

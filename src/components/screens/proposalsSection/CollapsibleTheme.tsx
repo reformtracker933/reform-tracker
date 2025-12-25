@@ -40,14 +40,15 @@ export function CollapsibleTheme({
   return (
     <div
       id={`theme-${themeIndex}`}
-      className='bg-white rounded-xl shadow-md overflow-hidden'
+      className='bg-white rounded-xl border-2 border-neutral-900 shadow-[4px_4px_0px_#1a1a1a] overflow-hidden'
     >
-      {/* Theme Header - Clickable on Mobile */}
       <button
         onClick={toggleTheme}
-        className='w-full text-left px-4 md:px-6 py-4 border-b-4 lg:cursor-default focus:outline-none focus:ring-2 focus:ring-primary/50 lg:focus:ring-0 transition-all'
+        className='w-full text-left px-4 md:px-6 py-4 border-b-4 border-neutral-900 lg:cursor-default focus:outline-none transition-all'
         style={{
-          borderColor: themeGroup.theme.color || '#4a7ec9',
+          backgroundColor: themeGroup.theme.color
+            ? `${themeGroup.theme.color}20`
+            : '#f0f0f0',
         }}
         aria-expanded={isExpanded}
         aria-controls={`theme-content-${themeIndex}`}
@@ -58,17 +59,16 @@ export function CollapsibleTheme({
               {themeGroup.theme.icon}
             </span>
             <div className='flex-1 min-w-0'>
-              <h2 className='text-lg md:text-xl lg:text-2xl font-bold text-gray-900'>
+              <h2 className='text-lg md:text-xl lg:text-2xl font-black text-neutral-900'>
                 {themeGroup.theme.name}
               </h2>
               {themeGroup.theme.description && (
-                <p className='text-xs md:text-sm lg:text-base text-gray-600 mt-1'>
+                <p className='text-xs md:text-sm lg:text-base text-neutral-700 font-medium mt-1'>
                   {themeGroup.theme.description}
                 </p>
               )}
             </div>
           </div>
-          {/* Chevron Icon - Only visible on mobile */}
           <svg
             className={`w-5 h-5 md:w-6 md:h-6 text-gray-600 transition-transform duration-300 lg:hidden shrink-0 ${
               isExpanded ? 'rotate-180' : ''
@@ -87,10 +87,9 @@ export function CollapsibleTheme({
         </div>
       </button>
 
-      {/* Sections - Collapsible on Mobile, Always Open on Desktop */}
       <div
         id={`theme-content-${themeIndex}`}
-        className={`divide-y divide-gray-200 transition-all duration-300 ease-in-out lg:block ${
+        className={`divide-y-2 divide-neutral-900 transition-all duration-300 ease-in-out lg:block ${
           isExpanded
             ? 'max-h-2500 opacity-100'
             : 'max-h-0 opacity-0 overflow-hidden lg:max-h-none lg:opacity-100 lg:overflow-visible'
@@ -100,20 +99,18 @@ export function CollapsibleTheme({
           ?.sort((a, b) => a.order - b.order)
           .map((section, sectionIndex) => (
             <div key={sectionIndex} className='p-4 md:p-6'>
-              <h3 className='text-lg md:text-xl font-semibold text-gray-900 mb-4'>
+              <h3 className='text-lg md:text-xl font-black text-neutral-900 mb-4'>
                 {section.title}
               </h3>
 
-              {/* Content */}
-              <div className='prose prose-sm md:prose max-w-none mb-6 text-gray-700'>
+              <div className='prose prose-sm md:prose max-w-none mb-6 text-neutral-700 font-noto-bangla'>
                 <PortableText value={section.content} />
               </div>
 
-              {/* Political Parties */}
               {section.politicalParties &&
                 section.politicalParties.length > 0 && (
-                  <div className='mt-6 pt-6 border-t border-gray-200'>
-                    <h4 className='text-xs md:text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2'>
+                  <div className='mt-6 pt-6 border-t-2 border-neutral-900'>
+                    <h4 className='text-xs md:text-sm font-bold text-neutral-900 mb-3 flex items-center gap-2'>
                       <svg
                         className='w-4 h-4 md:w-5 md:h-5'
                         fill='currentColor'
@@ -130,9 +127,9 @@ export function CollapsibleTheme({
                           <Badge
                             key={party._id}
                             style={{
-                              color: party.color || '#4a7ec9',
+                              backgroundColor: party.color || '#4a7ec9',
                             }}
-                            className='text-xs md:text-sm bg-white shadow-sm hover:shadow-md transition-shadow border-0 px-3 py-1.5'
+                            className='text-xs md:text-sm text-white px-3 py-1.5'
                           >
                             {party.logo && (
                               <Image
@@ -143,7 +140,7 @@ export function CollapsibleTheme({
                                 className='rounded-full md:w-5 md:h-5'
                               />
                             )}
-                            <span className='font-medium'>{party.name}</span>
+                            <span className='font-bold'>{party.name}</span>
                           </Badge>
                         ))}
                     </div>

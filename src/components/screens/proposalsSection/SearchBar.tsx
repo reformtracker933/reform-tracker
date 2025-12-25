@@ -22,7 +22,7 @@ export default function SearchBar({ onSearch, placeholder }: SearchBarProps) {
     <div className='relative w-full'>
       <div className='absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none'>
         <svg
-          className='w-5 h-5 text-gray-400'
+          className='w-5 h-5 text-neutral-900'
           fill='none'
           stroke='currentColor'
           viewBox='0 0 24 24'
@@ -40,12 +40,12 @@ export default function SearchBar({ onSearch, placeholder }: SearchBarProps) {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder={placeholder || t('proposalsPage.searchPlaceholder')}
-        className='w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all'
+        className='w-full pl-12 pr-12 py-4 rounded-xl border-2 border-neutral-900 bg-white font-bold focus:outline-none shadow-[4px_4px_0px_#1a1a1a] focus:shadow-[5px_5px_0px_#e63946] transition-all duration-150'
       />
       {searchTerm && (
         <button
           onClick={() => setSearchTerm('')}
-          className='absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600'
+          className='absolute inset-y-0 right-0 flex items-center pr-4 text-neutral-700 hover:text-neutral-900'
         >
           <svg
             className='w-5 h-5'

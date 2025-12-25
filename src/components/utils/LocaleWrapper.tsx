@@ -7,7 +7,7 @@ export function LocaleWrapper({ children }: { children: ReactNode }) {
   const { locale } = useLocale();
 
   return (
-    <div className={locale === 'bn' ? 'font-noto-bangla' : 'font-sans'}>
+    <div className={locale === 'bn' ? 'locale-font' : 'font-sans'}>
       {children}
     </div>
   );

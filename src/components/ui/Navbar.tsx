@@ -18,10 +18,9 @@ export default function Navbar() {
   const navItems = getNavItems(pageText);
 
   return (
-    <header className='fixed top-0 left-0 w-full z-50 backdrop-blur-lg bg-white/70 py-2.5 px-4'>
+    <header className='fixed top-0 left-0 w-full z-50 bg-background border-b-2 border-neutral-900 py-2.5 px-4'>
       <div className='max-w-7xl mx-auto'>
         <div className='h-16 flex items-center justify-between'>
-          {/* Left: Logo */}
           <div className='flex items-center shrink-0'>
             <Link href='/' aria-label='Home'>
               <Image
@@ -35,8 +34,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Center: nav buttons */}
-          <nav className='hidden md:flex justify-center space-x-3 items-center'>
+          <nav className='hidden md:flex justify-center space-x-2 items-center'>
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -47,7 +45,7 @@ export default function Navbar() {
                   size='xm'
                   className={`cursor-pointer ${
                     isActive
-                      ? 'bg-secondary text-secondary hover:bg-secondary hover:text-secondary'
+                      ? 'bg-warning border-2 border-neutral-900 shadow-[2px_2px_0px_#1a1a1a]'
                       : ''
                   }`}
                 >
@@ -57,17 +55,14 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Right: Subscribe & Mobile Menu */}
           <div className='flex items-center gap-4'>
-            {/* Subscribe Button - Hidden on mobile */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className='hidden md:block bg-secondary text-white rounded-full px-7 py-2 cursor-pointer hover:scale-105 transition-transform duration-200'
+              className='hidden md:block bg-secondary text-white rounded-xl px-6 py-2 cursor-pointer font-bold border-2 border-neutral-900 shadow-[3px_3px_0px_#1a1a1a] hover:shadow-[4px_4px_0px_#1a1a1a] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all duration-150'
             >
               {pageText.subscribe}
             </button>
 
-            {/* Mobile Navigation */}
             <MobileNav onSubscribeClick={() => setIsModalOpen(true)} />
           </div>
         </div>

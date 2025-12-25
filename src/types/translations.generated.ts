@@ -1,5 +1,5 @@
 // AUTO-GENERATED - DO NOT EDIT
-// Generated: 2025-12-19T07:05:31.862Z
+// Generated: 2025-12-25T15:27:51.448Z
 // Run 'pnpm generate:types' to regenerate
 
 export type RTLTranslations = {
@@ -217,6 +217,9 @@ export type RTLTranslations = {
     parties: string;
     more: string;
     noParties: string;
+    searchPlaceholder: string;
+    noResults: string;
+    clearSearch: string;
   };
   proposalsPage: {
     title: string;

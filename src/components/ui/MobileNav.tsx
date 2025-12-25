@@ -103,19 +103,19 @@ export default function MobileNav({ onSubscribeClick }: MobileNavProps) {
       />
 
       <div
-        className={`fixed top-0 right-0 h-screen w-80 max-w-[85vw] bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-out ${
+        className={`fixed top-0 right-0 h-screen w-80 max-w-[85vw] bg-white border-l-2 border-neutral-900 shadow-[-6px_0_0px_#1a1a1a] z-50 transform transition-transform duration-300 ease-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <div className='flex flex-col h-screen'>
-          <div className='p-6 border-b border-neutral-200 shadow-sm'>
+          <div className='p-6 border-b-2 border-neutral-900'>
             <div className='flex items-center justify-between'>
-              <h2 className='text-xl font-bold text-foreground'>
+              <h2 className='text-xl font-black text-foreground'>
                 {pageText.menu}
               </h2>
               <button
                 onClick={closeMenu}
-                className='w-8 h-8 flex items-center justify-center rounded-full hover:bg-neutral-100 transition-colors focus:outline-none'
+                className='w-10 h-10 flex items-center justify-center rounded-lg border-2 border-neutral-900 bg-white shadow-[2px_2px_0px_#1a1a1a] hover:shadow-[3px_3px_0px_#1a1a1a] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all duration-150'
                 aria-label='Close menu'
               >
                 <svg
@@ -135,7 +135,7 @@ export default function MobileNav({ onSubscribeClick }: MobileNavProps) {
             </div>
           </div>
 
-          <nav className='flex-1 overflow-y-auto p-4 space-y-2'>
+          <nav className='flex-1 overflow-y-auto p-4 space-y-3'>
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -143,10 +143,10 @@ export default function MobileNav({ onSubscribeClick }: MobileNavProps) {
                   href={item.href}
                   key={item.href}
                   onClick={closeMenu}
-                  className={`block px-5 py-3 rounded-lg font-medium transition-all duration-200 ${
+                  className={`block px-5 py-3 rounded-xl font-bold transition-all duration-150 border-2 border-neutral-900 ${
                     isActive
-                      ? 'bg-secondary text-white shadow-md'
-                      : 'text-foreground hover:bg-neutral-100'
+                      ? 'bg-warning text-neutral-900 shadow-[3px_3px_0px_#1a1a1a]'
+                      : 'bg-white text-neutral-900 shadow-[2px_2px_0px_#1a1a1a] hover:shadow-[3px_3px_0px_#1a1a1a] hover:translate-x-[-1px] hover:translate-y-[-1px]'
                   }`}
                 >
                   {item.label}
@@ -155,13 +155,13 @@ export default function MobileNav({ onSubscribeClick }: MobileNavProps) {
             })}
           </nav>
 
-          <div className='border-t border-neutral-200 p-6 space-y-4 shadow-inner bg-neutral-50'>
+          <div className='border-t-2 border-neutral-900 p-6 space-y-4 bg-neutral-100'>
             <button
               onClick={() => {
                 onSubscribeClick();
                 closeMenu();
               }}
-              className='w-full bg-secondary text-white rounded-full px-6 py-3 font-semibold hover:scale-105 transition-transform duration-200 shadow-md focus:outline-none'
+              className='w-full bg-secondary text-white rounded-xl px-6 py-3 font-bold border-2 border-neutral-900 shadow-[3px_3px_0px_#1a1a1a] hover:shadow-[4px_4px_0px_#1a1a1a] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all duration-150'
             >
               {pageText.subscribe}
             </button>
