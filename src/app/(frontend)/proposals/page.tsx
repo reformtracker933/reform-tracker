@@ -124,47 +124,44 @@ export default function ProposalsPage() {
   }, []);
 
   return (
-    <div className='min-h-screen'>
-      <div className='relative bg-linear-to-br from-primary to-secondary text-white'>
-        <div className='absolute inset-0 bg-black/20'></div>
-        <div className='absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-size-[4rem_4rem]'></div>
+    <div className='min-h-screen bg-neutral-100'>
+      <div className='relative bg-primary text-white border-b-2 border-neutral-900'>
+        <div className='absolute inset-0 bg-[linear-gradient(to_right,#ffffff1a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1a_1px,transparent_1px)] bg-size-[4rem_4rem]'></div>
         <div className='relative max-w-7xl mx-auto px-4 xl:px-0 pt-32 md:pt-36 pb-16 md:pb-20'>
           <div className='max-w-4xl'>
-            <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight'>
+            <h1 className='text-3xl md:text-4xl lg:text-5xl font-black mb-4 leading-tight'>
               {text.title}
             </h1>
-            <p className='text-base md:text-lg lg:text-xl text-white/90'>
+            <p className='text-base md:text-lg lg:text-xl text-white/90 font-semibold'>
               {text.subtitle}
             </p>
           </div>
         </div>
       </div>
 
-      <div className='max-w-7xl mx-auto px-4 xl:px-0  py-12 pt-6 md:pt-8 md:py-16'>
+      <div className='max-w-7xl mx-auto px-4 xl:px-0 py-12 pt-6 md:pt-8 md:py-16'>
         {/* Search Bar on Top */}
         <div className='mb-6 md:mb-8'>
-          <div className='bg-white rounded-lg shadow-sm p-3 md:p-4'>
-            <input
-              type='text'
-              value={searchQuery}
-              onChange={(e) => handleSearchChange(e.target.value)}
-              placeholder={text.searchPlaceholder}
-              className='w-full px-4 py-3 md:py-3.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm md:text-base'
-            />
-          </div>
+          <input
+            type='text'
+            value={searchQuery}
+            onChange={(e) => handleSearchChange(e.target.value)}
+            placeholder={text.searchPlaceholder}
+            className='w-full px-5 py-4 md:py-4.5 bg-white border-2 border-neutral-900 rounded-xl text-sm md:text-base font-medium shadow-[4px_4px_0px_#1a1a1a] focus:shadow-[2px_2px_0px_#1a1a1a] focus:translate-x-[2px] focus:translate-y-[2px] focus:outline-none transition-all duration-150 placeholder:text-neutral-500'
+          />
         </div>
 
         <div className='grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8'>
           <div className='lg:col-span-1'>
-            <div className='bg-white rounded-lg shadow-sm p-4 md:p-6 sticky top-24'>
+            <div className='bg-white rounded-xl border-2 border-neutral-900 shadow-[4px_4px_0px_#1a1a1a] p-4 md:p-6 sticky top-24'>
               <div className='flex items-center justify-between mb-4 md:mb-6'>
-                <h2 className='text-base md:text-lg font-bold text-gray-900'>
+                <h2 className='text-base md:text-lg font-black text-neutral-900'>
                   {text.filters}
                 </h2>
                 {(selectedParties.length > 0 || searchQuery) && (
                   <button
                     onClick={handleClearFilters}
-                    className='text-xs md:text-sm text-purple-600 hover:text-purple-700 font-medium'
+                    className='text-xs md:text-sm text-primary hover:text-primary/80 font-bold'
                   >
                     {text.clearFilters}
                   </button>
@@ -173,7 +170,7 @@ export default function ProposalsPage() {
 
               {parties.length > 0 && (
                 <div>
-                  <h3 className='text-sm md:text-base font-semibold text-gray-900 mb-3'>
+                  <h3 className='text-sm md:text-base font-bold text-neutral-900 mb-3 pb-2 border-b-2 border-neutral-900'>
                     {text.filterByParty}
                   </h3>
                   <div className='space-y-2.5 md:space-y-3'>
@@ -186,9 +183,9 @@ export default function ProposalsPage() {
                           type='checkbox'
                           checked={selectedParties.includes(party._id)}
                           onChange={() => handlePartyToggle(party._id)}
-                          className='rounded border-gray-300 text-purple-600 focus:ring-purple-500 w-4 h-4'
+                          className='w-5 h-5 border-2 border-neutral-900 rounded text-primary focus:ring-primary focus:ring-2 accent-primary'
                         />
-                        <span className='ml-2.5 md:ml-3 text-xs md:text-sm text-gray-700 group-hover:text-gray-900'>
+                        <span className='ml-2.5 md:ml-3 text-xs md:text-sm text-neutral-900 font-bold group-hover:text-primary'>
                           {party.name}
                         </span>
                       </label>
@@ -201,10 +198,10 @@ export default function ProposalsPage() {
 
           <div className='lg:col-span-4'>
             {error && (
-              <div className='bg-red-50 border border-red-200 rounded-lg p-6 mb-6'>
+              <div className='bg-white border-2 border-primary rounded-xl shadow-[4px_4px_0px_#e63946] p-6 mb-6'>
                 <div className='flex items-start'>
                   <svg
-                    className='w-6 h-6 text-red-600 mr-3 shrink-0'
+                    className='w-6 h-6 text-primary mr-3 shrink-0'
                     fill='none'
                     stroke='currentColor'
                     viewBox='0 0 24 24'
@@ -217,13 +214,15 @@ export default function ProposalsPage() {
                     />
                   </svg>
                   <div>
-                    <h3 className='text-sm font-medium text-red-800'>
+                    <h3 className='text-sm font-bold text-neutral-900'>
                       {commissionText.sectionTitle} - Error
                     </h3>
-                    <p className='text-sm text-red-700 mt-1'>{error}</p>
+                    <p className='text-sm text-neutral-700 font-semibold mt-1'>
+                      {error}
+                    </p>
                     <button
                       onClick={() => window.location.reload()}
-                      className='mt-3 text-sm font-medium text-red-600 hover:text-red-700'
+                      className='mt-3 text-sm font-bold text-primary hover:text-primary/80'
                     >
                       {text.loading.replace('...', '')} - Retry
                     </button>
@@ -234,8 +233,8 @@ export default function ProposalsPage() {
 
             {loading && !error && (
               <div className='flex flex-col items-center justify-center py-20'>
-                <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4'></div>
-                <p className='text-gray-600'>{text.loading}</p>
+                <div className='animate-spin rounded-lg h-12 w-12 border-4 border-primary border-t-transparent mb-4'></div>
+                <p className='text-neutral-700 font-bold'>{text.loading}</p>
               </div>
             )}
 
@@ -244,14 +243,14 @@ export default function ProposalsPage() {
                 {/* Results Count */}
                 {totalResults > 0 && (
                   <div className='mb-4 flex items-center justify-between'>
-                    <p className='text-sm text-gray-600'>
+                    <p className='text-sm text-neutral-700 font-bold'>
                       {text.showingResults.replace(
                         '{count}',
                         totalResults.toString()
                       )}
                     </p>
                     {totalPages > 1 && (
-                      <p className='text-sm text-gray-600'>
+                      <p className='text-sm text-neutral-700 font-bold'>
                         {text.page}: {currentPage}/{totalPages}
                       </p>
                     )}
@@ -260,9 +259,9 @@ export default function ProposalsPage() {
 
                 {/* Empty State */}
                 {reports.length === 0 ? (
-                  <div className='bg-white rounded-lg shadow p-12 text-center'>
+                  <div className='bg-white rounded-xl border-2 border-neutral-900 shadow-[4px_4px_0px_#1a1a1a] p-12 text-center'>
                     <svg
-                      className='mx-auto h-16 w-16 text-gray-300 mb-4'
+                      className='mx-auto h-16 w-16 text-neutral-400 mb-4'
                       fill='none'
                       stroke='currentColor'
                       viewBox='0 0 24 24'
@@ -274,10 +273,10 @@ export default function ProposalsPage() {
                         d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'
                       />
                     </svg>
-                    <h3 className='text-lg font-semibold text-gray-900 mb-2'>
+                    <h3 className='text-lg font-black text-neutral-900 mb-2'>
                       {text.noResults}
                     </h3>
-                    <p className='text-gray-600 mb-4'>
+                    <p className='text-neutral-700 font-semibold mb-4'>
                       {text.noResultsDescription}
                     </p>
                     {(selectedThemes.length > 0 ||
@@ -285,7 +284,7 @@ export default function ProposalsPage() {
                       searchQuery) && (
                       <button
                         onClick={handleClearFilters}
-                        className='px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-600 transition-colors'
+                        className='px-6 py-3 bg-primary text-white rounded-xl font-bold border-2 border-neutral-900 shadow-[3px_3px_0px_#1a1a1a] hover:shadow-[5px_5px_0px_#1a1a1a] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all duration-150'
                       >
                         {text.clearFilters}
                       </button>
@@ -307,17 +306,17 @@ export default function ProposalsPage() {
                     {/* Pagination */}
                     {totalPages > 1 && (
                       <div className='flex items-center justify-center mt-12'>
-                        <div className='flex items-center gap-2'>
+                        <div className='flex items-center gap-3'>
                           <button
                             onClick={() => handlePageChange(currentPage - 1)}
                             disabled={currentPage === 1}
-                            className='px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm md:text-base'
+                            className='px-4 py-2 rounded-lg border-2 border-neutral-900 bg-white text-neutral-900 font-bold shadow-[2px_2px_0px_#1a1a1a] hover:shadow-[3px_3px_0px_#1a1a1a] hover:translate-x-[-1px] hover:translate-y-[-1px] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150 text-sm md:text-base'
                             aria-label='Previous page'
                           >
                             {text.previous}
                           </button>
 
-                          <div className='flex gap-1.5'>
+                          <div className='flex gap-2'>
                             {Array.from(
                               { length: Math.min(totalPages, 7) },
                               (_, i) => {
@@ -335,10 +334,10 @@ export default function ProposalsPage() {
                                   <button
                                     key={page}
                                     onClick={() => handlePageChange(page)}
-                                    className={`w-10 h-10 md:w-11 md:h-11 rounded-lg font-medium transition-colors text-sm md:text-base ${
+                                    className={`w-10 h-10 md:w-11 md:h-11 rounded-lg font-bold transition-all duration-150 text-sm md:text-base border-2 border-neutral-900 ${
                                       currentPage === page
-                                        ? 'bg-primary text-white shadow-md'
-                                        : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
+                                        ? 'bg-primary text-white shadow-[3px_3px_0px_#1a1a1a]'
+                                        : 'bg-white text-neutral-900 shadow-[2px_2px_0px_#1a1a1a] hover:shadow-[3px_3px_0px_#1a1a1a] hover:translate-x-[-1px] hover:translate-y-[-1px]'
                                     }`}
                                     aria-label={`Page ${page}`}
                                     aria-current={
@@ -355,7 +354,7 @@ export default function ProposalsPage() {
                           <button
                             onClick={() => handlePageChange(currentPage + 1)}
                             disabled={currentPage === totalPages}
-                            className='px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm md:text-base'
+                            className='px-4 py-2 rounded-lg border-2 border-neutral-900 bg-primary text-white font-bold shadow-[2px_2px_0px_#1a1a1a] hover:shadow-[3px_3px_0px_#1a1a1a] hover:translate-x-[-1px] hover:translate-y-[-1px] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150 text-sm md:text-base'
                             aria-label='Next page'
                           >
                             {text.next}

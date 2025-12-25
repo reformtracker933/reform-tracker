@@ -14,12 +14,12 @@ export function Badge({
   style,
 }: BadgeProps) {
   const baseStyles =
-    'inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full';
+    'inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold rounded-lg border-2 border-neutral-900';
 
   const variantStyles = {
-    default: 'text-white',
-    outline: 'bg-transparent border border-neutral-300 text-neutral-700',
-    neutral: 'bg-neutral-200 text-neutral-700',
+    default: 'text-white shadow-[2px_2px_0px_#1a1a1a]',
+    outline: 'bg-white text-neutral-900 shadow-[2px_2px_0px_#1a1a1a]',
+    neutral: 'bg-neutral-100 text-neutral-900 shadow-[2px_2px_0px_#1a1a1a]',
   };
 
   return (

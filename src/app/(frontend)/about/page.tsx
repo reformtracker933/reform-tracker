@@ -8,21 +8,20 @@ export default function AboutPage() {
   const text = getTranslation('aboutPage');
 
   return (
-    <div className='min-h-screen bg-gray-50'>
+    <div className='min-h-screen bg-neutral-100'>
       {/* Hero Section */}
-      <div className='relative bg-linear-to-br from-primary to-secondary text-white overflow-hidden'>
-        <div className='absolute inset-0 bg-black/20'></div>
-        <div className='absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-size-[4rem_4rem]'></div>
+      <div className='relative bg-primary text-white overflow-hidden border-b-2 border-neutral-900'>
+        <div className='absolute inset-0 bg-[linear-gradient(to_right,#ffffff1a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1a_1px,transparent_1px)] bg-size-[4rem_4rem]'></div>
 
         <div className='relative max-w-7xl mx-auto px-4 xl:px-0 pt-32 md:pt-36 pb-16 md:pb-20'>
           <div className='max-w-4xl'>
-            <div className='inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-xs md:text-sm font-medium mb-4 border border-white/20'>
+            <div className='inline-block px-4 py-2 bg-warning text-neutral-900 rounded-lg text-xs md:text-sm font-bold mb-4 border-2 border-neutral-900 shadow-[3px_3px_0px_#1a1a1a]'>
               {text.subtitle}
             </div>
-            <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight'>
+            <h1 className='text-3xl md:text-4xl lg:text-5xl font-black mb-4 leading-tight'>
               {text.title}
             </h1>
-            <p className='text-base md:text-lg lg:text-xl text-white/90 leading-relaxed max-w-3xl'>
+            <p className='text-base md:text-lg lg:text-xl text-white/90 leading-relaxed max-w-3xl font-semibold'>
               {text.heroDescription}
             </p>
           </div>
@@ -33,9 +32,9 @@ export default function AboutPage() {
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 mb-8 relative z-10'>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
           {/* Mission Card */}
-          <div className='bg-white rounded-2xl shadow-xl p-8 md:p-10 border border-gray-100 hover:shadow-2xl transition-shadow'>
+          <div className='bg-white rounded-xl border-2 border-neutral-900 shadow-[6px_6px_0px_#1a1a1a] p-8 md:p-10 hover:shadow-[8px_8px_0px_#1a1a1a] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all duration-150'>
             <div className='flex items-center gap-4 mb-6'>
-              <div className='w-14 h-14 bg-linear-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shrink-0'>
+              <div className='w-14 h-14 bg-secondary rounded-xl flex items-center justify-center shrink-0 border-2 border-neutral-900'>
                 <svg
                   className='w-7 h-7 text-white'
                   fill='none'
@@ -50,19 +49,19 @@ export default function AboutPage() {
                   />
                 </svg>
               </div>
-              <h2 className='text-xl md:text-2xl font-bold text-gray-900'>
+              <h2 className='text-xl md:text-2xl font-black text-neutral-900'>
                 {text.missionTitle}
               </h2>
             </div>
-            <p className='text-gray-600 text-base leading-relaxed'>
+            <p className='text-neutral-700 text-base leading-relaxed font-semibold'>
               {text.missionDescription}
             </p>
           </div>
 
           {/* Vision Card */}
-          <div className='bg-white rounded-2xl shadow-xl p-8 md:p-10 border border-gray-100 hover:shadow-2xl transition-shadow'>
+          <div className='bg-white rounded-xl border-2 border-neutral-900 shadow-[6px_6px_0px_#1a1a1a] p-8 md:p-10 hover:shadow-[8px_8px_0px_#1a1a1a] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all duration-150'>
             <div className='flex items-center gap-4 mb-6'>
-              <div className='w-14 h-14 bg-linear-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shrink-0'>
+              <div className='w-14 h-14 bg-success rounded-xl flex items-center justify-center shrink-0 border-2 border-neutral-900'>
                 <svg
                   className='w-7 h-7 text-white'
                   fill='none'
@@ -83,11 +82,11 @@ export default function AboutPage() {
                   />
                 </svg>
               </div>
-              <h2 className='text-xl md:text-2xl font-bold text-gray-900'>
+              <h2 className='text-xl md:text-2xl font-black text-neutral-900'>
                 {text.visionTitle}
               </h2>
             </div>
-            <p className='text-gray-600 text-base leading-relaxed'>
+            <p className='text-neutral-700 text-base leading-relaxed font-semibold'>
               {text.visionDescription}
             </p>
           </div>
@@ -97,20 +96,20 @@ export default function AboutPage() {
       {/* What We Do Section */}
       <div className='max-w-7xl mx-auto px-4 xl:px-0 py-20 md:py-28'>
         <div className='text-center mb-12'>
-          <h2 className='text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4'>
+          <h2 className='text-xl md:text-2xl lg:text-3xl font-black text-neutral-900 mb-4'>
             {text.whatWeDoTitle}
           </h2>
-          <div className='w-16 h-1 bg-linear-to-r from-primary to-secondary mx-auto mb-4'></div>
-          <p className='text-sm md:text-base text-gray-600 max-w-3xl mx-auto leading-relaxed'>
+          <div className='w-16 h-1 bg-primary mx-auto mb-4 border border-neutral-900'></div>
+          <p className='text-sm md:text-base text-neutral-700 font-semibold max-w-3xl mx-auto leading-relaxed'>
             {text.whatWeDoDescription}
           </p>
         </div>
 
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
           {/* Feature 1 */}
-          <div className='group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-blue-200'>
-            <div className='relative mb-6'>
-              <div className='w-16 h-16 bg-linear-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300'>
+          <div className='group bg-white rounded-xl p-8 border-2 border-neutral-900 shadow-[4px_4px_0px_#1a1a1a] hover:shadow-[6px_6px_0px_#1a1a1a] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all duration-150'>
+            <div className='mb-6'>
+              <div className='w-16 h-16 bg-secondary rounded-xl flex items-center justify-center border-2 border-neutral-900 shadow-[3px_3px_0px_#1a1a1a]'>
                 <svg
                   className='w-8 h-8 text-white'
                   fill='none'
@@ -125,20 +124,19 @@ export default function AboutPage() {
                   />
                 </svg>
               </div>
-              <div className='absolute -bottom-2 -right-2 w-10 h-10 bg-blue-100 rounded-full -z-10'></div>
             </div>
-            <h3 className='text-lg md:text-xl font-bold text-gray-900 mb-3'>
+            <h3 className='text-lg md:text-xl font-black text-neutral-900 mb-3'>
               {text.feature1Title}
             </h3>
-            <p className='text-gray-600 text-sm md:text-base leading-relaxed'>
+            <p className='text-neutral-700 text-sm md:text-base leading-relaxed font-semibold'>
               {text.feature1Description}
             </p>
           </div>
 
           {/* Feature 2 */}
-          <div className='group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-purple-200'>
-            <div className='relative mb-6'>
-              <div className='w-16 h-16 bg-linear-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300'>
+          <div className='group bg-white rounded-xl p-8 border-2 border-neutral-900 shadow-[4px_4px_0px_#1a1a1a] hover:shadow-[6px_6px_0px_#1a1a1a] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all duration-150'>
+            <div className='mb-6'>
+              <div className='w-16 h-16 bg-primary rounded-xl flex items-center justify-center border-2 border-neutral-900 shadow-[3px_3px_0px_#1a1a1a]'>
                 <svg
                   className='w-8 h-8 text-white'
                   fill='none'
@@ -153,20 +151,19 @@ export default function AboutPage() {
                   />
                 </svg>
               </div>
-              <div className='absolute -bottom-2 -right-2 w-10 h-10 bg-purple-100 rounded-full -z-10'></div>
             </div>
-            <h3 className='text-lg md:text-xl font-bold text-gray-900 mb-3'>
+            <h3 className='text-lg md:text-xl font-black text-neutral-900 mb-3'>
               {text.feature2Title}
             </h3>
-            <p className='text-gray-600 text-sm md:text-base leading-relaxed'>
+            <p className='text-neutral-700 text-sm md:text-base leading-relaxed font-semibold'>
               {text.feature2Description}
             </p>
           </div>
 
           {/* Feature 4 */}
-          <div className='group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-cyan-200'>
-            <div className='relative mb-6'>
-              <div className='w-16 h-16 bg-linear-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300'>
+          <div className='group bg-white rounded-xl p-8 border-2 border-neutral-900 shadow-[4px_4px_0px_#1a1a1a] hover:shadow-[6px_6px_0px_#1a1a1a] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all duration-150'>
+            <div className='mb-6'>
+              <div className='w-16 h-16 bg-success rounded-xl flex items-center justify-center border-2 border-neutral-900 shadow-[3px_3px_0px_#1a1a1a]'>
                 <svg
                   className='w-8 h-8 text-white'
                   fill='none'
@@ -181,12 +178,11 @@ export default function AboutPage() {
                   />
                 </svg>
               </div>
-              <div className='absolute -bottom-2 -right-2 w-10 h-10 bg-cyan-100 rounded-full -z-10'></div>
             </div>
-            <h3 className='text-lg md:text-xl font-bold text-gray-900 mb-3'>
+            <h3 className='text-lg md:text-xl font-black text-neutral-900 mb-3'>
               {text.feature4Title}
             </h3>
-            <p className='text-gray-600 text-sm md:text-base leading-relaxed'>
+            <p className='text-neutral-700 text-sm md:text-base leading-relaxed font-semibold'>
               {text.feature4Description}
             </p>
           </div>

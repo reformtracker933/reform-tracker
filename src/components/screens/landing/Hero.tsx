@@ -11,7 +11,7 @@ export function Hero() {
   return (
     <section className='w-full'>
       <div className='relative w-full'>
-        <div className='h-[60vh] w-full'>
+        <div className='h-[60vh] w-full border-b-2 border-neutral-900'>
           <Image
             src={heroImage}
             alt='Reform Tracker Background'
@@ -23,7 +23,7 @@ export function Hero() {
 
         <div className='relative z-10 flex items-center justify-center h-full px-4'>
           <div className='text-center w-4xl'>
-            <h1 className='text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4 leading-tight'>
+            <h1 className='text-3xl md:text-4xl lg:text-5xl font-black text-primary mb-4 leading-tight'>
               {pageText['heading']}
             </h1>
           </div>

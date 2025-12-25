@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
 export interface CardProps {
   title: string;
@@ -14,44 +14,44 @@ export function Card({
   title,
   description,
   imageSrc,
-  className = "",
-  buttonName = "",
-  href = "#",
+  className = '',
+  buttonName = '',
+  href = '#',
 }: CardProps) {
   const CardContent = (
     <div
-      className={`bg-neutral-100 rounded-3xl shadow-2xl overflow-hidden transition-transform duration-300 w-full md:max-w-[415px] max-h-[296px] hover:scale-105 ${className}`}
+      className={`bg-white border-2 border-neutral-900 rounded-xl overflow-hidden transition-all duration-150 w-full md:max-w-[415px] shadow-[4px_4px_0px_#1a1a1a] hover:shadow-[6px_6px_0px_#1a1a1a] hover:translate-x-[-2px] hover:translate-y-[-2px] ${className}`}
     >
-      <div className="mt-5">
+      <div className='p-4'>
         {imageSrc && (
-          <div className="relative h-20 w-20">
-            <Image src={imageSrc} alt={title} fill className="object-cover" />
+          <div className='relative h-20 w-20 border-2 border-neutral-900 rounded-lg overflow-hidden'>
+            <Image src={imageSrc} alt={title} fill className='object-cover' />
           </div>
         )}
       </div>
-      <div className="px-4 py-3">
-        <h3 className="text-2xl font-semibold text-neutral-900 mb-2">
-          {title}
-        </h3>
-        <p className="text-neutral-600">{description}</p>
+      <div className='px-5 py-4'>
+        <h3 className='text-xl font-bold text-neutral-900 mb-2'>{title}</h3>
+        <p className='text-neutral-700 font-medium'>{description}</p>
       </div>
-      <div>
-        <button className="mb-6 bg-neutral-100 border border-primary-400 text-primary px-5 py-2 rounded-full flex items-center gap-2 cursor-pointer">
-          {buttonName}
-          <Image
-            src="/images/icons/upRight.png"
-            alt=""
-            width={20}
-            height={20}
-          />
-        </button>
-      </div>
+      {buttonName && (
+        <div className='px-5 pb-5'>
+          <button className='bg-white border-2 border-neutral-900 text-neutral-900 px-5 py-2 rounded-lg font-bold flex items-center gap-2 shadow-[2px_2px_0px_#1a1a1a] hover:shadow-[3px_3px_0px_#1a1a1a] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all duration-150'>
+            {buttonName}
+            <Image
+              src='/images/icons/upRight.png'
+              alt=''
+              width={20}
+              height={20}
+            />
+          </button>
+        </div>
+      )}
     </div>
   );
 
-  if (href && href !== "#") {
+  if (href && href !== '#') {
     return (
-      <Link href={href} className="block">
+      <Link href={href} className='block'>
         {CardContent}
       </Link>
     );

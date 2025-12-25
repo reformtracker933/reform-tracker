@@ -28,15 +28,15 @@ function CommissionCardComponent({
       className='block h-full'
       aria-label={`View ${report.title}`}
     >
-      <article className='group bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105 h-full flex flex-col'>
-        <div className='relative h-48 overflow-hidden bg-neutral-200'>
+      <article className='group bg-white rounded-xl border-2 border-neutral-900 overflow-hidden transition-all duration-150 h-full flex flex-col shadow-[4px_4px_0px_#1a1a1a] hover:shadow-[6px_6px_0px_#1a1a1a] hover:translate-x-[-2px] hover:translate-y-[-2px]'>
+        <div className='relative h-48 overflow-hidden border-b-2 border-neutral-900'>
           <Image
             src={imageUrl}
             alt={imageAlt}
             fill
             sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
             priority={priority}
-            className='object-cover group-hover:scale-110 transition-transform duration-300'
+            className='object-cover'
           />
         </div>
 
