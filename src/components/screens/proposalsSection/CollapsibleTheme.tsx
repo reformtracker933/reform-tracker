@@ -103,7 +103,7 @@ export function CollapsibleTheme({
                 {section.title}
               </h3>
 
-              <div className='prose prose-sm md:prose max-w-none mb-6 text-neutral-800 font-medium'>
+              <div className='prose prose-sm md:prose max-w-none mb-6 text-neutral-700 font-noto-bangla'>
                 <PortableText value={section.content} />
               </div>
 

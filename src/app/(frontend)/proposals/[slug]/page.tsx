@@ -55,14 +55,14 @@ export default async function CommissionDetailPage({ params }: PageProps) {
       </div>
 
       {report.featuredImage && (
-        <div className='max-w-5xl mx-auto px-4 -mt-16 mb-16 relative z-10'>
+        <div className='max-w-3xl mx-auto px-4 -mt-16 md:-mt-20 mb-16 relative z-10'>
           <div className='rounded-xl overflow-hidden border-2 border-neutral-900 shadow-[6px_6px_0px_#1a1a1a]'>
-            <div className='relative h-75 md:h-100 lg:h-125'>
+            <div className='relative h-75 md:h-100'>
               <Image
                 src={report.featuredImage}
                 alt={report.featuredImageAlt || report.title}
                 fill
-                className='object-cover'
+                className='object-center'
                 priority
               />
             </div>

@@ -71,6 +71,9 @@ html[data-theme='dark'] {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-noto-bangla: var(--font-noto-sans-bengali);
+  --font-noto-bangla-serif: var(--font-noto-serif-bengali);
+  --font-heading: var(--font-noto-serif-bengali);
+  --font-body: var(--font-noto-sans-bengali);
 
   /* Neo-Brutalism Design Tokens */
   --border-width: 2px;
@@ -155,7 +158,7 @@ body {
 body {
   background: var(--background) !important;
   color: var(--foreground) !important;
-  font-family: var(--font-noto-bangla, Arial, Helvetica, sans-serif);
+  font-family: var(--font-body, Arial, Helvetica, sans-serif);
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
@@ -173,15 +176,85 @@ html.locale-en body {
 }
 
 html.locale-bn body {
-  font-family: var(--font-noto-bangla, Arial, Helvetica, sans-serif);
+  font-family: var(--font-body, Arial, Helvetica, sans-serif);
 }
 
-.locale-font {
-  font-family: var(--font-noto-bangla, Arial, Helvetica, sans-serif);
+/* ===== BANGLA LANGUAGE FONTS ===== */
+/* Bangla Headers & Titles - Noto Serif Bengali */
+html.locale-bn h1,
+html.locale-bn h2,
+html.locale-bn h3,
+html.locale-bn h4,
+html.locale-bn h5,
+html.locale-bn h6,
+html.locale-bn .font-heading {
+  font-family: var(--font-noto-serif-bengali, Georgia, serif);
 }
 
+/* Bangla Body Text - Noto Sans Bengali */
+html.locale-bn p,
+html.locale-bn span,
+html.locale-bn div,
+html.locale-bn td,
+html.locale-bn li,
+html.locale-bn label,
+html.locale-bn input,
+html.locale-bn textarea,
+html.locale-bn select,
+html.locale-bn .locale-font {
+  font-family: var(--font-noto-sans-bengali, Arial, Helvetica, sans-serif);
+}
+
+/* ===== ENGLISH LANGUAGE FONTS ===== */
+/* English - All text uses Geist Sans */
+html.locale-en h1,
+html.locale-en h2,
+html.locale-en h3,
+html.locale-en h4,
+html.locale-en h5,
+html.locale-en h6,
+html.locale-en .font-heading,
+html.locale-en p,
+html.locale-en span,
+html.locale-en div,
+html.locale-en td,
+html.locale-en li,
+html.locale-en label,
+html.locale-en input,
+html.locale-en textarea,
+html.locale-en select,
 html.locale-en .locale-font {
   font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+}
+
+/* ===== DEFAULT FALLBACK (No locale class) ===== */
+/* Headers default to Serif */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading {
+  font-family: var(--font-heading, Georgia, serif);
+}
+
+/* Body text default to Sans */
+.locale-font {
+  font-family: var(--font-body, Arial, Helvetica, sans-serif);
+}
+
+/* ===== TEXT OPACITY FOR SOFTER APPEARANCE ===== */
+.text-neutral-600 {
+  color: rgb(107 107 107 / 0.85);
+}
+
+.text-neutral-700 {
+  color: rgb(74 74 74 / 0.9);
+}
+
+.text-neutral-800 {
+  color: rgb(45 45 45 / 0.95);
 }
 
 .debug-grid {
